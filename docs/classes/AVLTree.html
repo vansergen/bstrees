@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
-    <title>BSTree | bstrees</title>
+    <title>AVLTree | bstrees</title>
     <meta name="description" content="Documentation for bstrees" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/style.css" />
@@ -75,9 +75,9 @@
         <div class="container">
           <ul class="tsd-breadcrumb">
             <li><a href="../modules.html">bstrees</a></li>
-            <li><a href="BSTree.html">BSTree</a></li>
+            <li><a href="AVLTree.html">AVLTree</a></li>
           </ul>
-          <h1>Class BSTree&lt;T&gt;</h1>
+          <h1>Class AVLTree&lt;T&gt;</h1>
         </div>
       </div>
     </header>
@@ -96,36 +96,18 @@
             <h3>Hierarchy</h3>
             <ul class="tsd-hierarchy">
               <li>
-                <span class="target">BSTree</span>
-                <ul class="tsd-hierarchy">
-                  <li>
-                    <a
-                      href="AVLTree.html"
-                      class="tsd-signature-type"
-                      data-tsd-kind="Class"
-                      >AVLTree</a
-                    >
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </section>
-          <section class="tsd-panel">
-            <h3>Implements</h3>
-            <ul class="tsd-hierarchy">
-              <li>
-                <span class="tsd-signature-type">Iterable</span
-                ><span class="tsd-signature-symbol">&lt;</span
-                ><a
-                  href="Node.html"
+                <a
+                  href="BSTree.html"
                   class="tsd-signature-type"
                   data-tsd-kind="Class"
-                  >Node</a
+                  >BSTree</a
                 ><span class="tsd-signature-symbol">&lt;</span
                 ><span class="tsd-signature-type" data-tsd-kind="Type parameter"
                   >T</span
-                ><span class="tsd-signature-symbol">&gt;</span
                 ><span class="tsd-signature-symbol">&gt;</span>
+                <ul class="tsd-hierarchy">
+                  <li><span class="target">AVLTree</span></li>
+                </ul>
               </li>
             </ul>
           </section>
@@ -133,68 +115,80 @@
             <h2>Index</h2>
             <section class="tsd-panel tsd-index-panel">
               <div class="tsd-index-content">
-                <section class="tsd-index-section">
+                <section class="tsd-index-section tsd-is-inherited">
                   <h3>Constructors</h3>
                   <ul class="tsd-index-list">
                     <li
-                      class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter"
+                      class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"
                     >
-                      <a href="BSTree.html#constructor" class="tsd-kind-icon"
+                      <a href="AVLTree.html#constructor" class="tsd-kind-icon"
                         >constructor</a
                       >
                     </li>
                   </ul>
                 </section>
                 <section
-                  class="tsd-index-section tsd-is-private tsd-is-private-protected"
+                  class="tsd-index-section tsd-is-inherited tsd-is-private tsd-is-private-protected"
                 >
                   <h3>Properties</h3>
                   <ul class="tsd-index-list">
                     <li
-                      class="tsd-kind-property tsd-parent-kind-class tsd-is-private"
+                      class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-private"
                     >
-                      <a href="BSTree.html#_comparator" class="tsd-kind-icon"
+                      <a href="AVLTree.html#_comparator" class="tsd-kind-icon"
                         >#comparator</a
                       >
                     </li>
                     <li
-                      class="tsd-kind-property tsd-parent-kind-class tsd-is-private"
+                      class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-private"
                     >
-                      <a href="BSTree.html#_root" class="tsd-kind-icon"
+                      <a href="AVLTree.html#_root" class="tsd-kind-icon"
                         >#root</a
                       >
                     </li>
                   </ul>
                 </section>
-                <section class="tsd-index-section">
+                <section class="tsd-index-section tsd-is-inherited">
                   <h3>Accessors</h3>
                   <ul class="tsd-index-list">
-                    <li class="tsd-kind-get-signature tsd-parent-kind-class">
-                      <a href="BSTree.html#array" class="tsd-kind-icon"
+                    <li
+                      class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
+                    >
+                      <a href="AVLTree.html#array" class="tsd-kind-icon"
                         >array</a
                       >
                     </li>
-                    <li class="tsd-kind-get-signature tsd-parent-kind-class">
-                      <a href="BSTree.html#height" class="tsd-kind-icon"
+                    <li
+                      class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
+                    >
+                      <a href="AVLTree.html#height" class="tsd-kind-icon"
                         >height</a
                       >
                     </li>
-                    <li class="tsd-kind-get-signature tsd-parent-kind-class">
-                      <a href="BSTree.html#max" class="tsd-kind-icon">max</a>
-                    </li>
-                    <li class="tsd-kind-get-signature tsd-parent-kind-class">
-                      <a href="BSTree.html#min" class="tsd-kind-icon">min</a>
+                    <li
+                      class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
+                    >
+                      <a href="AVLTree.html#max" class="tsd-kind-icon">max</a>
                     </li>
                     <li
-                      class="tsd-kind-set-signature tsd-parent-kind-class tsd-is-protected"
+                      class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
                     >
-                      <a href="BSTree.html#root" class="tsd-kind-icon">root</a>
+                      <a href="AVLTree.html#min" class="tsd-kind-icon">min</a>
                     </li>
-                    <li class="tsd-kind-get-signature tsd-parent-kind-class">
-                      <a href="BSTree.html#size" class="tsd-kind-icon">size</a>
+                    <li
+                      class="tsd-kind-set-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected"
+                    >
+                      <a href="AVLTree.html#root" class="tsd-kind-icon">root</a>
                     </li>
-                    <li class="tsd-kind-get-signature tsd-parent-kind-class">
-                      <a href="BSTree.html#width" class="tsd-kind-icon"
+                    <li
+                      class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
+                    >
+                      <a href="AVLTree.html#size" class="tsd-kind-icon">size</a>
+                    </li>
+                    <li
+                      class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
+                    >
+                      <a href="AVLTree.html#width" class="tsd-kind-icon"
                         >width</a
                       >
                     </li>
@@ -203,46 +197,89 @@
                 <section class="tsd-index-section">
                   <h3>Methods</h3>
                   <ul class="tsd-index-list">
-                    <li class="tsd-kind-method tsd-parent-kind-class">
-                      <a href="BSTree.html#_iterator_" class="tsd-kind-icon"
+                    <li
+                      class="tsd-kind-method tsd-parent-kind-class tsd-is-private"
+                    >
+                      <a href="AVLTree.html#_leftRotate" class="tsd-kind-icon"
+                        >#left<wbr />Rotate</a
+                      >
+                    </li>
+                    <li
+                      class="tsd-kind-method tsd-parent-kind-class tsd-is-private"
+                    >
+                      <a href="AVLTree.html#_rebalance" class="tsd-kind-icon"
+                        >#rebalance</a
+                      >
+                    </li>
+                    <li
+                      class="tsd-kind-method tsd-parent-kind-class tsd-is-private"
+                    >
+                      <a href="AVLTree.html#_rightRotate" class="tsd-kind-icon"
+                        >#right<wbr />Rotate</a
+                      >
+                    </li>
+                    <li
+                      class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"
+                    >
+                      <a href="AVLTree.html#_iterator_" class="tsd-kind-icon"
                         >[iterator]</a
                       >
                     </li>
-                    <li class="tsd-kind-method tsd-parent-kind-class">
-                      <a href="BSTree.html#delete" class="tsd-kind-icon"
+                    <li
+                      class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"
+                    >
+                      <a href="AVLTree.html#delete" class="tsd-kind-icon"
                         >delete</a
                       >
                     </li>
-                    <li class="tsd-kind-method tsd-parent-kind-class">
-                      <a href="BSTree.html#find" class="tsd-kind-icon">find</a>
+                    <li
+                      class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"
+                    >
+                      <a href="AVLTree.html#find" class="tsd-kind-icon">find</a>
                     </li>
-                    <li class="tsd-kind-method tsd-parent-kind-class">
-                      <a href="BSTree.html#insert" class="tsd-kind-icon"
+                    <li
+                      class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"
+                    >
+                      <a href="AVLTree.html#insert" class="tsd-kind-icon"
                         >insert</a
+                      >
+                    </li>
+                    <li
+                      class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite tsd-is-static"
+                    >
+                      <a href="AVLTree.html#from" class="tsd-kind-icon">from</a>
+                    </li>
+                    <li
+                      class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"
+                    >
+                      <a href="AVLTree.html#heightBalance" class="tsd-kind-icon"
+                        >height<wbr />Balance</a
                       >
                     </li>
                     <li
                       class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"
                     >
-                      <a href="BSTree.html#from" class="tsd-kind-icon">from</a>
+                      <a href="AVLTree.html#isAVL" class="tsd-kind-icon"
+                        >isAVL</a
+                      >
                     </li>
                   </ul>
                 </section>
               </div>
             </section>
           </section>
-          <section class="tsd-panel-group tsd-member-group">
+          <section class="tsd-panel-group tsd-member-group tsd-is-inherited">
             <h2>Constructors</h2>
             <section
-              class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter"
+              class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"
             >
               <a id="constructor" class="tsd-anchor"></a>
               <h3>constructor</h3>
               <ul
-                class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter"
+                class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"
               >
                 <li class="tsd-signature tsd-kind-icon">
-                  new BSTree<span class="tsd-signature-symbol">&lt;</span
+                  new AVLTree<span class="tsd-signature-symbol">&lt;</span
                   ><span
                     class="tsd-signature-type"
                     data-tsd-kind="Type parameter"
@@ -269,10 +306,10 @@
                   ><span class="tsd-signature-symbol">)</span
                   ><span class="tsd-signature-symbol">: </span
                   ><a
-                    href="BSTree.html"
+                    href="AVLTree.html"
                     class="tsd-signature-type"
                     data-tsd-kind="Class"
-                    >BSTree</a
+                    >AVLTree</a
                   ><span class="tsd-signature-symbol">&lt;</span
                   ><span
                     class="tsd-signature-type"
@@ -284,6 +321,12 @@
               <ul class="tsd-descriptions">
                 <li class="tsd-description">
                   <aside class="tsd-sources">
+                    <p>
+                      Inherited from <a href="BSTree.html">BSTree</a>.<a
+                        href="BSTree.html#constructor"
+                        >constructor</a
+                      >
+                    </p>
                     <ul>
                       <li>
                         Defined in
@@ -383,10 +426,10 @@
                   <h4 class="tsd-returns-title">
                     Returns
                     <a
-                      href="BSTree.html"
+                      href="AVLTree.html"
                       class="tsd-signature-type"
                       data-tsd-kind="Class"
-                      >BSTree</a
+                      >AVLTree</a
                     ><span class="tsd-signature-symbol">&lt;</span
                     ><span
                       class="tsd-signature-type"
@@ -399,11 +442,11 @@
             </section>
           </section>
           <section
-            class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected"
+            class="tsd-panel-group tsd-member-group tsd-is-inherited tsd-is-private tsd-is-private-protected"
           >
             <h2>Properties</h2>
             <section
-              class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"
+              class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-private"
             >
               <a id="_comparator" class="tsd-anchor"></a>
               <h3>
@@ -424,6 +467,12 @@
                 ><span class="tsd-signature-symbol">&gt;</span>
               </div>
               <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="BSTree.html">BSTree</a>.<a
+                    href="BSTree.html#_comparator"
+                    >#comparator</a
+                  >
+                </p>
                 <ul>
                   <li>
                     Defined in
@@ -436,7 +485,7 @@
               </aside>
             </section>
             <section
-              class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"
+              class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-private"
             >
               <a id="_root" class="tsd-anchor"></a>
               <h3>
@@ -457,6 +506,12 @@
                 ><span class="tsd-signature-symbol">&gt;</span>
               </div>
               <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="BSTree.html">BSTree</a>.<a
+                    href="BSTree.html#_root"
+                    >#root</a
+                  >
+                </p>
                 <ul>
                   <li>
                     Defined in
@@ -469,15 +524,15 @@
               </aside>
             </section>
           </section>
-          <section class="tsd-panel-group tsd-member-group">
+          <section class="tsd-panel-group tsd-member-group tsd-is-inherited">
             <h2>Accessors</h2>
             <section
-              class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class"
+              class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
             >
               <a id="array" class="tsd-anchor"></a>
               <h3>array</h3>
               <ul
-                class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class"
+                class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
               >
                 <li class="tsd-signature tsd-kind-icon">
                   <span class="tsd-signature-symbol">get</span> array<span
@@ -495,6 +550,7 @@
               <ul class="tsd-descriptions">
                 <li class="tsd-description">
                   <aside class="tsd-sources">
+                    <p>Inherited from BSTree.array</p>
                     <ul>
                       <li>
                         Defined in
@@ -517,12 +573,12 @@
               </ul>
             </section>
             <section
-              class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class"
+              class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
             >
               <a id="height" class="tsd-anchor"></a>
               <h3>height</h3>
               <ul
-                class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class"
+                class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
               >
                 <li class="tsd-signature tsd-kind-icon">
                   <span class="tsd-signature-symbol">get</span> height<span
@@ -536,6 +592,7 @@
               <ul class="tsd-descriptions">
                 <li class="tsd-description">
                   <aside class="tsd-sources">
+                    <p>Inherited from BSTree.height</p>
                     <ul>
                       <li>
                         Defined in
@@ -553,12 +610,12 @@
               </ul>
             </section>
             <section
-              class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class"
+              class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
             >
               <a id="max" class="tsd-anchor"></a>
               <h3>max</h3>
               <ul
-                class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class"
+                class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
               >
                 <li class="tsd-signature tsd-kind-icon">
                   <span class="tsd-signature-symbol">get</span> max<span
@@ -584,6 +641,7 @@
               <ul class="tsd-descriptions">
                 <li class="tsd-description">
                   <aside class="tsd-sources">
+                    <p>Inherited from BSTree.max</p>
                     <ul>
                       <li>
                         Defined in
@@ -613,12 +671,12 @@
               </ul>
             </section>
             <section
-              class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class"
+              class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
             >
               <a id="min" class="tsd-anchor"></a>
               <h3>min</h3>
               <ul
-                class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class"
+                class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
               >
                 <li class="tsd-signature tsd-kind-icon">
                   <span class="tsd-signature-symbol">get</span> min<span
@@ -644,6 +702,7 @@
               <ul class="tsd-descriptions">
                 <li class="tsd-description">
                   <aside class="tsd-sources">
+                    <p>Inherited from BSTree.min</p>
                     <ul>
                       <li>
                         Defined in
@@ -673,14 +732,14 @@
               </ul>
             </section>
             <section
-              class="tsd-panel tsd-member tsd-kind-set-signature tsd-parent-kind-class tsd-is-protected"
+              class="tsd-panel tsd-member tsd-kind-set-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected"
             >
               <a id="root" class="tsd-anchor"></a>
               <h3>
                 <span class="tsd-flag ts-flagProtected">Protected</span> root
               </h3>
               <ul
-                class="tsd-signatures tsd-kind-set-signature tsd-parent-kind-class tsd-is-protected"
+                class="tsd-signatures tsd-kind-set-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected"
               >
                 <li class="tsd-signature tsd-kind-icon">
                   <span class="tsd-signature-symbol">set</span> root<span
@@ -708,6 +767,7 @@
               <ul class="tsd-descriptions">
                 <li class="tsd-description">
                   <aside class="tsd-sources">
+                    <p>Inherited from BSTree.root</p>
                     <ul>
                       <li>
                         Defined in
@@ -745,12 +805,12 @@
               </ul>
             </section>
             <section
-              class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class"
+              class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
             >
               <a id="size" class="tsd-anchor"></a>
               <h3>size</h3>
               <ul
-                class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class"
+                class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
               >
                 <li class="tsd-signature tsd-kind-icon">
                   <span class="tsd-signature-symbol">get</span> size<span
@@ -764,6 +824,7 @@
               <ul class="tsd-descriptions">
                 <li class="tsd-description">
                   <aside class="tsd-sources">
+                    <p>Inherited from BSTree.size</p>
                     <ul>
                       <li>
                         Defined in
@@ -781,12 +842,12 @@
               </ul>
             </section>
             <section
-              class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class"
+              class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
             >
               <a id="width" class="tsd-anchor"></a>
               <h3>width</h3>
               <ul
-                class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class"
+                class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
               >
                 <li class="tsd-signature tsd-kind-icon">
                   <span class="tsd-signature-symbol">get</span> width<span
@@ -800,6 +861,7 @@
               <ul class="tsd-descriptions">
                 <li class="tsd-description">
                   <aside class="tsd-sources">
+                    <p>Inherited from BSTree.width</p>
                     <ul>
                       <li>
                         Defined in
@@ -820,11 +882,229 @@
           <section class="tsd-panel-group tsd-member-group">
             <h2>Methods</h2>
             <section
-              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"
+              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private"
+            >
+              <a id="_leftRotate" class="tsd-anchor"></a>
+              <h3>
+                <span class="tsd-flag ts-flagPrivate">Private</span>
+                #left<wbr />Rotate
+              </h3>
+              <ul
+                class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private"
+              >
+                <li class="tsd-signature tsd-kind-icon">
+                  #left<wbr />Rotate<span class="tsd-signature-symbol">(</span
+                  >node<span class="tsd-signature-symbol">: </span
+                  ><a
+                    href="Node.html"
+                    class="tsd-signature-type"
+                    data-tsd-kind="Class"
+                    >Node</a
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><span
+                    class="tsd-signature-type"
+                    data-tsd-kind="Type parameter"
+                    >T</span
+                  ><span class="tsd-signature-symbol">&gt;</span
+                  ><span class="tsd-signature-symbol">)</span
+                  ><span class="tsd-signature-symbol">: </span
+                  ><span class="tsd-signature-type">void</span>
+                </li>
+              </ul>
+              <ul class="tsd-descriptions">
+                <li class="tsd-description">
+                  <aside class="tsd-sources">
+                    <ul>
+                      <li>
+                        Defined in
+                        <a
+                          href="https://github.com/vansergen/bstrees/blob/main/src/avltree.ts#L65"
+                          >src/avltree.ts:65</a
+                        >
+                      </li>
+                    </ul>
+                  </aside>
+                  <h4 class="tsd-parameters-title">Parameters</h4>
+                  <ul class="tsd-parameters">
+                    <li>
+                      <h5>
+                        node:
+                        <a
+                          href="Node.html"
+                          class="tsd-signature-type"
+                          data-tsd-kind="Class"
+                          >Node</a
+                        ><span class="tsd-signature-symbol">&lt;</span
+                        ><span
+                          class="tsd-signature-type"
+                          data-tsd-kind="Type parameter"
+                          >T</span
+                        ><span class="tsd-signature-symbol">&gt;</span>
+                      </h5>
+                    </li>
+                  </ul>
+                  <h4 class="tsd-returns-title">
+                    Returns <span class="tsd-signature-type">void</span>
+                  </h4>
+                </li>
+              </ul>
+            </section>
+            <section
+              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private"
+            >
+              <a id="_rebalance" class="tsd-anchor"></a>
+              <h3>
+                <span class="tsd-flag ts-flagPrivate">Private</span> #rebalance
+              </h3>
+              <ul
+                class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private"
+              >
+                <li class="tsd-signature tsd-kind-icon">
+                  #rebalance<span class="tsd-signature-symbol">(</span>node<span
+                    class="tsd-signature-symbol"
+                    >: </span
+                  ><span class="tsd-signature-type">null</span
+                  ><span class="tsd-signature-symbol"> | </span
+                  ><a
+                    href="Node.html"
+                    class="tsd-signature-type"
+                    data-tsd-kind="Class"
+                    >Node</a
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><span
+                    class="tsd-signature-type"
+                    data-tsd-kind="Type parameter"
+                    >T</span
+                  ><span class="tsd-signature-symbol">&gt;</span>, stop<span
+                    class="tsd-signature-symbol"
+                    >?: </span
+                  ><span class="tsd-signature-type">boolean</span
+                  ><span class="tsd-signature-symbol">)</span
+                  ><span class="tsd-signature-symbol">: </span
+                  ><span class="tsd-signature-type">void</span>
+                </li>
+              </ul>
+              <ul class="tsd-descriptions">
+                <li class="tsd-description">
+                  <aside class="tsd-sources">
+                    <ul>
+                      <li>
+                        Defined in
+                        <a
+                          href="https://github.com/vansergen/bstrees/blob/main/src/avltree.ts#L25"
+                          >src/avltree.ts:25</a
+                        >
+                      </li>
+                    </ul>
+                  </aside>
+                  <h4 class="tsd-parameters-title">Parameters</h4>
+                  <ul class="tsd-parameters">
+                    <li>
+                      <h5>
+                        node: <span class="tsd-signature-type">null</span
+                        ><span class="tsd-signature-symbol"> | </span
+                        ><a
+                          href="Node.html"
+                          class="tsd-signature-type"
+                          data-tsd-kind="Class"
+                          >Node</a
+                        ><span class="tsd-signature-symbol">&lt;</span
+                        ><span
+                          class="tsd-signature-type"
+                          data-tsd-kind="Type parameter"
+                          >T</span
+                        ><span class="tsd-signature-symbol">&gt;</span>
+                      </h5>
+                    </li>
+                    <li>
+                      <h5>
+                        <span class="tsd-flag ts-flagOptional">Optional</span>
+                        stop: <span class="tsd-signature-type">boolean</span>
+                      </h5>
+                    </li>
+                  </ul>
+                  <h4 class="tsd-returns-title">
+                    Returns <span class="tsd-signature-type">void</span>
+                  </h4>
+                </li>
+              </ul>
+            </section>
+            <section
+              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private"
+            >
+              <a id="_rightRotate" class="tsd-anchor"></a>
+              <h3>
+                <span class="tsd-flag ts-flagPrivate">Private</span>
+                #right<wbr />Rotate
+              </h3>
+              <ul
+                class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private"
+              >
+                <li class="tsd-signature tsd-kind-icon">
+                  #right<wbr />Rotate<span class="tsd-signature-symbol">(</span
+                  >node<span class="tsd-signature-symbol">: </span
+                  ><a
+                    href="Node.html"
+                    class="tsd-signature-type"
+                    data-tsd-kind="Class"
+                    >Node</a
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><span
+                    class="tsd-signature-type"
+                    data-tsd-kind="Type parameter"
+                    >T</span
+                  ><span class="tsd-signature-symbol">&gt;</span
+                  ><span class="tsd-signature-symbol">)</span
+                  ><span class="tsd-signature-symbol">: </span
+                  ><span class="tsd-signature-type">void</span>
+                </li>
+              </ul>
+              <ul class="tsd-descriptions">
+                <li class="tsd-description">
+                  <aside class="tsd-sources">
+                    <ul>
+                      <li>
+                        Defined in
+                        <a
+                          href="https://github.com/vansergen/bstrees/blob/main/src/avltree.ts#L84"
+                          >src/avltree.ts:84</a
+                        >
+                      </li>
+                    </ul>
+                  </aside>
+                  <h4 class="tsd-parameters-title">Parameters</h4>
+                  <ul class="tsd-parameters">
+                    <li>
+                      <h5>
+                        node:
+                        <a
+                          href="Node.html"
+                          class="tsd-signature-type"
+                          data-tsd-kind="Class"
+                          >Node</a
+                        ><span class="tsd-signature-symbol">&lt;</span
+                        ><span
+                          class="tsd-signature-type"
+                          data-tsd-kind="Type parameter"
+                          >T</span
+                        ><span class="tsd-signature-symbol">&gt;</span>
+                      </h5>
+                    </li>
+                  </ul>
+                  <h4 class="tsd-returns-title">
+                    Returns <span class="tsd-signature-type">void</span>
+                  </h4>
+                </li>
+              </ul>
+            </section>
+            <section
+              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"
             >
               <a id="_iterator_" class="tsd-anchor"></a>
               <h3>[iterator]</h3>
-              <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+              <ul
+                class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited"
+              >
                 <li class="tsd-signature tsd-kind-icon">
                   [iterator]<span class="tsd-signature-symbol">(</span
                   ><span class="tsd-signature-symbol">)</span
@@ -845,7 +1125,12 @@
               <ul class="tsd-descriptions">
                 <li class="tsd-description">
                   <aside class="tsd-sources">
-                    <p>Implementation of Iterable.__@iterator@87</p>
+                    <p>
+                      Inherited from <a href="BSTree.html">BSTree</a>.<a
+                        href="BSTree.html#_iterator_"
+                        >[iterator]</a
+                      >
+                    </p>
                     <ul>
                       <li>
                         Defined in
@@ -874,11 +1159,13 @@
               </ul>
             </section>
             <section
-              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"
+              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"
             >
               <a id="delete" class="tsd-anchor"></a>
               <h3>delete</h3>
-              <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+              <ul
+                class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"
+              >
                 <li class="tsd-signature tsd-kind-icon">
                   delete<span class="tsd-signature-symbol">(</span>data<span
                     class="tsd-signature-symbol"
@@ -905,12 +1192,18 @@
               <ul class="tsd-descriptions">
                 <li class="tsd-description">
                   <aside class="tsd-sources">
+                    <p>
+                      Overrides <a href="BSTree.html">BSTree</a>.<a
+                        href="BSTree.html#delete"
+                        >delete</a
+                      >
+                    </p>
                     <ul>
                       <li>
                         Defined in
                         <a
-                          href="https://github.com/vansergen/bstrees/blob/main/src/bstree.ts#L92"
-                          >src/bstree.ts:92</a
+                          href="https://github.com/vansergen/bstrees/blob/main/src/avltree.ts#L13"
+                          >src/avltree.ts:13</a
                         >
                       </li>
                     </ul>
@@ -946,11 +1239,13 @@
               </ul>
             </section>
             <section
-              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"
+              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"
             >
               <a id="find" class="tsd-anchor"></a>
               <h3>find</h3>
-              <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+              <ul
+                class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited"
+              >
                 <li class="tsd-signature tsd-kind-icon">
                   find<span class="tsd-signature-symbol">(</span>data<span
                     class="tsd-signature-symbol"
@@ -1007,6 +1302,12 @@
               <ul class="tsd-descriptions">
                 <li class="tsd-description">
                   <aside class="tsd-sources">
+                    <p>
+                      Inherited from <a href="BSTree.html">BSTree</a>.<a
+                        href="BSTree.html#find"
+                        >find</a
+                      >
+                    </p>
                     <ul>
                       <li>
                         Defined in
@@ -1048,6 +1349,12 @@
                 </li>
                 <li class="tsd-description">
                   <aside class="tsd-sources">
+                    <p>
+                      Inherited from <a href="BSTree.html">BSTree</a>.<a
+                        href="BSTree.html#find"
+                        >find</a
+                      >
+                    </p>
                     <ul>
                       <li>
                         Defined in
@@ -1107,11 +1414,13 @@
               </ul>
             </section>
             <section
-              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"
+              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"
             >
               <a id="insert" class="tsd-anchor"></a>
               <h3>insert</h3>
-              <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+              <ul
+                class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"
+              >
                 <li class="tsd-signature tsd-kind-icon">
                   insert<span class="tsd-signature-symbol">(</span>data<span
                     class="tsd-signature-symbol"
@@ -1138,12 +1447,18 @@
               <ul class="tsd-descriptions">
                 <li class="tsd-description">
                   <aside class="tsd-sources">
+                    <p>
+                      Overrides <a href="BSTree.html">BSTree</a>.<a
+                        href="BSTree.html#insert"
+                        >insert</a
+                      >
+                    </p>
                     <ul>
                       <li>
                         Defined in
                         <a
-                          href="https://github.com/vansergen/bstrees/blob/main/src/bstree.ts#L56"
-                          >src/bstree.ts:56</a
+                          href="https://github.com/vansergen/bstrees/blob/main/src/avltree.ts#L5"
+                          >src/avltree.ts:5</a
                         >
                       </li>
                     </ul>
@@ -1179,12 +1494,12 @@
               </ul>
             </section>
             <section
-              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"
+              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite tsd-is-static"
             >
               <a id="from" class="tsd-anchor"></a>
               <h3><span class="tsd-flag ts-flagStatic">Static</span> from</h3>
               <ul
-                class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"
+                class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite tsd-is-static"
               >
                 <li class="tsd-signature tsd-kind-icon">
                   from<span class="tsd-signature-symbol">&lt;</span
@@ -1206,10 +1521,10 @@
                   ><span class="tsd-signature-symbol">)</span
                   ><span class="tsd-signature-symbol">: </span
                   ><a
-                    href="BSTree.html"
+                    href="AVLTree.html"
                     class="tsd-signature-type"
                     data-tsd-kind="Class"
-                    >BSTree</a
+                    >AVLTree</a
                   ><span class="tsd-signature-symbol">&lt;</span
                   ><span
                     class="tsd-signature-type"
@@ -1221,12 +1536,18 @@
               <ul class="tsd-descriptions">
                 <li class="tsd-description">
                   <aside class="tsd-sources">
+                    <p>
+                      Overrides <a href="BSTree.html">BSTree</a>.<a
+                        href="BSTree.html#from"
+                        >from</a
+                      >
+                    </p>
                     <ul>
                       <li>
                         Defined in
                         <a
-                          href="https://github.com/vansergen/bstrees/blob/main/src/bstree.ts#L171"
-                          >src/bstree.ts:171</a
+                          href="https://github.com/vansergen/bstrees/blob/main/src/avltree.ts#L119"
+                          >src/avltree.ts:119</a
                         >
                       </li>
                     </ul>
@@ -1257,16 +1578,183 @@
                   <h4 class="tsd-returns-title">
                     Returns
                     <a
-                      href="BSTree.html"
+                      href="AVLTree.html"
                       class="tsd-signature-type"
                       data-tsd-kind="Class"
-                      >BSTree</a
+                      >AVLTree</a
                     ><span class="tsd-signature-symbol">&lt;</span
                     ><span
                       class="tsd-signature-type"
                       data-tsd-kind="Type parameter"
                       >T</span
                     ><span class="tsd-signature-symbol">&gt;</span>
+                  </h4>
+                </li>
+              </ul>
+            </section>
+            <section
+              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"
+            >
+              <a id="heightBalance" class="tsd-anchor"></a>
+              <h3>
+                <span class="tsd-flag ts-flagStatic">Static</span>
+                height<wbr />Balance
+              </h3>
+              <ul
+                class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"
+              >
+                <li class="tsd-signature tsd-kind-icon">
+                  height<wbr />Balance<span class="tsd-signature-symbol"
+                    >&lt;</span
+                  ><span
+                    class="tsd-signature-type"
+                    data-tsd-kind="Type parameter"
+                    >T</span
+                  ><span class="tsd-signature-symbol">&gt;</span
+                  ><span class="tsd-signature-symbol">(</span>node<span
+                    class="tsd-signature-symbol"
+                    >: </span
+                  ><span class="tsd-signature-type">null</span
+                  ><span class="tsd-signature-symbol"> | </span
+                  ><a
+                    href="Node.html"
+                    class="tsd-signature-type"
+                    data-tsd-kind="Class"
+                    >Node</a
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><span
+                    class="tsd-signature-type"
+                    data-tsd-kind="Type parameter"
+                    >T</span
+                  ><span class="tsd-signature-symbol">&gt;</span
+                  ><span class="tsd-signature-symbol">)</span
+                  ><span class="tsd-signature-symbol">: </span
+                  ><span class="tsd-signature-type">number</span>
+                </li>
+              </ul>
+              <ul class="tsd-descriptions">
+                <li class="tsd-description">
+                  <aside class="tsd-sources">
+                    <ul>
+                      <li>
+                        Defined in
+                        <a
+                          href="https://github.com/vansergen/bstrees/blob/main/src/avltree.ts#L103"
+                          >src/avltree.ts:103</a
+                        >
+                      </li>
+                    </ul>
+                  </aside>
+                  <h4 class="tsd-type-parameters-title">Type parameters</h4>
+                  <ul class="tsd-type-parameters">
+                    <li>
+                      <h4>
+                        T = <span class="tsd-signature-type">unknown</span>
+                      </h4>
+                    </li>
+                  </ul>
+                  <h4 class="tsd-parameters-title">Parameters</h4>
+                  <ul class="tsd-parameters">
+                    <li>
+                      <h5>
+                        node: <span class="tsd-signature-type">null</span
+                        ><span class="tsd-signature-symbol"> | </span
+                        ><a
+                          href="Node.html"
+                          class="tsd-signature-type"
+                          data-tsd-kind="Class"
+                          >Node</a
+                        ><span class="tsd-signature-symbol">&lt;</span
+                        ><span
+                          class="tsd-signature-type"
+                          data-tsd-kind="Type parameter"
+                          >T</span
+                        ><span class="tsd-signature-symbol">&gt;</span>
+                      </h5>
+                    </li>
+                  </ul>
+                  <h4 class="tsd-returns-title">
+                    Returns <span class="tsd-signature-type">number</span>
+                  </h4>
+                </li>
+              </ul>
+            </section>
+            <section
+              class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"
+            >
+              <a id="isAVL" class="tsd-anchor"></a>
+              <h3><span class="tsd-flag ts-flagStatic">Static</span> isAVL</h3>
+              <ul
+                class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"
+              >
+                <li class="tsd-signature tsd-kind-icon">
+                  isAVL<span class="tsd-signature-symbol">&lt;</span
+                  ><span
+                    class="tsd-signature-type"
+                    data-tsd-kind="Type parameter"
+                    >T</span
+                  ><span class="tsd-signature-symbol">&gt;</span
+                  ><span class="tsd-signature-symbol">(</span>tree<span
+                    class="tsd-signature-symbol"
+                    >: </span
+                  ><a
+                    href="BSTree.html"
+                    class="tsd-signature-type"
+                    data-tsd-kind="Class"
+                    >BSTree</a
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><span
+                    class="tsd-signature-type"
+                    data-tsd-kind="Type parameter"
+                    >T</span
+                  ><span class="tsd-signature-symbol">&gt;</span
+                  ><span class="tsd-signature-symbol">)</span
+                  ><span class="tsd-signature-symbol">: </span
+                  ><span class="tsd-signature-type">boolean</span>
+                </li>
+              </ul>
+              <ul class="tsd-descriptions">
+                <li class="tsd-description">
+                  <aside class="tsd-sources">
+                    <ul>
+                      <li>
+                        Defined in
+                        <a
+                          href="https://github.com/vansergen/bstrees/blob/main/src/avltree.ts#L107"
+                          >src/avltree.ts:107</a
+                        >
+                      </li>
+                    </ul>
+                  </aside>
+                  <h4 class="tsd-type-parameters-title">Type parameters</h4>
+                  <ul class="tsd-type-parameters">
+                    <li>
+                      <h4>
+                        T = <span class="tsd-signature-type">unknown</span>
+                      </h4>
+                    </li>
+                  </ul>
+                  <h4 class="tsd-parameters-title">Parameters</h4>
+                  <ul class="tsd-parameters">
+                    <li>
+                      <h5>
+                        tree:
+                        <a
+                          href="BSTree.html"
+                          class="tsd-signature-type"
+                          data-tsd-kind="Class"
+                          >BSTree</a
+                        ><span class="tsd-signature-symbol">&lt;</span
+                        ><span
+                          class="tsd-signature-type"
+                          data-tsd-kind="Type parameter"
+                          >T</span
+                        ><span class="tsd-signature-symbol">&gt;</span>
+                      </h5>
+                    </li>
+                  </ul>
+                  <h4 class="tsd-returns-title">
+                    Returns <span class="tsd-signature-type">boolean</span>
                   </h4>
                 </li>
               </ul>
@@ -1282,74 +1770,127 @@
           <nav class="tsd-navigation secondary menu-sticky">
             <ul>
               <li class="current tsd-kind-class tsd-has-type-parameter">
-                <a href="BSTree.html" class="tsd-kind-icon">BSTree</a>
+                <a href="AVLTree.html" class="tsd-kind-icon">AVLTree</a>
                 <ul>
                   <li
-                    class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter"
+                    class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"
                   >
-                    <a href="BSTree.html#constructor" class="tsd-kind-icon"
+                    <a href="AVLTree.html#constructor" class="tsd-kind-icon"
                       >constructor</a
                     >
                   </li>
                   <li
-                    class="tsd-kind-property tsd-parent-kind-class tsd-is-private"
+                    class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-private"
                   >
-                    <a href="BSTree.html#_comparator" class="tsd-kind-icon"
+                    <a href="AVLTree.html#_comparator" class="tsd-kind-icon"
                       >#comparator</a
                     >
                   </li>
                   <li
-                    class="tsd-kind-property tsd-parent-kind-class tsd-is-private"
+                    class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-private"
                   >
-                    <a href="BSTree.html#_root" class="tsd-kind-icon">#root</a>
+                    <a href="AVLTree.html#_root" class="tsd-kind-icon">#root</a>
                   </li>
-                  <li class="tsd-kind-get-signature tsd-parent-kind-class">
-                    <a href="BSTree.html#array" class="tsd-kind-icon">array</a>
+                  <li
+                    class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
+                  >
+                    <a href="AVLTree.html#array" class="tsd-kind-icon">array</a>
                   </li>
-                  <li class="tsd-kind-get-signature tsd-parent-kind-class">
-                    <a href="BSTree.html#height" class="tsd-kind-icon"
+                  <li
+                    class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
+                  >
+                    <a href="AVLTree.html#height" class="tsd-kind-icon"
                       >height</a
                     >
                   </li>
-                  <li class="tsd-kind-get-signature tsd-parent-kind-class">
-                    <a href="BSTree.html#max" class="tsd-kind-icon">max</a>
-                  </li>
-                  <li class="tsd-kind-get-signature tsd-parent-kind-class">
-                    <a href="BSTree.html#min" class="tsd-kind-icon">min</a>
+                  <li
+                    class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
+                  >
+                    <a href="AVLTree.html#max" class="tsd-kind-icon">max</a>
                   </li>
                   <li
-                    class="tsd-kind-set-signature tsd-parent-kind-class tsd-is-protected"
+                    class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
                   >
-                    <a href="BSTree.html#root" class="tsd-kind-icon">root</a>
+                    <a href="AVLTree.html#min" class="tsd-kind-icon">min</a>
                   </li>
-                  <li class="tsd-kind-get-signature tsd-parent-kind-class">
-                    <a href="BSTree.html#size" class="tsd-kind-icon">size</a>
+                  <li
+                    class="tsd-kind-set-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected"
+                  >
+                    <a href="AVLTree.html#root" class="tsd-kind-icon">root</a>
                   </li>
-                  <li class="tsd-kind-get-signature tsd-parent-kind-class">
-                    <a href="BSTree.html#width" class="tsd-kind-icon">width</a>
+                  <li
+                    class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
+                  >
+                    <a href="AVLTree.html#size" class="tsd-kind-icon">size</a>
                   </li>
-                  <li class="tsd-kind-method tsd-parent-kind-class">
-                    <a href="BSTree.html#_iterator_" class="tsd-kind-icon"
+                  <li
+                    class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"
+                  >
+                    <a href="AVLTree.html#width" class="tsd-kind-icon">width</a>
+                  </li>
+                  <li
+                    class="tsd-kind-method tsd-parent-kind-class tsd-is-private"
+                  >
+                    <a href="AVLTree.html#_leftRotate" class="tsd-kind-icon"
+                      >#left<wbr />Rotate</a
+                    >
+                  </li>
+                  <li
+                    class="tsd-kind-method tsd-parent-kind-class tsd-is-private"
+                  >
+                    <a href="AVLTree.html#_rebalance" class="tsd-kind-icon"
+                      >#rebalance</a
+                    >
+                  </li>
+                  <li
+                    class="tsd-kind-method tsd-parent-kind-class tsd-is-private"
+                  >
+                    <a href="AVLTree.html#_rightRotate" class="tsd-kind-icon"
+                      >#right<wbr />Rotate</a
+                    >
+                  </li>
+                  <li
+                    class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"
+                  >
+                    <a href="AVLTree.html#_iterator_" class="tsd-kind-icon"
                       >[iterator]</a
                     >
                   </li>
-                  <li class="tsd-kind-method tsd-parent-kind-class">
-                    <a href="BSTree.html#delete" class="tsd-kind-icon"
+                  <li
+                    class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"
+                  >
+                    <a href="AVLTree.html#delete" class="tsd-kind-icon"
                       >delete</a
                     >
                   </li>
-                  <li class="tsd-kind-method tsd-parent-kind-class">
-                    <a href="BSTree.html#find" class="tsd-kind-icon">find</a>
+                  <li
+                    class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"
+                  >
+                    <a href="AVLTree.html#find" class="tsd-kind-icon">find</a>
                   </li>
-                  <li class="tsd-kind-method tsd-parent-kind-class">
-                    <a href="BSTree.html#insert" class="tsd-kind-icon"
+                  <li
+                    class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"
+                  >
+                    <a href="AVLTree.html#insert" class="tsd-kind-icon"
                       >insert</a
+                    >
+                  </li>
+                  <li
+                    class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite tsd-is-static"
+                  >
+                    <a href="AVLTree.html#from" class="tsd-kind-icon">from</a>
+                  </li>
+                  <li
+                    class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"
+                  >
+                    <a href="AVLTree.html#heightBalance" class="tsd-kind-icon"
+                      >height<wbr />Balance</a
                     >
                   </li>
                   <li
                     class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"
                   >
-                    <a href="BSTree.html#from" class="tsd-kind-icon">from</a>
+                    <a href="AVLTree.html#isAVL" class="tsd-kind-icon">isAVL</a>
                   </li>
                 </ul>
               </li>

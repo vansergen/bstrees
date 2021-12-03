@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.0](https://github.com/vansergen/bstrees/compare/v1.0.0...v1.1.0) (2021-12-03)
+
+### Features
+
+- add the `AVLTree` class ([ea4e001](https://github.com/vansergen/bstrees/commit/ea4e00154bd4ebeb31039748b6a01586e7811564))
+
 ## 1.0.0 (2021-12-03)
 
 ### Features
