@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="default">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <title>bstrees</title>
+    <meta name="description" content="Documentation for bstrees" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/style.css" />
+    <link rel="stylesheet" href="assets/highlight.css" />
+    <script async src="assets/search.js" id="search-script"></script>
+  </head>
+  <body>
+    <script>
+      document.body.classList.add(localStorage.getItem("tsd-theme") || "os");
+    </script>
+    <header>
+      <div class="tsd-page-toolbar">
+        <div class="container">
+          <div class="table-wrap">
+            <div class="table-cell" id="tsd-search" data-base=".">
+              <div class="field">
+                <label
+                  for="tsd-search-field"
+                  class="tsd-widget search no-caption"
+                  >Search</label
+                ><input type="text" id="tsd-search-field" />
+              </div>
+              <ul class="results">
+                <li class="state loading">Preparing search index...</li>
+                <li class="state failure">The search index is not available</li>
+              </ul>
+              <a href="index.html" class="title">bstrees</a>
+            </div>
+            <div class="table-cell" id="tsd-widgets">
+              <div id="tsd-filter">
+                <a
+                  href="#"
+                  class="tsd-widget options no-caption"
+                  data-toggle="options"
+                  >Options</a
+                >
+                <div class="tsd-filter-group">
+                  <div class="tsd-select" id="tsd-filter-visibility">
+                    <span class="tsd-select-label">All</span>
+                    <ul class="tsd-select-list">
+                      <li data-value="public">Public</li>
+                      <li data-value="protected">Public/Protected</li>
+                      <li data-value="private" class="selected">All</li>
+                    </ul>
+                  </div>
+                  <input
+                    type="checkbox"
+                    id="tsd-filter-inherited"
+                    checked
+                  /><label class="tsd-widget" for="tsd-filter-inherited"
+                    >Inherited</label
+                  ><input
+                    type="checkbox"
+                    id="tsd-filter-externals"
+                    checked
+                  /><label class="tsd-widget" for="tsd-filter-externals"
+                    >Externals</label
+                  >
+                </div>
+              </div>
+              <a href="#" class="tsd-widget menu no-caption" data-toggle="menu"
+                >Menu</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tsd-page-title">
+        <div class="container"><h1>bstrees</h1></div>
+      </div>
+    </header>
+    <div class="container container-main">
+      <div class="row">
+        <div class="col-8 col-content">
+          <div class="tsd-panel tsd-typography">
+            <a
+              href="#bstrees-----------"
+              id="bstrees-----------"
+              style="color: inherit; text-decoration: none"
+            >
+              <h1>
+                bstrees
+                <img
+                  src="https://github.com/vansergen/bstrees/workflows/CI/badge.svg"
+                  alt="CI Status"
+                />
+                <a href="https://github.com/vansergen/bstrees"
+                  ><img
+                    src="https://img.shields.io/github/package-json/v/vansergen/bstrees?style=plastic"
+                    alt="version"
+                /></a>
+                <a href="https://snyk.io/test/github/vansergen/bstrees"
+                  ><img
+                    src="https://snyk.io/test/github/vansergen/bstrees/badge.svg"
+                    alt="Known Vulnerabilities"
+                /></a>
+                <a
+                  href="https://coveralls.io/github/vansergen/bstrees?branch=main"
+                  ><img
+                    src="https://coveralls.io/repos/github/vansergen/bstrees/badge.svg?branch=main"
+                    alt="Coverage Status"
+                /></a>
+                <a href="https://github.com/prettier/prettier"
+                  ><img
+                    src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg"
+                    alt="code style: prettier"
+                /></a>
+                <a href="https://github.com/semantic-release/semantic-release"
+                  ><img
+                    src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg"
+                    alt="semantic-release"
+                /></a>
+                <a href="https://conventionalcommits.org"
+                  ><img
+                    src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg"
+                    alt="Conventional Commits"
+                /></a>
+                <img
+                  src="https://img.shields.io/github/languages/top/vansergen/bstrees"
+                  alt="GitHub top language"
+                />
+                <img
+                  src="https://img.shields.io/node/v/bstrees"
+                  alt="node version"
+                />
+                <img
+                  src="https://img.shields.io/npm/dt/bstrees"
+                  alt="npm downloads"
+                />
+                <img
+                  src="https://img.shields.io/github/license/vansergen/bstrees"
+                  alt="License"
+                />
+              </h1>
+            </a>
+            <p>A simple library to store data in binary search trees.</p>
+
+            <a
+              href="#installation"
+              id="installation"
+              style="color: inherit; text-decoration: none"
+            >
+              <h2>Installation</h2>
+            </a>
+            <pre><code class="language-bash"><span class="hl-0">npm install bstrees</span>
+</code></pre>
+
+            <a
+              href="#usage"
+              id="usage"
+              style="color: inherit; text-decoration: none"
+            >
+              <h2>Usage</h2>
+            </a>
+
+            <a
+              href="#bstree"
+              id="bstree"
+              style="color: inherit; text-decoration: none"
+            >
+              <h3><code>BSTree</code></h3>
+            </a>
+            <p>A simple binary search tree</p>
+            <pre><code class="language-typescript"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">BSTree</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&quot;bstrees&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">interface</span><span class="hl-0"> </span><span class="hl-5">IOrder</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-2">id</span><span class="hl-0">: </span><span class="hl-5">number</span><span class="hl-0">;</span><br/><span class="hl-0">  </span><span class="hl-2">amount</span><span class="hl-0">: </span><span class="hl-5">number</span><span class="hl-0">[];</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-4">interface</span><span class="hl-0"> </span><span class="hl-5">IOrders</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-2">price</span><span class="hl-0">: </span><span class="hl-5">number</span><span class="hl-0">;</span><br/><span class="hl-0">  </span><span class="hl-2">orders</span><span class="hl-0">: </span><span class="hl-5">IOrder</span><span class="hl-0">[];</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-6">orders</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-7">BSTree</span><span class="hl-0">&lt;</span><span class="hl-5">IOrders</span><span class="hl-0">&gt;((</span><span class="hl-2">a</span><span class="hl-0">, </span><span class="hl-2">b</span><span class="hl-0">) </span><span class="hl-4">=&gt;</span><span class="hl-0"> </span><span class="hl-2">a</span><span class="hl-0">.</span><span class="hl-2">price</span><span class="hl-0"> - </span><span class="hl-2">b</span><span class="hl-0">.</span><span class="hl-2">price</span><span class="hl-0">);</span><br/><span class="hl-4">const</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-2">data</span><span class="hl-0">: { </span><span class="hl-2">orders</span><span class="hl-0">: </span><span class="hl-6">current</span><span class="hl-0"> },</span><br/><span class="hl-0">} = </span><span class="hl-2">orders</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">({ </span><span class="hl-2">price:</span><span class="hl-0"> </span><span class="hl-8">3</span><span class="hl-0">, </span><span class="hl-2">orders:</span><span class="hl-0"> [] });</span><br/><span class="hl-2">current</span><span class="hl-0">.</span><span class="hl-7">push</span><span class="hl-0">({ </span><span class="hl-2">id:</span><span class="hl-0"> </span><span class="hl-8">1</span><span class="hl-0">, </span><span class="hl-2">amount:</span><span class="hl-0"> </span><span class="hl-8">2</span><span class="hl-0"> });</span><br/><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-7">log</span><span class="hl-0">(</span><span class="hl-2">orders</span><span class="hl-0">.</span><span class="hl-2">array</span><span class="hl-0">);</span>
+</code></pre>
+            <ul>
+              <li><code>.insert()</code></li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-6">tree</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-7">BSTree</span><span class="hl-0">&lt;</span><span class="hl-5">number</span><span class="hl-0">&gt;();</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">(</span><span class="hl-8">3</span><span class="hl-0">);</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">(</span><span class="hl-8">5</span><span class="hl-0">);</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">(</span><span class="hl-8">1</span><span class="hl-0">);</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">(</span><span class="hl-8">0</span><span class="hl-0">);</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">(</span><span class="hl-8">4</span><span class="hl-0">);</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">(</span><span class="hl-8">6</span><span class="hl-0">);</span>
+</code></pre>
+            <ul>
+              <li><code>.find()</code></li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-6">tree</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-7">BSTree</span><span class="hl-0">&lt;</span><span class="hl-5">number</span><span class="hl-0">&gt;();</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">(</span><span class="hl-8">3</span><span class="hl-0">);</span><br/><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-7">log</span><span class="hl-0">(</span><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">find</span><span class="hl-0">(</span><span class="hl-8">2</span><span class="hl-0">)?.</span><span class="hl-2">data</span><span class="hl-0">);</span><br/><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-7">log</span><span class="hl-0">(</span><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">find</span><span class="hl-0">(</span><span class="hl-8">3</span><span class="hl-0">)?.</span><span class="hl-2">data</span><span class="hl-0">);</span><br/><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-7">log</span><span class="hl-0">(</span><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">find</span><span class="hl-0">(</span><span class="hl-8">2</span><span class="hl-0">, { </span><span class="hl-2">upsert:</span><span class="hl-0"> </span><span class="hl-4">true</span><span class="hl-0"> })?.</span><span class="hl-2">data</span><span class="hl-0">);</span>
+</code></pre>
+            <ul>
+              <li><code>.delete()</code></li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-6">tree</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-7">BSTree</span><span class="hl-0">&lt;</span><span class="hl-5">number</span><span class="hl-0">&gt;();</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">(</span><span class="hl-8">3</span><span class="hl-0">);</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">(</span><span class="hl-8">5</span><span class="hl-0">);</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">(</span><span class="hl-8">1</span><span class="hl-0">);</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">delete</span><span class="hl-0">(</span><span class="hl-8">3</span><span class="hl-0">);</span>
+</code></pre>
+            <ul>
+              <li><code>.array()</code></li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-6">tree</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-7">BSTree</span><span class="hl-0">&lt;</span><span class="hl-5">number</span><span class="hl-0">&gt;();</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">(</span><span class="hl-8">3</span><span class="hl-0">);</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">(</span><span class="hl-8">5</span><span class="hl-0">);</span><br/><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-7">insert</span><span class="hl-0">(</span><span class="hl-8">1</span><span class="hl-0">);</span><br/><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-7">log</span><span class="hl-0">(...</span><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-2">array</span><span class="hl-0">);</span>
+</code></pre>
+            <ul>
+              <li><code>.from()</code></li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-6">tree</span><span class="hl-0"> = </span><span class="hl-2">BSTree</span><span class="hl-0">.</span><span class="hl-7">from</span><span class="hl-0">()([</span><span class="hl-8">3</span><span class="hl-0">, </span><span class="hl-8">5</span><span class="hl-0">, </span><span class="hl-8">1</span><span class="hl-0">, </span><span class="hl-8">4</span><span class="hl-0">, </span><span class="hl-8">0</span><span class="hl-0">, </span><span class="hl-8">6</span><span class="hl-0">]);</span><br/><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-7">log</span><span class="hl-0">(...</span><span class="hl-2">tree</span><span class="hl-0">.</span><span class="hl-2">array</span><span class="hl-0">);</span>
+</code></pre>
+
+            <a
+              href="#coverage"
+              id="coverage"
+              style="color: inherit; text-decoration: none"
+            >
+              <h3>Coverage</h3>
+            </a>
+            <pre><code class="language-bash"><span class="hl-0">npm run coverage:ci</span>
+</code></pre>
+          </div>
+        </div>
+        <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+          <nav class="tsd-navigation primary">
+            <ul>
+              <li class="current"><a href="modules.html">Exports</a></li>
+            </ul>
+          </nav>
+          <nav class="tsd-navigation secondary menu-sticky">
+            <ul>
+              <li class="tsd-kind-class tsd-has-type-parameter">
+                <a href="classes/BSTree.html" class="tsd-kind-icon">BSTree</a>
+              </li>
+              <li class="tsd-kind-class tsd-has-type-parameter">
+                <a href="classes/Node.html" class="tsd-kind-icon">Node</a>
+              </li>
+              <li class="tsd-kind-class tsd-has-type-parameter">
+                <a href="classes/TreeIterator.html" class="tsd-kind-icon"
+                  >Tree<wbr />Iterator</a
+                >
+              </li>
+              <li class="tsd-kind-interface tsd-has-type-parameter">
+                <a href="interfaces/IComparator.html" class="tsd-kind-icon"
+                  >IComparator</a
+                >
+              </li>
+              <li class="tsd-kind-interface tsd-has-type-parameter">
+                <a
+                  href="interfaces/INodeDeleteResult.html"
+                  class="tsd-kind-icon"
+                  >INode<wbr />Delete<wbr />Result</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/INodeFindOptions.html" class="tsd-kind-icon"
+                  >INode<wbr />Find<wbr />Options</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <footer class="">
+      <div class="container">
+        <h2>Legend</h2>
+        <div class="tsd-legend-group">
+          <ul class="tsd-legend">
+            <li class="tsd-kind-method tsd-parent-kind-class">
+              <span class="tsd-kind-icon">Method</span>
+            </li>
+            <li class="tsd-kind-accessor tsd-parent-kind-class">
+              <span class="tsd-kind-icon">Accessor</span>
+            </li>
+          </ul>
+          <ul class="tsd-legend">
+            <li class="tsd-kind-property tsd-parent-kind-interface">
+              <span class="tsd-kind-icon">Property</span>
+            </li>
+          </ul>
+          <ul class="tsd-legend">
+            <li class="tsd-kind-property tsd-parent-kind-class tsd-is-private">
+              <span class="tsd-kind-icon">Private property</span>
+            </li>
+          </ul>
+        </div>
+        <h2>Settings</h2>
+        <p>
+          Theme
+          <select id="theme">
+            <option value="os">OS</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </p>
+      </div>
+    </footer>
+    <div class="overlay"></div>
+    <script src="assets/main.js"></script>
+  </body>
+</html>
