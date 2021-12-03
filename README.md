@@ -84,6 +84,13 @@ const tree = BSTree.from()([3, 5, 1, 4, 0, 6]);
 console.log(...tree.array);
 ```
 
+### `AVLTree`
+
+```typescript
+import { AVLTree } from "bstrees";
+const tree = new AVLTree<number>();
+```
+
 ### Coverage
 
 ```bash
