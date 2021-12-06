@@ -1,5 +1,11 @@
 # Changelog
 
+### [1.1.2](https://github.com/vansergen/bstrees/compare/v1.1.1...v1.1.2) (2021-12-06)
+
+### Performance Improvements
+
+- remove recursion from the `height` method ([72d05e4](https://github.com/vansergen/bstrees/commit/72d05e4e84623948bae3a5f9fe9a1f0b5cd50468))
+
 ### [1.1.1](https://github.com/vansergen/bstrees/compare/v1.1.0...v1.1.1) (2021-12-06)
 
 ### Performance Improvements
