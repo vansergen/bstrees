@@ -20,9 +20,31 @@ export class Node<T = unknown> {
   }
 
   public get height(): number {
-    const left_height = this.left?.height ?? -1;
-    const right_height = this.right?.height ?? -1;
-    return (left_height < right_height ? right_height : left_height) + 1;
+    const nodes = [] as Node<T>[];
+
+    let height = -1;
+
+    nodes.push(this);
+
+    while (nodes.length) {
+      height++;
+
+      const { length } = nodes;
+
+      for (let i = 0; i < length; i++) {
+        const node = nodes.shift();
+
+        if (node?.left) {
+          nodes.push(node.left);
+        }
+
+        if (node?.right) {
+          nodes.push(node.right);
+        }
+      }
+    }
+
+    return height;
   }
 
   public get width(): number {
