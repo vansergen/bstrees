@@ -334,7 +334,7 @@ suite("AVLTree", () => {
     deepStrictEqual(AVLTree.isAVL(tree), true);
   });
 
-  test(".from()", () => {
+  test(".from() (default comparator)", () => {
     const input = [4, 0, 1, 2, 3];
     const tree = AVLTree.from(input);
     deepStrictEqual(tree.height, 2);
@@ -344,5 +344,22 @@ suite("AVLTree", () => {
     deepStrictEqual(tree.width, 2);
     AVLTree.isAVL(tree);
     deepStrictEqual(tree.array, input.sort());
+  });
+
+  test(".from()", () => {
+    const input = [
+      { id: 3 },
+      { id: 1 },
+      { id: 0 },
+      { id: 2 },
+      { id: 5 },
+      { id: 4 },
+      { id: 6 },
+    ];
+    function Comparator(a: { id: number }, b: { id: number }): number {
+      return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+    }
+    const other_tree = AVLTree.from(input, Comparator);
+    deepStrictEqual(other_tree.array, input.sort(Comparator));
   });
 });

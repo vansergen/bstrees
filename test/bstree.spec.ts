@@ -585,9 +585,10 @@ suite("BSTree", () => {
     deepStrictEqual(tree.find(2), node2);
   });
 
-  test(".from()", () => {
+  test(".from() (default comparator)", () => {
     const input = [3, 1, 0, 2, 5, 4, 6];
     const other_tree = BSTree.from(input);
+    deepStrictEqual(other_tree.array, input.sort());
 
     assertTree<number>(other_tree, {
       height: 2,
@@ -596,6 +597,23 @@ suite("BSTree", () => {
       size: 7,
       width: 4,
     });
+  });
+
+  test(".from()", () => {
+    const input = [
+      { id: 3 },
+      { id: 1 },
+      { id: 0 },
+      { id: 2 },
+      { id: 5 },
+      { id: 4 },
+      { id: 6 },
+    ];
+    function Comparator(a: { id: number }, b: { id: number }): number {
+      return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+    }
+    const other_tree = BSTree.from(input, Comparator);
+    deepStrictEqual(other_tree.array, input.sort(Comparator));
   });
 
   test(".delete()", () => {
