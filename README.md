@@ -80,8 +80,15 @@ console.log(...tree.array);
 - `.from()`
 
 ```typescript
-const tree = BSTree.from()([3, 5, 1, 4, 0, 6]);
+const tree = BSTree.from([3, 5, 1, 4, 0, 6]);
 console.log(...tree.array);
+// or with custom objects
+const input = [{ id: 3 }, { id: 1 }, { id: 0 }];
+function Comparator(a, b) {
+  return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+}
+const custom_tree = BSTree.from(input, Comparator);
+console.log(...custom_tree.array);
 ```
 
 ### `AVLTree`
