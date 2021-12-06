@@ -1,4 +1,4 @@
-import { BSTree, INodeDeleteResult } from "./bstree.js";
+import { BSTree, IComparator, INodeDeleteResult } from "./bstree.js";
 import { Node } from "./node.js";
 
 export class AVLTree<T = unknown> extends BSTree<T> {
@@ -116,8 +116,11 @@ export class AVLTree<T = unknown> extends BSTree<T> {
     return true;
   }
 
-  public static from<T = unknown>(iterable: Iterable<T>): AVLTree<T> {
-    const tree = new AVLTree<T>();
+  public static from<T = unknown>(
+    iterable: Iterable<T>,
+    comparator?: IComparator<T>
+  ): AVLTree<T> {
+    const tree = new AVLTree<T>(comparator);
     for (const a of iterable) {
       tree.insert(a);
     }
