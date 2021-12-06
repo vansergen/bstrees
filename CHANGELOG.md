@@ -1,5 +1,11 @@
 # Changelog
 
+### [1.1.1](https://github.com/vansergen/bstrees/compare/v1.1.0...v1.1.1) (2021-12-06)
+
+### Performance Improvements
+
+- add `comparator` to the `.from()` method ([1a19281](https://github.com/vansergen/bstrees/commit/1a192815340a2a62e5bc64e276e3f2c8c37758c7))
+
 ## [1.1.0](https://github.com/vansergen/bstrees/compare/v1.0.0...v1.1.0) (2021-12-03)
 
 ### Features
