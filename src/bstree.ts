@@ -168,8 +168,11 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
     return array;
   }
 
-  public static from<T = unknown>(iterable: Iterable<T>): BSTree<T> {
-    const tree = new BSTree<T>();
+  public static from<T = unknown>(
+    iterable: Iterable<T>,
+    comparator?: IComparator<T>
+  ): BSTree<T> {
+    const tree = new BSTree<T>(comparator);
     for (const a of iterable) {
       tree.insert(a);
     }
