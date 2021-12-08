@@ -144,7 +144,7 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
     if (parent) {
       parent[parent.left === node ? "left" : "right"] = min;
     } else {
-      this.#root = min;
+      this.#root = min_parent;
     }
 
     min.left = left;
