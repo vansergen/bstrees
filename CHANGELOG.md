@@ -1,5 +1,11 @@
 # Changelog
 
+### [1.1.3](https://github.com/vansergen/bstrees/compare/v1.1.2...v1.1.3) (2021-12-08)
+
+### Bug Fixes
+
+- update parent links after deletion ([fb3301d](https://github.com/vansergen/bstrees/commit/fb3301d0ce0fbd6e2a1311a327f4acb3390f729f)), closes [#5](https://github.com/vansergen/bstrees/issues/5)
+
 ### [1.1.2](https://github.com/vansergen/bstrees/compare/v1.1.1...v1.1.2) (2021-12-06)
 
 ### Performance Improvements
