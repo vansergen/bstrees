@@ -1563,6 +1563,243 @@ suite("BSTree", () => {
     deepStrictEqual(tree.delete(0), { node: null, success: true });
   });
 
+  test(".delete() (when `min.right !== null`)\n", () => {
+    const input = [2, 0, 5, 1, 3, 6, 4];
+    const new_tree = BSTree.from(input);
+    /*
+          2
+        /   \
+      0      5
+       \    / \
+        1  3  6
+            \
+             4
+    */
+    const node_0 = new_tree.find(0);
+    const node_1 = new_tree.find(1);
+    const node_2 = new_tree.find(2);
+    const node_3 = new_tree.find(3);
+    const node_4 = new_tree.find(4);
+    const node_5 = new_tree.find(5);
+    const node_6 = new_tree.find(6);
+
+    deepStrictEqual(node_0?.data, 0);
+    deepStrictEqual(node_1?.data, 1);
+    deepStrictEqual(node_2?.data, 2);
+    deepStrictEqual(node_3?.data, 3);
+    deepStrictEqual(node_4?.data, 4);
+    deepStrictEqual(node_5?.data, 5);
+    deepStrictEqual(node_6?.data, 6);
+
+    assertNode(node_0, {
+      data: 0,
+      grandparent: null,
+      height: 1,
+      left: null,
+      right: node_1,
+      max: node_1,
+      min: node_0,
+      parent: node_2,
+      sibling: node_5,
+      size: 2,
+      uncle: null,
+      width: 1,
+    });
+    assertNode(node_1, {
+      data: 1,
+      grandparent: node_2,
+      height: 0,
+      left: null,
+      right: null,
+      max: node_1,
+      min: node_1,
+      parent: node_0,
+      sibling: null,
+      size: 1,
+      uncle: node_5,
+      width: 1,
+    });
+    assertNode(node_2, {
+      data: 2,
+      grandparent: null,
+      height: 3,
+      left: node_0,
+      right: node_5,
+      max: node_6,
+      min: node_0,
+      parent: null,
+      sibling: null,
+      size: 7,
+      uncle: null,
+      width: 3,
+    });
+    assertNode(node_3, {
+      data: 3,
+      grandparent: node_2,
+      height: 1,
+      left: null,
+      right: node_4,
+      max: node_4,
+      min: node_3,
+      parent: node_5,
+      sibling: node_6,
+      size: 2,
+      uncle: node0,
+      width: 1,
+    });
+    assertNode(node_4, {
+      data: 4,
+      grandparent: node_5,
+      height: 0,
+      left: null,
+      right: null,
+      max: node_4,
+      min: node_4,
+      parent: node_3,
+      sibling: null,
+      size: 1,
+      uncle: node_6,
+      width: 1,
+    });
+    assertNode(node_5, {
+      data: 5,
+      grandparent: null,
+      height: 2,
+      left: node_3,
+      right: node_6,
+      max: node_6,
+      min: node_3,
+      parent: node_2,
+      sibling: node_0,
+      size: 4,
+      uncle: null,
+      width: 2,
+    });
+    assertNode(node_6, {
+      data: 6,
+      grandparent: node_2,
+      height: 0,
+      left: null,
+      right: null,
+      max: node_6,
+      min: node_6,
+      parent: node_5,
+      sibling: node_3,
+      size: 1,
+      uncle: node_0,
+      width: 1,
+    });
+
+    new_tree.delete(2);
+
+    /*
+          3
+        /  \
+      0     5
+       \   / \
+        1 4  6
+    */
+
+    assertNode(node_0, {
+      data: 0,
+      grandparent: null,
+      height: 1,
+      left: null,
+      right: node_1,
+      max: node_1,
+      min: node_0,
+      parent: node_3,
+      sibling: node_5,
+      size: 2,
+      uncle: null,
+      width: 1,
+    });
+    assertNode(node_1, {
+      data: 1,
+      grandparent: node_3,
+      height: 0,
+      left: null,
+      right: null,
+      max: node_1,
+      min: node_1,
+      parent: node_0,
+      sibling: null,
+      size: 1,
+      uncle: node_5,
+      width: 1,
+    });
+    assertNode(node_2, {
+      data: 2,
+      grandparent: null,
+      height: 0,
+      left: null,
+      right: null,
+      max: node_2,
+      min: node_2,
+      parent: null,
+      sibling: null,
+      size: 1,
+      uncle: null,
+      width: 1,
+    });
+    assertNode(node_3, {
+      data: 3,
+      grandparent: null,
+      height: 2,
+      left: node_0,
+      right: node_5,
+      max: node_6,
+      min: node_0,
+      parent: null,
+      sibling: null,
+      size: 6,
+      uncle: null,
+      width: 3,
+    });
+    assertNode(node_4, {
+      data: 4,
+      grandparent: node_3,
+      height: 0,
+      left: null,
+      right: null,
+      max: node_4,
+      min: node_4,
+      parent: node_5,
+      sibling: node_6,
+      size: 1,
+      uncle: node_0,
+      width: 1,
+    });
+    assertNode(node_5, {
+      data: 5,
+      grandparent: null,
+      height: 1,
+      left: node_4,
+      right: node_6,
+      max: node_6,
+      min: node_4,
+      parent: node_3,
+      sibling: node_0,
+      size: 3,
+      uncle: null,
+      width: 2,
+    });
+    assertNode(node_6, {
+      data: 6,
+      grandparent: node_3,
+      height: 0,
+      left: null,
+      right: null,
+      max: node_6,
+      min: node_6,
+      parent: node_5,
+      sibling: node_4,
+      size: 1,
+      uncle: node_0,
+      width: 1,
+    });
+  });
+
   test("empty iterator", () => {
     const iterator = tree[Symbol.iterator]();
     deepStrictEqual(typeof iterator.next().value, "undefined");

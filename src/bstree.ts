@@ -150,7 +150,14 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
     min.left = left;
 
     if (right !== min) {
+      const { right: min_right } = min;
+      const min_right_parent = min_right?.parent;
+
       min.right = right;
+
+      if (min_right_parent) {
+        min_right_parent.left = min_right;
+      }
 
       return { node: min_parent, success: true };
     }
