@@ -16,11 +16,35 @@ export class Node<T = unknown> {
   }
 
   public get size(): number {
-    return (this.left?.size ?? 0) + (this.right?.size ?? 0) + 1;
+    const nodes: Node<T>[] = [];
+
+    let size = 0;
+
+    nodes.push(this);
+
+    while (nodes.length) {
+      const { length } = nodes;
+
+      size += length;
+
+      for (let i = 0; i < length; i++) {
+        const node = nodes.shift();
+
+        if (node?.left) {
+          nodes.push(node.left);
+        }
+
+        if (node?.right) {
+          nodes.push(node.right);
+        }
+      }
+    }
+
+    return size;
   }
 
   public get height(): number {
-    const nodes = [] as Node<T>[];
+    const nodes: Node<T>[] = [];
 
     let height = -1;
 
@@ -48,7 +72,7 @@ export class Node<T = unknown> {
   }
 
   public get width(): number {
-    const nodes = [] as Node<T>[];
+    const nodes: Node<T>[] = [];
 
     let width = 0;
 

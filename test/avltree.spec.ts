@@ -31,7 +31,7 @@ suite("AVLTree", () => {
           "0   2\n",
         () => {
           const tree = new AVLTree<number>();
-          const nodes = [] as Node<number>[];
+          const nodes: Node<number>[] = [];
 
           for (const item of data) {
             nodes[item] = tree.insert(item);
@@ -139,7 +139,7 @@ suite("AVLTree", () => {
           "  2   4",
         () => {
           const tree = new AVLTree<number>();
-          const nodes = [] as Node<number>[];
+          const nodes: Node<number>[] = [];
 
           for (const item of data) {
             nodes[item] = tree.insert(item);
