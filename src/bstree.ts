@@ -166,7 +166,7 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
   }
 
   public get array(): T[] {
-    const array = [] as T[];
+    const array: T[] = [];
 
     for (const { data } of this) {
       array.push(data);
