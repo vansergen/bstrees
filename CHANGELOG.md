@@ -1,5 +1,11 @@
 # Changelog
 
+### [1.1.4](https://github.com/vansergen/bstrees/compare/v1.1.3...v1.1.4) (2022-06-24)
+
+### Performance Improvements
+
+- do not use recursion in the `size` getter ([2b15769](https://github.com/vansergen/bstrees/commit/2b15769b7f74669a1296285904e64f03df5037de))
+
 ### [1.1.3](https://github.com/vansergen/bstrees/compare/v1.1.2...v1.1.3) (2021-12-08)
 
 ### Bug Fixes
