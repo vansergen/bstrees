@@ -1,9 +1,7 @@
 import { Node } from "./node.js";
 import { TreeIterator } from "./iterator.js";
 
-export interface IComparator<T = unknown> {
-  (a: T, b: T): number;
-}
+export type IComparator<T = unknown> = (a: T, b: T) => number;
 
 export interface INodeDeleteResult<T = unknown> {
   node: Node<T> | null;
