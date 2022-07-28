@@ -23,21 +23,9 @@ export class Node<T = unknown> {
     nodes.push(this);
 
     while (nodes.length) {
-      const { length } = nodes;
+      size += nodes.length;
 
-      size += length;
-
-      for (let i = 0; i < length; i++) {
-        const node = nodes.shift();
-
-        if (node?.left) {
-          nodes.push(node.left);
-        }
-
-        if (node?.right) {
-          nodes.push(node.right);
-        }
-      }
+      Node.#nextLevel(nodes);
     }
 
     return size;
@@ -51,21 +39,9 @@ export class Node<T = unknown> {
     nodes.push(this);
 
     while (nodes.length) {
-      height++;
+      height += 1;
 
-      const { length } = nodes;
-
-      for (let i = 0; i < length; i++) {
-        const node = nodes.shift();
-
-        if (node?.left) {
-          nodes.push(node.left);
-        }
-
-        if (node?.right) {
-          nodes.push(node.right);
-        }
-      }
+      Node.#nextLevel(nodes);
     }
 
     return height;
@@ -85,17 +61,7 @@ export class Node<T = unknown> {
         width = length;
       }
 
-      for (let i = 0; i < length; i++) {
-        const node = nodes.shift();
-
-        if (node?.left) {
-          nodes.push(node.left);
-        }
-
-        if (node?.right) {
-          nodes.push(node.right);
-        }
-      }
+      Node.#nextLevel(nodes);
     }
 
     return width;
@@ -179,5 +145,21 @@ export class Node<T = unknown> {
     }
 
     return max;
+  }
+
+  static #nextLevel<T = unknown>(nodes: Node<T>[]): void {
+    const { length } = nodes;
+
+    for (let i = 0; i < length; i += 1) {
+      const node = nodes.shift();
+
+      if (node?.left) {
+        nodes.push(node.left);
+      }
+
+      if (node?.right) {
+        nodes.push(node.right);
+      }
+    }
   }
 }
