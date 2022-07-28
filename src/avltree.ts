@@ -1,5 +1,5 @@
 import { BSTree, IComparator, INodeDeleteResult } from "./bstree.js";
-import { Node } from "./node.js";
+import type { Node } from "./node.js";
 
 export class AVLTree<T = unknown> extends BSTree<T> {
   public insert(data: T): Node<T> {
