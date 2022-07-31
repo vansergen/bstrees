@@ -38,7 +38,7 @@ jobs:
         run: npm run test:ci
 
       - name: Publish (test)
-        run: npm run publish:test
+        run: npm publish --dry-run
 
       - name: Coverage
         run: npm run coverage:ci
@@ -94,7 +94,7 @@ jobs:
           PGP_KEY_ID: ${{ secrets.PGP_KEY_ID }}
 
       - name: Release
-        run: npm run release
+        run: npx semantic-release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GIT_COMMITTER_EMAIL: ${{ secrets.GIT_COMMITTER_EMAIL }}
