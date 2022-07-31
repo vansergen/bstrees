@@ -1,6 +1,6 @@
 import { deepStrictEqual, throws } from "node:assert";
 import { BSTree } from "../index.js";
-import type { Node } from "../src/node.js";
+import { Node } from "../src/node.js";
 
 function assertTree<T = unknown>(
   actual: BSTree<T>,
@@ -1822,5 +1822,54 @@ suite("BSTree", () => {
     throws(() => {
       node.right = {} as unknown as Node<number>;
     }, error);
+  });
+
+  suite("Static methods", () => {
+    test(".from()", () => {
+      const input = [
+        { id: 3 },
+        { id: 1 },
+        { id: 0 },
+        { id: 2 },
+        { id: 5 },
+        { id: 4 },
+        { id: 6 },
+      ];
+      function Comparator(a: { id: number }, b: { id: number }): number {
+        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+      }
+      const other_tree = BSTree.from(input, Comparator);
+      deepStrictEqual(other_tree.array, input.sort(Comparator));
+    });
+
+    test(".getDir()", () => {
+      const node_0 = new Node(0);
+      const node_1 = new Node(1);
+      const node_2 = new Node(2);
+      const node_3 = new Node(3);
+      node_1.right = node_2;
+      node_1.left = node_0;
+
+      deepStrictEqual(BSTree.getDir(-1), "right");
+      deepStrictEqual(BSTree.getDir(1), "left");
+      deepStrictEqual(BSTree.getDir(node_1, node_0), "left");
+      deepStrictEqual(BSTree.getDir(node_1, node_2), "right");
+      throws(
+        () => BSTree.getDir(0n as unknown as number),
+        new TypeError("Compare result is not a number")
+      );
+      throws(
+        () => BSTree.getDir(1 as unknown as Node, node_3),
+        new TypeError("Parent must be a valid Node")
+      );
+      throws(
+        () => BSTree.getDir(0),
+        new TypeError("Compare result must be a nonzero number")
+      );
+      throws(
+        () => BSTree.getDir(node_1, node_3),
+        new TypeError("Invalid `parent-child` pair")
+      );
+    });
   });
 });

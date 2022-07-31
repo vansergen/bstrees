@@ -319,6 +319,12 @@ suite("AVLTree", () => {
         }
       );
     }
+
+    test("with no success", () => {
+      const tree = new AVLTree<bigint>();
+      const result = tree.delete(0n);
+      deepStrictEqual(result, { node: null });
+    });
   });
 
   test(".isAVL()", () => {
