@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.5](https://github.com/vansergen/bstrees/compare/v1.1.4...v1.1.5) (2022-07-31)
+
+### Performance Improvements
+
+- add validation of node relations ([9514dbd](https://github.com/vansergen/bstrees/commit/9514dbdb1bf5e24a34886e8716c04f2c3469a487))
+
 ### [1.1.4](https://github.com/vansergen/bstrees/compare/v1.1.3...v1.1.4) (2022-06-24)
 
 ### Performance Improvements
