@@ -12,6 +12,8 @@ export interface INodeFindOptions {
   upsert?: boolean;
 }
 
+type IDir = "left" | "right";
+
 export class BSTree<T = unknown> implements Iterable<Node<T>> {
   #root: Node<T> | null;
   readonly #comparator: IComparator<T>;
@@ -57,34 +59,32 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
 
   public find(data: T): Node<T> | null;
   public find(data: T, options: { upsert: true }): Node<T>;
-  public find(data: T, { upsert }: INodeFindOptions = {}): Node<T> | null {
+  public find(
+    data: T,
+    { upsert = false }: INodeFindOptions = {}
+  ): Node<T> | null {
     if (!this.#root) {
       return upsert ? (this.#root = new Node<T>(data)) : null;
     }
 
-    let cmp = this.#comparator(this.#root.data, data);
+    let next: Node<T> | null = this.#root;
+    let current: Node<T>;
+    let cmp: number;
+    let dir: IDir;
 
-    if (cmp === 0) {
-      return this.#root;
-    }
-
-    let dir: "left" | "right" = cmp < 0 ? "right" : "left";
-
-    let node: Node<T> = this.#root;
-
-    while (node[dir]) {
-      node = node[dir] as Node<T>;
-
-      cmp = this.#comparator(node.data, data);
+    do {
+      current = next;
+      cmp = this.#comparator(current.data, data);
 
       if (cmp === 0) {
-        return node;
+        return current;
       }
 
-      dir = cmp < 0 ? "right" : "left";
-    }
+      dir = BSTree.getDir(cmp);
+      next = current[dir];
+    } while (next);
 
-    return upsert ? (node[dir] = new Node<T>(data)) : null;
+    return upsert ? (current[dir] = new Node<T>(data)) : null;
   }
 
   public delete(data: T): INodeDeleteResult<T> {
@@ -99,7 +99,7 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
     if (!left) {
       if (!right) {
         if (parent) {
-          parent[parent.left === node ? "left" : "right"] = null;
+          parent[BSTree.getDir(parent, node)] = null;
         } else {
           this.#root = null;
         }
@@ -110,7 +110,7 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
       node.right = null;
 
       if (parent) {
-        parent[parent.left === node ? "left" : "right"] = right;
+        parent[BSTree.getDir(parent, node)] = right;
       } else {
         this.#root = right;
       }
@@ -120,7 +120,7 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
       node.left = null;
 
       if (parent) {
-        parent[parent.left === node ? "left" : "right"] = left;
+        parent[BSTree.getDir(parent, node)] = left;
       } else {
         this.#root = left;
       }
@@ -140,7 +140,7 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
     node.right = null;
 
     if (parent) {
-      parent[parent.left === node ? "left" : "right"] = min;
+      parent[BSTree.getDir(parent, node)] = min;
     } else {
       this.#root = min;
     }
@@ -171,6 +171,31 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
     }
 
     return array;
+  }
+
+  public static getDir(compare_result: number): IDir;
+  public static getDir<T = unknown>(parent: Node<T>, child: Node<T>): IDir;
+  public static getDir<T = unknown>(
+    parent: Node<T> | number,
+    child?: Node<T>
+  ): IDir {
+    if (!child) {
+      if (typeof parent !== "number") {
+        throw new TypeError("Compare result is not a number");
+      } else if (parent < 0) {
+        return "right";
+      } else if (parent > 0) {
+        return "left";
+      }
+      throw new TypeError("Compare result must be a nonzero number");
+    } else if (!(parent instanceof Node)) {
+      throw new TypeError("Parent must be a valid Node");
+    } else if (parent.left === child) {
+      return "left";
+    } else if (parent.right === child) {
+      return "right";
+    }
+    throw new TypeError("Invalid `parent-child` pair");
   }
 
   public static from<T = unknown>(

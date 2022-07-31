@@ -71,7 +71,7 @@ export class AVLTree<T = unknown> extends BSTree<T> {
       node.right = null;
 
       if (parent) {
-        parent[parent.left === node ? "left" : "right"] = right;
+        parent[BSTree.getDir(parent, node)] = right;
       } else {
         this.root = right;
       }
@@ -90,7 +90,7 @@ export class AVLTree<T = unknown> extends BSTree<T> {
       node.left = null;
 
       if (parent) {
-        parent[parent.left === node ? "left" : "right"] = left;
+        parent[BSTree.getDir(parent, node)] = left;
       } else {
         this.root = left;
       }
