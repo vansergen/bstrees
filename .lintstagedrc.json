@@ -1,1 +1,4 @@
-{ "*": "npm run prettier:write", "*.ts": "npm run eslint:fix" }
+{
+  "*.{js,cjs,mjs,ts,json,md,yaml,yml,html,css}": "prettier -w",
+  "*.ts": "eslint --parser-options project:tsconfig.json"
+}
