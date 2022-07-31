@@ -49,8 +49,8 @@ suite("AVLTree", () => {
           deepStrictEqual(nodes[4].height, 0);
           deepStrictEqual(nodes[4].left, null);
           deepStrictEqual(nodes[4].right, null);
-          deepStrictEqual(nodes[4].max?.data, nodes[4]?.data);
-          deepStrictEqual(nodes[4].min?.data, nodes[4]?.data);
+          deepStrictEqual(nodes[4].max.data, nodes[4]?.data);
+          deepStrictEqual(nodes[4].min.data, nodes[4]?.data);
           deepStrictEqual(nodes[4].parent?.data, nodes[3]?.data);
           deepStrictEqual(nodes[4].sibling?.data, nodes[1]?.data);
           deepStrictEqual(nodes[4].size, 1);
@@ -157,8 +157,8 @@ suite("AVLTree", () => {
           deepStrictEqual(nodes[4].height, 0);
           deepStrictEqual(nodes[4].left, null);
           deepStrictEqual(nodes[4].right, null);
-          deepStrictEqual(nodes[4].max?.data, nodes[4].data);
-          deepStrictEqual(nodes[4].min?.data, nodes[4].data);
+          deepStrictEqual(nodes[4].max.data, nodes[4].data);
+          deepStrictEqual(nodes[4].min.data, nodes[4].data);
           deepStrictEqual(nodes[4].parent?.data, nodes[3].data);
           deepStrictEqual(nodes[4].sibling?.data, nodes[2].data);
           deepStrictEqual(nodes[4].size, 1);
@@ -170,8 +170,8 @@ suite("AVLTree", () => {
           deepStrictEqual(nodes[3].height, 1);
           deepStrictEqual(nodes[3].left?.data, nodes[2]?.data);
           deepStrictEqual(nodes[3].right?.data, nodes[4]?.data);
-          deepStrictEqual(nodes[3].max?.data, nodes[4]?.data);
-          deepStrictEqual(nodes[3].min?.data, nodes[2]?.data);
+          deepStrictEqual(nodes[3].max.data, nodes[4]?.data);
+          deepStrictEqual(nodes[3].min.data, nodes[2]?.data);
           deepStrictEqual(nodes[3].parent?.data, nodes[1]?.data);
           deepStrictEqual(nodes[3].sibling?.data, nodes[0]?.data);
           deepStrictEqual(nodes[3].size, 3);
@@ -183,8 +183,8 @@ suite("AVLTree", () => {
           deepStrictEqual(nodes[2].height, 0);
           deepStrictEqual(nodes[2].left, null);
           deepStrictEqual(nodes[2].right, null);
-          deepStrictEqual(nodes[2].max?.data, nodes[2]?.data);
-          deepStrictEqual(nodes[2].min?.data, nodes[2]?.data);
+          deepStrictEqual(nodes[2].max.data, nodes[2]?.data);
+          deepStrictEqual(nodes[2].min.data, nodes[2]?.data);
           deepStrictEqual(nodes[2].parent?.data, nodes[3]?.data);
           deepStrictEqual(nodes[2].sibling?.data, nodes[4]?.data);
           deepStrictEqual(nodes[2].size, 1);
@@ -196,8 +196,8 @@ suite("AVLTree", () => {
           deepStrictEqual(nodes[1].height, 2);
           deepStrictEqual(nodes[1].left?.data, nodes[0]?.data);
           deepStrictEqual(nodes[1].right?.data, nodes[3]?.data);
-          deepStrictEqual(nodes[1].max?.data, nodes[4]?.data);
-          deepStrictEqual(nodes[1].min?.data, nodes[0]?.data);
+          deepStrictEqual(nodes[1].max.data, nodes[4]?.data);
+          deepStrictEqual(nodes[1].min.data, nodes[0]?.data);
           deepStrictEqual(nodes[1].parent, null);
           deepStrictEqual(nodes[1].sibling, null);
           deepStrictEqual(nodes[1].size, 5);
@@ -209,8 +209,8 @@ suite("AVLTree", () => {
           deepStrictEqual(nodes[0].height, 0);
           deepStrictEqual(nodes[0].left, null);
           deepStrictEqual(nodes[0].right, null);
-          deepStrictEqual(nodes[0].max?.data, nodes[0]?.data);
-          deepStrictEqual(nodes[0].min?.data, nodes[0]?.data);
+          deepStrictEqual(nodes[0].max.data, nodes[0]?.data);
+          deepStrictEqual(nodes[0].min.data, nodes[0]?.data);
           deepStrictEqual(nodes[0].parent?.data, nodes[1]?.data);
           deepStrictEqual(nodes[0].sibling?.data, nodes[3]?.data);
           deepStrictEqual(nodes[0].size, 1);
@@ -343,7 +343,10 @@ suite("AVLTree", () => {
     deepStrictEqual(tree.size, 5);
     deepStrictEqual(tree.width, 2);
     AVLTree.isAVL(tree);
-    deepStrictEqual(tree.array, input.sort());
+    deepStrictEqual(
+      tree.array,
+      input.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
+    );
   });
 
   test(".from()", () => {

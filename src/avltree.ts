@@ -13,7 +13,9 @@ export class AVLTree<T = unknown> extends BSTree<T> {
   public delete(data: T): INodeDeleteResult<T> {
     const { node, success } = super.delete(data);
 
-    if (!success || !node) {
+    if (!success) {
+      return { node };
+    } else if (!node) {
       return { node, success };
     }
 
@@ -22,7 +24,7 @@ export class AVLTree<T = unknown> extends BSTree<T> {
     return { node, success };
   }
 
-  #rebalance(node: Node<T> | null, stop?: boolean): void {
+  #rebalance(node: Node<T> | null, stop = false): void {
     let next = node;
 
     while (next) {

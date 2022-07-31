@@ -47,9 +47,9 @@ function assertNode<T = unknown>(
   deepStrictEqual(actual.right, expected.right);
   deepStrictEqual(actual.right?.data, expected.right?.data);
   deepStrictEqual(actual.max, expected.max);
-  deepStrictEqual(actual.max?.data, expected.max?.data);
+  deepStrictEqual(actual.max.data, expected.max?.data);
   deepStrictEqual(actual.min, expected.min);
-  deepStrictEqual(actual.min?.data, expected.min?.data);
+  deepStrictEqual(actual.min.data, expected.min?.data);
   deepStrictEqual(actual.parent, expected.parent);
   deepStrictEqual(actual.parent?.data, expected.parent?.data);
   deepStrictEqual(actual.sibling, expected.sibling);
@@ -67,7 +67,8 @@ function assertIterator<T = unknown>(
   let i = 0;
 
   for (const node of actual) {
-    assertNode(node, expected[i++]);
+    assertNode(node, expected[i]);
+    i += 1;
   }
 
   deepStrictEqual(i, expected.length);
@@ -588,7 +589,10 @@ suite("BSTree", () => {
   test(".from() (default comparator)", () => {
     const input = [3, 1, 0, 2, 5, 4, 6];
     const other_tree = BSTree.from(input);
-    deepStrictEqual(other_tree.array, input.sort());
+    deepStrictEqual(
+      other_tree.array,
+      input.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
+    );
 
     assertTree<number>(other_tree, {
       height: 2,
