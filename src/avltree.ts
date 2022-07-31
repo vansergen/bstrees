@@ -1,5 +1,5 @@
 import { BSTree, IComparator, INodeDeleteResult } from "./bstree.js";
-import { Node } from "./node.js";
+import type { Node } from "./node.js";
 
 export class AVLTree<T = unknown> extends BSTree<T> {
   public insert(data: T): Node<T> {
@@ -13,7 +13,9 @@ export class AVLTree<T = unknown> extends BSTree<T> {
   public delete(data: T): INodeDeleteResult<T> {
     const { node, success } = super.delete(data);
 
-    if (!success || !node) {
+    if (!success) {
+      return { node };
+    } else if (!node) {
       return { node, success };
     }
 
@@ -22,7 +24,7 @@ export class AVLTree<T = unknown> extends BSTree<T> {
     return { node, success };
   }
 
-  #rebalance(node: Node<T> | null, stop?: boolean): void {
+  #rebalance(node: Node<T> | null, stop = false): void {
     let next = node;
 
     while (next) {
@@ -69,7 +71,7 @@ export class AVLTree<T = unknown> extends BSTree<T> {
       node.right = null;
 
       if (parent) {
-        parent[parent.left === node ? "left" : "right"] = right;
+        parent[BSTree.getDir(parent, node)] = right;
       } else {
         this.root = right;
       }
@@ -88,7 +90,7 @@ export class AVLTree<T = unknown> extends BSTree<T> {
       node.left = null;
 
       if (parent) {
-        parent[parent.left === node ? "left" : "right"] = left;
+        parent[BSTree.getDir(parent, node)] = left;
       } else {
         this.root = left;
       }
