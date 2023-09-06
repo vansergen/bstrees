@@ -108,7 +108,7 @@ suite("AVLTree", () => {
           deepStrictEqual(nodes[0].size, 1);
           deepStrictEqual(nodes[0].uncle, nodes[4]);
           deepStrictEqual(nodes[0].width, 1);
-        }
+        },
       );
     }
 
@@ -216,7 +216,7 @@ suite("AVLTree", () => {
           deepStrictEqual(nodes[0].size, 1);
           deepStrictEqual(nodes[0].uncle, null);
           deepStrictEqual(nodes[0].width, 1);
-        }
+        },
       );
     }
   });
@@ -267,7 +267,7 @@ suite("AVLTree", () => {
           deepStrictEqual(tree.min, null);
           deepStrictEqual(tree.size, 0);
           deepStrictEqual(tree.width, 0);
-        }
+        },
       );
     }
 
@@ -316,7 +316,7 @@ suite("AVLTree", () => {
           deepStrictEqual(tree.min, null);
           deepStrictEqual(tree.size, 0);
           deepStrictEqual(tree.width, 0);
-        }
+        },
       );
     }
 
@@ -351,7 +351,7 @@ suite("AVLTree", () => {
     AVLTree.isAVL(tree);
     deepStrictEqual(
       tree.array,
-      input.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
+      input.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)),
     );
   });
 

@@ -10,7 +10,7 @@ function assertTree<T = unknown>(
     min: Node<T> | null;
     size: number;
     width: number;
-  }
+  },
 ): void {
   deepStrictEqual(actual.height, expected.height);
   deepStrictEqual(actual.max, expected.max);
@@ -36,7 +36,7 @@ function assertNode<T = unknown>(
     size: number;
     uncle: Node<T> | null;
     width: number;
-  }
+  },
 ): void {
   deepStrictEqual(actual.data, expected.data);
   deepStrictEqual(actual.grandparent, expected.grandparent);
@@ -74,7 +74,7 @@ function assertIterator<T = unknown>(
   deepStrictEqual(i, expected.length);
   deepStrictEqual(
     actual.array,
-    expected.map(({ data }) => data)
+    expected.map(({ data }) => data),
   );
 }
 
@@ -581,7 +581,7 @@ suite("BSTree", () => {
       node3,
       node4,
       node5,
-      node6
+      node6,
     );
     deepStrictEqual(tree.find(2), node2);
   });
@@ -591,7 +591,7 @@ suite("BSTree", () => {
     const other_tree = BSTree.from(input);
     deepStrictEqual(
       other_tree.array,
-      input.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
+      input.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)),
     );
 
     assertTree<number>(other_tree, {
@@ -1814,7 +1814,7 @@ suite("BSTree", () => {
     const newTree = new BSTree<number>();
     const node = newTree.insert(2);
     const error = new TypeError(
-      "`node` is not an instance of the class `Node`"
+      "`node` is not an instance of the class `Node`",
     );
     throws(() => {
       node.left = {} as unknown as Node<number>;
@@ -1856,19 +1856,19 @@ suite("BSTree", () => {
       deepStrictEqual(BSTree.getDir(node_1, node_2), "right");
       throws(
         () => BSTree.getDir(0n as unknown as number),
-        new TypeError("Compare result is not a number")
+        new TypeError("Compare result is not a number"),
       );
       throws(
         () => BSTree.getDir(1 as unknown as Node, node_3),
-        new TypeError("Parent must be a valid Node")
+        new TypeError("Parent must be a valid Node"),
       );
       throws(
         () => BSTree.getDir(0),
-        new TypeError("Compare result must be a nonzero number")
+        new TypeError("Compare result must be a nonzero number"),
       );
       throws(
         () => BSTree.getDir(node_1, node_3),
-        new TypeError("Invalid `parent-child` pair")
+        new TypeError("Invalid `parent-child` pair"),
       );
     });
   });

@@ -19,7 +19,7 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
   readonly #comparator: IComparator<T>;
 
   public constructor(
-    comparator = (a: T, b: T): number => (a < b ? -1 : a > b ? 1 : 0)
+    comparator = (a: T, b: T): number => (a < b ? -1 : a > b ? 1 : 0),
   ) {
     this.#root = null;
     this.#comparator = comparator;
@@ -61,7 +61,7 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
   public find(data: T, options: { upsert: true }): Node<T>;
   public find(
     data: T,
-    { upsert = false }: INodeFindOptions = {}
+    { upsert = false }: INodeFindOptions = {},
   ): Node<T> | null {
     if (!this.#root) {
       return upsert ? (this.#root = new Node<T>(data)) : null;
@@ -177,7 +177,7 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
   public static getDir<T = unknown>(parent: Node<T>, child: Node<T>): IDir;
   public static getDir<T = unknown>(
     parent: Node<T> | number,
-    child?: Node<T>
+    child?: Node<T>,
   ): IDir {
     if (!child) {
       if (typeof parent !== "number") {
@@ -200,7 +200,7 @@ export class BSTree<T = unknown> implements Iterable<Node<T>> {
 
   public static from<T = unknown>(
     iterable: Iterable<T>,
-    comparator?: IComparator<T>
+    comparator?: IComparator<T>,
   ): BSTree<T> {
     const tree = new BSTree<T>(comparator);
     for (const a of iterable) {
