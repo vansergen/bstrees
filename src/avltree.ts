@@ -120,7 +120,7 @@ export class AVLTree<T = unknown> extends BSTree<T> {
 
   public static from<T = unknown>(
     iterable: Iterable<T>,
-    comparator?: IComparator<T>
+    comparator?: IComparator<T>,
   ): AVLTree<T> {
     const tree = new AVLTree<T>(comparator);
     for (const a of iterable) {
