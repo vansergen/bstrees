@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.0.0](https://github.com/vansergen/bstrees/compare/v1.1.5...v2.0.0) (2024-04-08)
+
+### ⚠ BREAKING CHANGES
+
+- drop `Node.js` `<18.20.1` support
+
+### Performance Improvements
+
+- drop `Node.js` `<18.20.1` support ([adc3fb6](https://github.com/vansergen/bstrees/commit/adc3fb65144229ea60674fbf6bead7a372644f9a))
+
 ## [1.1.5](https://github.com/vansergen/bstrees/compare/v1.1.4...v1.1.5) (2022-07-31)
 
 ### Performance Improvements
