@@ -6,8 +6,8 @@
   "type": "module",
   "types": "dist/index.d.ts",
   "engines": {
-    "node": ">=16.13.0",
-    "npm": ">=8.1.0"
+    "node": ">=18.20.1",
+    "npm": ">=10.5.0"
   },
   "repository": {
     "type": "git",
@@ -31,38 +31,38 @@
   },
   "homepage": "https://github.com/vansergen/bstrees#readme",
   "scripts": {
-    "build": "npm run build:remove && tsc",
-    "build:remove": "rm -rf ./dist",
-    "ci:all": "npm ci && npm run commitlint:all && npm run prettier && npm run eslint && npm run test:ci && npm publish --dry-run && npm run coverage:ci",
+    "build": "tsc",
+    "build:remove": "rm -rf dist",
+    "ci:all": "npm ci && npm run prettier && npm run eslint && npm run commitlint && npm test && npm publish --dry-run && npm run docs:build && npm run coverage",
     "commitlint": "commitlint --verbose --from=$( git rev-list --max-parents=0 $( git rev-parse --abbrev-ref HEAD ) )",
-    "coverage": "c8 npm test && c8 report --reporter=lcov",
-    "coverage:ci": "npm run prepublishOnly && npm run coverage",
-    "docs:build": "rm -rf ./docs && typedoc && npm run prettier:write",
-    "eslint": "eslint --parser-options project:tsconfig.json --ext .ts ./",
+    "coverage": "c8 npm test",
+    "docs:build": "typedoc",
+    "eslint": "eslint **/*.ts",
     "eslint:fix": "npm run eslint -- --fix",
-    "install:clean": "rm -fr node_modules && rm -f package-lock.json && npm install",
+    "install:clean": "npm install",
+    "postbuild": "prettier -c -w dist",
+    "postcoverage": "c8 report",
+    "postdocs:build": "prettier -c -w docs",
     "postpublish": "npm run build:remove",
+    "prebuild": "npm run build:remove",
+    "preinstall:clean": "rm -rf node_modules package-lock.json",
     "prepare": "husky",
-    "prepublishOnly": "npm run build && prettier -c -w ./dist/",
+    "prepublishOnly": "npm run build",
     "prettier": "prettier -c .",
     "prettier:write": "prettier -c -w .",
     "preversion": "npm run docs:build",
-    "test": "mocha 'dist/test/**/*.test.js' --ui=tdd --full-trace --bail",
-    "test:ci": "npm run build && npm test && npm run build:remove",
-    "ts-node": "node --loader ts-node/esm"
+    "test": "node --experimental-loader=ts-node/esm --test **/*.test.ts"
   },
   "devDependencies": {
     "@binden/commitlint-config": "^2.1.0",
     "@binden/semantic-release-config": "^3.0.0",
     "@binden/tsconfig": "^2.0.0",
-    "@types/mocha": "^10.0.6",
     "c8": "^9.1.0",
-    "eslint-config-binden-ts": "^3.0.0",
+    "eslint-config-binden-ts": "^4.0.0",
     "husky": "^9.0.11",
-    "lint-staged": "^15.2.0",
-    "mocha": "^10.2.0",
-    "prettier": "^3.2.4",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
     "ts-node": "^10.9.2",
-    "typedoc": "^0.25.7"
+    "typedoc": "^0.25.13"
   }
 }

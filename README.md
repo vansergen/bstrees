@@ -101,5 +101,5 @@ const tree = new AVLTree<number>();
 ### Coverage
 
 ```bash
-npm run coverage:ci
+npm run coverage
 ```

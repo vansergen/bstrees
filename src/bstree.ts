@@ -1,3 +1,4 @@
+/* eslint-disable init-declarations */
 import { Node } from "./node.js";
 import { TreeIterator } from "./iterator.js";
 
