@@ -42,7 +42,7 @@
     "eslint:fix": "npm run eslint -- --fix",
     "install:clean": "rm -fr node_modules && rm -f package-lock.json && npm install",
     "postpublish": "npm run build:remove",
-    "prepare": "husky install",
+    "prepare": "husky",
     "prepublishOnly": "npm run build && prettier -c -w ./dist/",
     "prettier": "prettier -c .",
     "prettier:write": "prettier -c -w .",
