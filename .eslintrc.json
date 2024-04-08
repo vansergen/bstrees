@@ -1,1 +1,1 @@
-{ "extends": ["binden-ts"] }
+{ "extends": ["binden-ts"], "parserOptions": { "project": "tsconfig.json" } }
