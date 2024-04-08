@@ -47,9 +47,7 @@
     "prettier": "prettier -c .",
     "prettier:write": "prettier -c -w .",
     "preversion": "npm run docs:build",
-    "test": "mocha 'dist/test/**/*.test.js' --ui=tdd --full-trace --bail",
-    "test:ci": "npm run build && npm test && npm run build:remove",
-    "ts-node": "node --loader ts-node/esm"
+    "test": "node --loader ts-node/esm --test test/*.test.ts"
   },
   "devDependencies": {
     "@binden/commitlint-config": "^2.1.0",
@@ -60,7 +58,6 @@
     "eslint-config-binden-ts": "^3.0.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.0",
-    "mocha": "^10.2.0",
     "prettier": "^3.2.4",
     "ts-node": "^10.9.2",
     "typedoc": "^0.25.7"

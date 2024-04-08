@@ -1,4 +1,8 @@
-import { deepStrictEqual, throws } from "node:assert";
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable init-declarations */
+import { deepEqual, throws } from "node:assert/strict";
+import { describe, it } from "node:test";
+
 import { BSTree } from "../index.js";
 import { Node } from "../src/node.js";
 
@@ -12,13 +16,13 @@ function assertTree<T = unknown>(
     width: number;
   },
 ): void {
-  deepStrictEqual(actual.height, expected.height);
-  deepStrictEqual(actual.max, expected.max);
-  deepStrictEqual(actual.max?.data, expected.max?.data);
-  deepStrictEqual(actual.min, expected.min);
-  deepStrictEqual(actual.min?.data, expected.min?.data);
-  deepStrictEqual(actual.size, expected.size);
-  deepStrictEqual(actual.width, expected.width);
+  deepEqual(actual.height, expected.height);
+  deepEqual(actual.max, expected.max);
+  deepEqual(actual.max?.data, expected.max?.data);
+  deepEqual(actual.min, expected.min);
+  deepEqual(actual.min?.data, expected.min?.data);
+  deepEqual(actual.size, expected.size);
+  deepEqual(actual.width, expected.width);
 }
 
 function assertNode<T = unknown>(
@@ -38,26 +42,26 @@ function assertNode<T = unknown>(
     width: number;
   },
 ): void {
-  deepStrictEqual(actual.data, expected.data);
-  deepStrictEqual(actual.grandparent, expected.grandparent);
-  deepStrictEqual(actual.grandparent?.data, expected.grandparent?.data);
-  deepStrictEqual(actual.height, expected.height);
-  deepStrictEqual(actual.left, expected.left);
-  deepStrictEqual(actual.left?.data, expected.left?.data);
-  deepStrictEqual(actual.right, expected.right);
-  deepStrictEqual(actual.right?.data, expected.right?.data);
-  deepStrictEqual(actual.max, expected.max);
-  deepStrictEqual(actual.max.data, expected.max?.data);
-  deepStrictEqual(actual.min, expected.min);
-  deepStrictEqual(actual.min.data, expected.min?.data);
-  deepStrictEqual(actual.parent, expected.parent);
-  deepStrictEqual(actual.parent?.data, expected.parent?.data);
-  deepStrictEqual(actual.sibling, expected.sibling);
-  deepStrictEqual(actual.sibling?.data, expected.sibling?.data);
-  deepStrictEqual(actual.size, expected.size);
-  deepStrictEqual(actual.uncle, expected.uncle);
-  deepStrictEqual(actual.uncle?.data, expected.uncle?.data);
-  deepStrictEqual(actual.width, expected.width);
+  deepEqual(actual.data, expected.data);
+  deepEqual(actual.grandparent, expected.grandparent);
+  deepEqual(actual.grandparent?.data, expected.grandparent?.data);
+  deepEqual(actual.height, expected.height);
+  deepEqual(actual.left, expected.left);
+  deepEqual(actual.left?.data, expected.left?.data);
+  deepEqual(actual.right, expected.right);
+  deepEqual(actual.right?.data, expected.right?.data);
+  deepEqual(actual.max, expected.max);
+  deepEqual(actual.max.data, expected.max?.data);
+  deepEqual(actual.min, expected.min);
+  deepEqual(actual.min.data, expected.min?.data);
+  deepEqual(actual.parent, expected.parent);
+  deepEqual(actual.parent?.data, expected.parent?.data);
+  deepEqual(actual.sibling, expected.sibling);
+  deepEqual(actual.sibling?.data, expected.sibling?.data);
+  deepEqual(actual.size, expected.size);
+  deepEqual(actual.uncle, expected.uncle);
+  deepEqual(actual.uncle?.data, expected.uncle?.data);
+  deepEqual(actual.width, expected.width);
 }
 
 function assertIterator<T = unknown>(
@@ -71,14 +75,14 @@ function assertIterator<T = unknown>(
     i += 1;
   }
 
-  deepStrictEqual(i, expected.length);
-  deepStrictEqual(
+  deepEqual(i, expected.length);
+  deepEqual(
     actual.array,
     expected.map(({ data }) => data),
   );
 }
 
-suite("BSTree", () => {
+describe("BSTree", () => {
   const tree = new BSTree<number>();
   let node0: Node<number>;
   let node1: Node<number>;
@@ -88,7 +92,7 @@ suite("BSTree", () => {
   let node5: Node<number>;
   let node6: Node<number>;
 
-  test(".insert()", () => {
+  it(".insert()", () => {
     assertTree<number>(tree, {
       height: -1,
       max: null,
@@ -96,11 +100,11 @@ suite("BSTree", () => {
       size: 0,
       width: 0,
     });
-    deepStrictEqual(tree.find(3), null);
+    deepEqual(tree.find(3), null);
 
     // Insert 3
     node3 = tree.insert(3);
-    deepStrictEqual(node3, tree.insert(3));
+    deepEqual(node3, tree.insert(3));
     assertNode<number>(node3, {
       data: 3,
       grandparent: null,
@@ -123,11 +127,11 @@ suite("BSTree", () => {
       width: 1,
     });
     assertIterator<number>(tree, node3);
-    deepStrictEqual(tree.find(3), node3);
+    deepEqual(tree.find(3), node3);
 
     // Insert 5
     node5 = tree.insert(5);
-    deepStrictEqual(node5, tree.insert(5));
+    deepEqual(node5, tree.insert(5));
     assertNode<number>(node3, {
       data: 3,
       grandparent: null,
@@ -164,7 +168,7 @@ suite("BSTree", () => {
       width: 1,
     });
     assertIterator<number>(tree, node3, node5);
-    deepStrictEqual(tree.find(5), node5);
+    deepEqual(tree.find(5), node5);
 
     // Insert 4
     node4 = tree.insert(4);
@@ -218,7 +222,7 @@ suite("BSTree", () => {
       width: 1,
     });
     assertIterator<number>(tree, node3, node4, node5);
-    deepStrictEqual(tree.find(4), node4);
+    deepEqual(tree.find(4), node4);
 
     // Insert 6
     node6 = tree.insert(6);
@@ -286,7 +290,7 @@ suite("BSTree", () => {
       width: 2,
     });
     assertIterator<number>(tree, node3, node4, node5, node6);
-    deepStrictEqual(tree.find(6), node6);
+    deepEqual(tree.find(6), node6);
 
     // Insert 1
     node1 = tree.insert(1);
@@ -368,7 +372,7 @@ suite("BSTree", () => {
       width: 2,
     });
     assertIterator<number>(tree, node1, node3, node4, node5, node6);
-    deepStrictEqual(tree.find(1), node1);
+    deepEqual(tree.find(1), node1);
 
     // Insert 0
     node0 = tree.insert(0);
@@ -464,7 +468,7 @@ suite("BSTree", () => {
       width: 3,
     });
     assertIterator<number>(tree, node0, node1, node3, node4, node5, node6);
-    deepStrictEqual(tree.find(0), node0);
+    deepEqual(tree.find(0), node0);
 
     // Insert 2
     node2 = tree.insert(2);
@@ -583,13 +587,13 @@ suite("BSTree", () => {
       node5,
       node6,
     );
-    deepStrictEqual(tree.find(2), node2);
+    deepEqual(tree.find(2), node2);
   });
 
-  test(".from() (default comparator)", () => {
+  it(".from() (default comparator)", () => {
     const input = [3, 1, 0, 2, 5, 4, 6];
     const other_tree = BSTree.from(input);
-    deepStrictEqual(
+    deepEqual(
       other_tree.array,
       input.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)),
     );
@@ -603,7 +607,7 @@ suite("BSTree", () => {
     });
   });
 
-  test(".from()", () => {
+  it(".from()", () => {
     const input = [
       { id: 3 },
       { id: 1 },
@@ -617,12 +621,12 @@ suite("BSTree", () => {
       return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
     }
     const other_tree = BSTree.from(input, Comparator);
-    deepStrictEqual(other_tree.array, input.sort(Comparator));
+    deepEqual(other_tree.array, input.sort(Comparator));
   });
 
-  test(".delete()", () => {
+  it(".delete()", () => {
     // remove 3
-    deepStrictEqual(tree.delete(3), { node: node4, success: true });
+    deepEqual(tree.delete(3), { node: node4, success: true });
     assertNode<number>(node2, {
       data: 2,
       grandparent: node4,
@@ -728,12 +732,12 @@ suite("BSTree", () => {
       size: 6,
       width: 3,
     });
-    deepStrictEqual(tree.delete(3), { node: null });
+    deepEqual(tree.delete(3), { node: null });
     assertIterator<number>(tree, node0, node1, node2, node4, node5, node6);
-    deepStrictEqual(tree.find(3), null);
+    deepEqual(tree.find(3), null);
 
     // remove 1
-    deepStrictEqual(tree.delete(1), { node: node2, success: true });
+    deepEqual(tree.delete(1), { node: node2, success: true });
     assertNode<number>(node2, {
       data: 2,
       grandparent: null,
@@ -839,12 +843,12 @@ suite("BSTree", () => {
       size: 5,
       width: 2,
     });
-    deepStrictEqual(tree.delete(1), { node: null });
+    deepEqual(tree.delete(1), { node: null });
     assertIterator<number>(tree, node0, node2, node4, node5, node6);
-    deepStrictEqual(tree.find(1), null);
+    deepEqual(tree.find(1), null);
 
     // remove 2
-    deepStrictEqual(tree.delete(2), { node: node0, success: true });
+    deepEqual(tree.delete(2), { node: node0, success: true });
     assertNode<number>(node2, {
       data: 2,
       grandparent: null,
@@ -950,12 +954,12 @@ suite("BSTree", () => {
       size: 4,
       width: 2,
     });
-    deepStrictEqual(tree.delete(2), { node: null });
+    deepEqual(tree.delete(2), { node: null });
     assertIterator<number>(tree, node0, node4, node5, node6);
-    deepStrictEqual(tree.find(2), null);
+    deepEqual(tree.find(2), null);
 
     // remove 5
-    deepStrictEqual(tree.delete(5), { node: node6, success: true });
+    deepEqual(tree.delete(5), { node: node6, success: true });
     assertNode<number>(node2, {
       data: 2,
       grandparent: null,
@@ -1061,12 +1065,12 @@ suite("BSTree", () => {
       size: 3,
       width: 2,
     });
-    deepStrictEqual(tree.delete(5), { node: null });
+    deepEqual(tree.delete(5), { node: null });
     assertIterator<number>(tree, node0, node4, node6);
-    deepStrictEqual(tree.find(5), null);
+    deepEqual(tree.find(5), null);
 
     // remove 6
-    deepStrictEqual(tree.delete(6), { node: node4, success: true });
+    deepEqual(tree.delete(6), { node: node4, success: true });
     assertNode<number>(node2, {
       data: 2,
       grandparent: null,
@@ -1172,12 +1176,12 @@ suite("BSTree", () => {
       size: 2,
       width: 1,
     });
-    deepStrictEqual(tree.delete(6), { node: null });
+    deepEqual(tree.delete(6), { node: null });
     assertIterator<number>(tree, node0, node4);
-    deepStrictEqual(tree.find(6), null);
+    deepEqual(tree.find(6), null);
 
     // remove 4
-    deepStrictEqual(tree.delete(4), { node: node0, success: true });
+    deepEqual(tree.delete(4), { node: node0, success: true });
     assertNode<number>(node2, {
       data: 2,
       grandparent: null,
@@ -1283,16 +1287,16 @@ suite("BSTree", () => {
       size: 1,
       width: 1,
     });
-    deepStrictEqual(tree.delete(4), { node: null });
+    deepEqual(tree.delete(4), { node: null });
     assertIterator<number>(tree, node0);
-    deepStrictEqual(tree.find(4), null);
+    deepEqual(tree.find(4), null);
 
     // insert 4
     node4 = tree.insert(4);
-    deepStrictEqual(tree.find(4), node4);
+    deepEqual(tree.find(4), node4);
 
     // remove 0
-    deepStrictEqual(tree.delete(0), { node: node4, success: true });
+    deepEqual(tree.delete(0), { node: node4, success: true });
     assertNode<number>(node2, {
       data: 2,
       grandparent: null,
@@ -1398,12 +1402,12 @@ suite("BSTree", () => {
       size: 1,
       width: 1,
     });
-    deepStrictEqual(tree.delete(0), { node: null });
+    deepEqual(tree.delete(0), { node: null });
     assertIterator<number>(tree, node4);
-    deepStrictEqual(tree.find(0), null);
+    deepEqual(tree.find(0), null);
 
     // remove 4
-    deepStrictEqual(tree.delete(4), { node: null, success: true });
+    deepEqual(tree.delete(4), { node: null, success: true });
     assertNode<number>(node2, {
       data: 2,
       grandparent: null,
@@ -1509,65 +1513,65 @@ suite("BSTree", () => {
       size: 0,
       width: 0,
     });
-    deepStrictEqual(tree.delete(4), { node: null });
+    deepEqual(tree.delete(4), { node: null });
     assertIterator<number>(tree);
-    deepStrictEqual(tree.find(4), null);
+    deepEqual(tree.find(4), null);
 
     // insert 4 and 3
     node4 = tree.insert(4);
     node3 = tree.insert(3);
-    deepStrictEqual(tree.find(4), node4);
-    deepStrictEqual(tree.find(3), node3);
+    deepEqual(tree.find(4), node4);
+    deepEqual(tree.find(3), node3);
 
     // remove 3
-    deepStrictEqual(tree.delete(3), { node: node4, success: true });
-    deepStrictEqual(tree.find(4), node4);
-    deepStrictEqual(tree.find(3), null);
-    deepStrictEqual(tree.delete(3), { node: null });
+    deepEqual(tree.delete(3), { node: node4, success: true });
+    deepEqual(tree.find(4), node4);
+    deepEqual(tree.find(3), null);
+    deepEqual(tree.delete(3), { node: null });
     assertIterator<number>(tree, node4);
 
     // insert 0 and 2
     node0 = tree.insert(0);
     node2 = tree.insert(2);
-    deepStrictEqual(tree.find(2), node2);
-    deepStrictEqual(tree.find(0), node0);
+    deepEqual(tree.find(2), node2);
+    deepEqual(tree.find(0), node0);
 
     // remove 0
-    deepStrictEqual(tree.delete(0), { node: node2, success: true });
-    deepStrictEqual(tree.find(4), node4);
-    deepStrictEqual(tree.find(2), node2);
-    deepStrictEqual(tree.find(0), null);
-    deepStrictEqual(tree.delete(0), { node: null });
+    deepEqual(tree.delete(0), { node: node2, success: true });
+    deepEqual(tree.find(4), node4);
+    deepEqual(tree.find(2), node2);
+    deepEqual(tree.find(0), null);
+    deepEqual(tree.delete(0), { node: null });
     assertIterator<number>(tree, node2, node4);
 
     // insert 0
     node0 = tree.insert(0);
-    deepStrictEqual(tree.find(0), node0);
+    deepEqual(tree.find(0), node0);
 
     // remove 2 and 4
-    deepStrictEqual(tree.delete(2), { node: node0, success: true });
-    deepStrictEqual(tree.delete(4), { node: node0, success: true });
-    deepStrictEqual(tree.find(4), null);
-    deepStrictEqual(tree.find(0), node0);
-    deepStrictEqual(tree.find(2), null);
+    deepEqual(tree.delete(2), { node: node0, success: true });
+    deepEqual(tree.delete(4), { node: node0, success: true });
+    deepEqual(tree.find(4), null);
+    deepEqual(tree.find(0), node0);
+    deepEqual(tree.find(2), null);
 
     // insert 2, 1 and 3
     node2 = tree.insert(2);
     node1 = tree.insert(1);
     node3 = tree.insert(3);
-    deepStrictEqual(tree.find(0), node0);
-    deepStrictEqual(tree.find(1), node1);
-    deepStrictEqual(tree.find(2), node2);
-    deepStrictEqual(tree.find(3), node3);
+    deepEqual(tree.find(0), node0);
+    deepEqual(tree.find(1), node1);
+    deepEqual(tree.find(2), node2);
+    deepEqual(tree.find(3), node3);
 
     // remove 2, 1, 3 and 0
-    deepStrictEqual(tree.delete(2), { node: node3, success: true });
-    deepStrictEqual(tree.delete(3), { node: node1, success: true });
-    deepStrictEqual(tree.delete(1), { node: node0, success: true });
-    deepStrictEqual(tree.delete(0), { node: null, success: true });
+    deepEqual(tree.delete(2), { node: node3, success: true });
+    deepEqual(tree.delete(3), { node: node1, success: true });
+    deepEqual(tree.delete(1), { node: node0, success: true });
+    deepEqual(tree.delete(0), { node: null, success: true });
   });
 
-  test(".delete() (when `min.right !== null`)\n", () => {
+  it(".delete() (when `min.right !== null`)\n", () => {
     const input = [2, 0, 5, 1, 3, 6, 4];
     const new_tree = BSTree.from(input);
     /*
@@ -1587,13 +1591,13 @@ suite("BSTree", () => {
     const node_5 = new_tree.find(5);
     const node_6 = new_tree.find(6);
 
-    deepStrictEqual(node_0?.data, 0);
-    deepStrictEqual(node_1?.data, 1);
-    deepStrictEqual(node_2?.data, 2);
-    deepStrictEqual(node_3?.data, 3);
-    deepStrictEqual(node_4?.data, 4);
-    deepStrictEqual(node_5?.data, 5);
-    deepStrictEqual(node_6?.data, 6);
+    deepEqual(node_0?.data, 0);
+    deepEqual(node_1?.data, 1);
+    deepEqual(node_2?.data, 2);
+    deepEqual(node_3?.data, 3);
+    deepEqual(node_4?.data, 4);
+    deepEqual(node_5?.data, 5);
+    deepEqual(node_6?.data, 6);
 
     assertNode(node_0, {
       data: 0,
@@ -1804,13 +1808,13 @@ suite("BSTree", () => {
     });
   });
 
-  test("empty iterator", () => {
+  it("empty iterator", () => {
     const iterator = tree[Symbol.iterator]();
-    deepStrictEqual(typeof iterator.next().value, "undefined");
-    deepStrictEqual(typeof iterator.next().value, "undefined");
+    deepEqual(typeof iterator.next().value, "undefined");
+    deepEqual(typeof iterator.next().value, "undefined");
   });
 
-  test("throw an error when set value is not an instance of the `Node`", () => {
+  it("throw an error when set value is not an instance of the `Node`", () => {
     const newTree = new BSTree<number>();
     const node = newTree.insert(2);
     const error = new TypeError(
@@ -1824,8 +1828,8 @@ suite("BSTree", () => {
     }, error);
   });
 
-  suite("Static methods", () => {
-    test(".from()", () => {
+  describe("Static methods", () => {
+    it(".from()", () => {
       const input = [
         { id: 3 },
         { id: 1 },
@@ -1839,10 +1843,10 @@ suite("BSTree", () => {
         return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
       }
       const other_tree = BSTree.from(input, Comparator);
-      deepStrictEqual(other_tree.array, input.sort(Comparator));
+      deepEqual(other_tree.array, input.sort(Comparator));
     });
 
-    test(".getDir()", () => {
+    it(".getDir()", () => {
       const node_0 = new Node(0);
       const node_1 = new Node(1);
       const node_2 = new Node(2);
@@ -1850,10 +1854,10 @@ suite("BSTree", () => {
       node_1.right = node_2;
       node_1.left = node_0;
 
-      deepStrictEqual(BSTree.getDir(-1), "right");
-      deepStrictEqual(BSTree.getDir(1), "left");
-      deepStrictEqual(BSTree.getDir(node_1, node_0), "left");
-      deepStrictEqual(BSTree.getDir(node_1, node_2), "right");
+      deepEqual(BSTree.getDir(-1), "right");
+      deepEqual(BSTree.getDir(1), "left");
+      deepEqual(BSTree.getDir(node_1, node_0), "left");
+      deepEqual(BSTree.getDir(node_1, node_2), "right");
       throws(
         () => BSTree.getDir(0n as unknown as number),
         new TypeError("Compare result is not a number"),
