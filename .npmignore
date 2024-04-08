@@ -1,4 +1,7 @@
-# Coverage directory used by nyc
+# c8 config - https://github.com/bcoe/c8/
+.c8rc.json
+
+# Coverage directory used by c8
 coverage
 
 # GitHub folder
@@ -15,7 +18,7 @@ docs
 .commitlintrc.json
 
 # ESLint config - https://eslint.org/
-.eslintrc.json
+eslint.config.js
 
 # ESLint ignore - https://eslint.org/docs/user-guide/configuring#eslintignore
 .eslintignore
@@ -25,6 +28,9 @@ docs
 
 # lint-staged config - https://github.com/okonet/lint-staged
 .lintstagedrc.json
+
+# Prettier ignore
+.prettierignore
 
 # semantic-release config - https://semantic-release.gitbook.io/semantic-release/
 .releaserc.json
