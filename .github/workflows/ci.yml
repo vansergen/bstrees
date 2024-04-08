@@ -33,7 +33,7 @@ jobs:
         run: npm run commitlint
 
       - name: Tests
-        run: npm run test:ci
+        run: npm run test
 
       - name: TypeDoc
         run: npm run docs:build
@@ -42,7 +42,7 @@ jobs:
         run: npm publish --dry-run
 
       - name: Coverage
-        run: npm run coverage:ci
+        run: npm run coverage
 
       - name: Coveralls
         uses: coverallsapp/github-action@master
