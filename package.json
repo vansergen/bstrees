@@ -60,7 +60,7 @@
     "c8": "^11.0.0",
     "eslint-config-binden-ts": "^4.0.3",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.7",
+    "lint-staged": "^17.0.8",
     "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
     "typedoc": "^0.28.19"
