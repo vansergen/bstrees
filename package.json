@@ -1,7 +1,7 @@
 {
   "name": "bstrees",
   "version": "2.0.0",
-  "description": "Binary search trees",
+  "description": "Sorted sets backed by binary search trees (AVL and unbalanced)",
   "main": "./dist/index.js",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -25,11 +25,12 @@
     "url": "git+https://github.com/vansergen/bstrees.git"
   },
   "keywords": [
-    "binary tree",
-    "bintree",
+    "avl tree",
     "binary search tree",
     "bstree",
-    "avl tree"
+    "ordered set",
+    "sorted set",
+    "tree"
   ],
   "author": "Sergey Bakulin <sergey.bakulin.github@gmail.com>",
   "license": "AGPL-3.0-only",
