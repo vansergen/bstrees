@@ -4,9 +4,20 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+    cooldown:
+      default-days: 5
+      semver-major-days: 30
     allow:
       - dependency-type: direct
+    ignore:
+      # Tracks the lowest supported Node.js major
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+    groups:
+      dev-dependencies:
+        dependency-type: development
+        update-types: [minor, patch]
     assignees:
       - vansergen
     versioning-strategy: increase
@@ -20,7 +31,12 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+    cooldown:
+      default-days: 5
+    groups:
+      github-actions:
+        patterns: ["*"]
     assignees:
       - vansergen
     labels:
