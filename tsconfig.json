@@ -5,5 +5,5 @@
     "noEmit": true,
     "types": ["node"]
   },
-  "include": ["src", "test", "scripts"]
+  "include": ["bench", "scripts", "src", "test"]
 }
