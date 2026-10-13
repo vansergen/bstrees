@@ -31,9 +31,10 @@ import { deepEqual, equal, rejects } from "node:assert/strict";
 import { AVLTree, BSTree } from "bstrees";
 
 const tree = AVLTree.from([3, 1, 2]);
-deepEqual(tree.array, [1, 2, 3]);
+deepEqual(tree.toArray(), [1, 2, 3]);
+deepEqual(tree.values().map((value) => value * 2).toArray(), [2, 4, 6]);
 equal(new BSTree().size, 0);
-await rejects(import("bstrees/dist/node.js"), {
+await rejects(import("bstrees/dist/internal/core.js"), {
   code: "ERR_PACKAGE_PATH_NOT_EXPORTED",
 });
 `;
@@ -43,15 +44,29 @@ const { deepEqual, equal } = require("node:assert/strict");
 const { AVLTree } = require("bstrees");
 const { name } = require("bstrees/package.json");
 
-deepEqual(AVLTree.from([2, 1]).array, [1, 2]);
+deepEqual(AVLTree.from([2, 1]).toArray(), [1, 2]);
 equal(name, "bstrees");
 `;
 
 const consumer = `
-import { AVLTree, BSTree } from "bstrees";
+import { AVLTree, BSTree, type SortedTree } from "bstrees";
 
-const tree: BSTree<number> = AVLTree.from([1, 2, 3]);
+interface IOrder {
+  price: number;
+}
+
+const tree: SortedTree<number> = AVLTree.from([1, 2, 3]);
+const orders = new BSTree<IOrder>((a, b) => a.price - b.price);
+
 export const size: number = tree.size;
+export const min: number | undefined = tree.min();
+export const order: IOrder = orders.getOrInsert({ price: 1 });
+
+// @ts-expect-error -- objects require a comparator
+export const invalid = new AVLTree<IOrder>();
+
+// @ts-expect-error -- \`Node\` is not exported anymore
+export type RemovedNode = import("bstrees").Node;
 `;
 
 function run(command: string, args: string[], cwd: string): string {

@@ -14,5 +14,6 @@ export default [
       },
     },
   },
+  { files: ["test/**/*.ts"], rules: { "no-undefined": "off" } },
   { ignores: ["dist/*", "docs/*", "coverage/*", "eslint.config.js"] },
 ];

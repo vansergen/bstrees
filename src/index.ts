@@ -1,4 +1,9 @@
-export * from "./avltree.js";
-export * from "./bstree.js";
-export * from "./iterator.js";
-export * from "./node.js";
+export { AVLTree } from "./avltree.js";
+export { BSTree } from "./bstree.js";
+export type { SortedTree } from "./sorted-tree.js";
+export type {
+  Comparator,
+  ComparatorArgs,
+  RangeOptions,
+  TreeIterator,
+} from "./types.js";

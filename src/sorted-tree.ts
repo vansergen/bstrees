@@ -1,0 +1,241 @@
+import { defaultCompare } from "./compare.js";
+import { TreeCore } from "./internal/core.js";
+import { iterate, toRange } from "./iterator.js";
+import type { Comparator, RangeOptions, TreeIterator } from "./types.js";
+
+/**
+ * Test-only access to the internals of a tree.
+ *
+ * @internal
+ */
+// eslint-disable-next-line init-declarations -- assigned in the static block of `SortedTree`
+export let getCore: <T>(tree: SortedTree<T>) => TreeCore<T>;
+
+/**
+ * A sorted collection of unique values, ordered by a {@link Comparator}.
+ * {@link BSTree} and {@link AVLTree} share this API; use this type to accept
+ * either of them.
+ *
+ * Values are unique with respect to the comparator: inserting a value equal to
+ * a stored one keeps the stored one. Iteration yields values in ascending
+ * order.
+ */
+export abstract class SortedTree<T> implements Iterable<T> {
+  readonly #core: TreeCore<T>;
+
+  static {
+    getCore = <U>(tree: SortedTree<U>): TreeCore<U> => tree.#core;
+  }
+
+  /** @internal */
+  protected constructor(compare: Comparator<T> | undefined, balanced: boolean) {
+    this.#core = new TreeCore(compare ?? defaultCompare, balanced);
+  }
+
+  /** The number of values in the tree. O(1). */
+  public get size(): number {
+    return this.#core.size;
+  }
+
+  /**
+   * The number of edges on the longest path from the root to a leaf: `-1` for
+   * an empty tree and `0` for a tree with a single value. O(1).
+   */
+  public get height(): number {
+    return (this.#core.root?.height ?? 0) - 1;
+  }
+
+  /**
+   * Checks whether the tree contains a value equal to `value`.
+   *
+   * @throws {TypeError} If the comparator rejects the value.
+   */
+  public has(value: T): boolean {
+    return this.#core.find(value) !== null;
+  }
+
+  /**
+   * Returns the stored value equal to `value`. Useful when the comparator only
+   * looks at a key: pass a probe with that key to get the stored record.
+   *
+   * @example
+   * ```ts
+   * const users = new AVLTree<{ id: number; name: string }>((a, b) => a.id - b.id);
+   * users.insert({ id: 1, name: "Alice" });
+   * users.get({ id: 1, name: "" })?.name; // "Alice"
+   * ```
+   */
+  public get(value: T): T | undefined {
+    return this.#core.find(value)?.value;
+  }
+
+  /**
+   * Inserts `value` unless an equal value is already stored (that value is
+   * kept as is).
+   *
+   * @returns `true` if the value was inserted.
+   * @throws {TypeError} If the comparator rejects the value.
+   */
+  public insert(value: T): boolean {
+    const { size } = this.#core;
+    this.#core.insert(value);
+    return this.#core.size !== size;
+  }
+
+  /**
+   * Returns the stored value equal to `value`, inserting `value` first if
+   * there is none.
+   *
+   * @example
+   * ```ts
+   * const book = new AVLTree<{ price: number; orders: number[] }>(
+   *   (a, b) => a.price - b.price,
+   * );
+   * book.getOrInsert({ price: 10, orders: [] }).orders.push(1);
+   * book.getOrInsert({ price: 10, orders: [] }).orders.push(2);
+   * book.get({ price: 10, orders: [] })?.orders; // [1, 2]
+   * ```
+   */
+  public getOrInsert(value: T): T {
+    return this.#core.insert(value).value;
+  }
+
+  /**
+   * Removes the value equal to `value`.
+   *
+   * @returns `true` if a value was removed.
+   */
+  public delete(value: T): boolean {
+    const node = this.#core.find(value);
+
+    if (!node) {
+      return false;
+    }
+
+    this.#core.remove(node);
+    return true;
+  }
+
+  /** Removes all values. */
+  public clear(): void {
+    this.#core.clear();
+  }
+
+  /** Returns the smallest value, or `undefined` if the tree is empty. */
+  public min(): T | undefined {
+    return this.#core.first()?.value;
+  }
+
+  /** Returns the largest value, or `undefined` if the tree is empty. */
+  public max(): T | undefined {
+    return this.#core.last()?.value;
+  }
+
+  /** Removes and returns the smallest value. */
+  public popMin(): T | undefined {
+    const node = this.#core.first();
+
+    if (node) {
+      this.#core.remove(node);
+    }
+
+    return node?.value;
+  }
+
+  /** Removes and returns the largest value. */
+  public popMax(): T | undefined {
+    const node = this.#core.last();
+
+    if (node) {
+      this.#core.remove(node);
+    }
+
+    return node?.value;
+  }
+
+  /** Returns the greatest value less than or equal to `value`. */
+  public floor(value: T): T | undefined {
+    return this.#core.bound(value, true, true)?.value;
+  }
+
+  /** Returns the least value greater than or equal to `value`. */
+  public ceil(value: T): T | undefined {
+    return this.#core.bound(value, false, true)?.value;
+  }
+
+  /** Returns the greatest value strictly less than `value`. */
+  public lower(value: T): T | undefined {
+    return this.#core.bound(value, true, false)?.value;
+  }
+
+  /** Returns the least value strictly greater than `value`. */
+  public higher(value: T): T | undefined {
+    return this.#core.bound(value, false, false)?.value;
+  }
+
+  /**
+   * Iterates over the values in ascending order.
+   *
+   * The tree may be modified during the iteration, like a `Set`: removed
+   * values are skipped and values inserted ahead of the iterator are visited.
+   */
+  public values(): TreeIterator<T> {
+    return iterate(this.#core, toRange());
+  }
+
+  /** Iterates over the values in descending order. */
+  public valuesReversed(): TreeIterator<T> {
+    return iterate(this.#core, toRange({ reverse: true }));
+  }
+
+  /**
+   * Iterates over the values within the bounds, in ascending order unless
+   * `reverse` is set.
+   *
+   * @example
+   * ```ts
+   * const tree = AVLTree.from([1, 2, 3, 4, 5]);
+   * [...tree.range({ gte: 2, lt: 4 })]; // [2, 3]
+   * [...tree.range({ gt: 3, reverse: true })]; // [5, 4]
+   * ```
+   * @throws {TypeError} If both `gt` and `gte` (or `lt` and `lte`) are set.
+   */
+  public range(options?: RangeOptions<T>): TreeIterator<T> {
+    return iterate(this.#core, toRange(options));
+  }
+
+  /** Same as {@link SortedTree.values}. */
+  public [Symbol.iterator](): TreeIterator<T> {
+    return this.values();
+  }
+
+  /** Calls `callback` for every value in ascending order. */
+  public forEach(
+    callback: (value: T, index: number, tree: this) => void,
+    thisArg?: unknown,
+  ): void {
+    let index = 0;
+
+    for (const value of this) {
+      callback.call(thisArg, value, index, this);
+      index += 1;
+    }
+  }
+
+  /** Returns the values in ascending order. */
+  public toArray(): T[] {
+    return [...this];
+  }
+
+  /** Inserts every value of `values` into `tree`. */
+  protected static fill<T, R extends SortedTree<T>>(
+    tree: R,
+    values: Iterable<T>,
+  ): R {
+    for (const value of values) {
+      tree.insert(value);
+    }
+
+    return tree;
+  }
+}

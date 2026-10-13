@@ -3,6 +3,15 @@
   "entryPoints": ["./src/index.ts"],
   "name": "bstrees",
   "exclude": ["test/**/*"],
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
   "hideGenerator": true,
-  "gitRevision": "main"
+  "gitRevision": "main",
+  "treatWarningsAsErrors": true,
+  "validation": {
+    "invalidLink": true,
+    "notDocumented": true,
+    "notExported": true
+  }
 }
