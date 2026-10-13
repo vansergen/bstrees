@@ -262,7 +262,7 @@ describe("AVLTree", () => {
           for (const item of data) {
             const { success } = tree.delete(item);
             ok(success);
-            AVLTree.isAVL<number>(tree);
+            ok(AVLTree.isAVL<number>(tree));
           }
 
           deepEqual(tree.height, -1);
@@ -311,7 +311,7 @@ describe("AVLTree", () => {
           for (const item of data) {
             const { success } = tree.delete(item);
             ok(success);
-            AVLTree.isAVL<number>(tree);
+            ok(AVLTree.isAVL<number>(tree));
           }
 
           deepEqual(tree.height, -1);
@@ -351,7 +351,7 @@ describe("AVLTree", () => {
     deepEqual(tree.min?.data, 0);
     deepEqual(tree.size, 5);
     deepEqual(tree.width, 2);
-    AVLTree.isAVL(tree);
+    ok(AVLTree.isAVL(tree));
     deepEqual(
       tree.array,
       input.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)),
