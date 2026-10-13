@@ -3,7 +3,7 @@
 import { deepEqual, throws } from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import { BSTree } from "../index.js";
+import { BSTree } from "../src/index.js";
 import { Node } from "../src/node.js";
 
 function assertTree<T = unknown>(

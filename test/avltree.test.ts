@@ -2,7 +2,7 @@
 import { deepEqual, ok } from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import { AVLTree, BSTree } from "../index.js";
+import { AVLTree, BSTree } from "../src/index.js";
 import type { Node } from "../src/node.js";
 
 describe("AVLTree", () => {

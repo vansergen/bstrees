@@ -1,6 +1,6 @@
 {
   "out": "docs",
-  "entryPoints": ["./index.ts"],
+  "entryPoints": ["./src/index.ts"],
   "name": "bstrees",
   "exclude": ["test/**/*"],
   "hideGenerator": true,
