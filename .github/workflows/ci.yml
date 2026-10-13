@@ -124,9 +124,8 @@ jobs:
         run: npm run lint:package
 
   release:
-    # Manual until 3.0.0 ships: a breaking commit on main would otherwise
-    # publish a major version before the new API is complete.
-    if: ${{ github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' }}
+    # Releases on every push to main; a manual run is a dry run by default.
+    if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') }}
 
     needs: [lint, test, package]
 
@@ -179,7 +178,7 @@ jobs:
 
       # Publishes through npm trusted publishing (OIDC), so no NPM_TOKEN.
       - name: Release
-        run: npx semantic-release ${{ inputs.dry-run && '--dry-run' || '' }}
+        run: npx semantic-release ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run && '--dry-run' || '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIT_COMMITTER_EMAIL: ${{ secrets.GIT_COMMITTER_EMAIL }}
