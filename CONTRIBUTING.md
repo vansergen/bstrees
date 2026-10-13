@@ -20,9 +20,10 @@ npm run typecheck
 npm run prettier
 ```
 
-`npm run coverage` runs the tests with coverage thresholds. Use
-`npm run docs:build` when a public API or generated documentation page changes.
-Use `npm run build` before checking package output locally.
+`npm run coverage` runs the tests with coverage thresholds, and
+`npm run test:package` packs the library and checks that the tarball installs
+and imports correctly. Use `npm run docs:build` when a public API changes and
+`npm run bench` for changes that may affect performance.
 
 ## Pull requests
 
