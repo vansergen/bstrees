@@ -44,7 +44,7 @@
     "build:remove": "rm -rf dist",
     "ci:all": "npm ci && npm run prettier && npm run eslint && npm run typecheck && npm run commitlint && npm run coverage && npm run test:package && npm run lint:package && npm run docs:build",
     "commitlint": "commitlint --verbose --from=$( git rev-list --max-parents=0 $( git rev-parse --abbrev-ref HEAD ) )",
-    "coverage": "mkdir -p coverage && node --import tsx --enable-source-maps --test --experimental-test-coverage --test-coverage-exclude=\"test/**\" --test-coverage-lines=100 --test-coverage-functions=100 --test-coverage-branches=100 --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage/lcov.info \"test/**/*.test.ts\"",
+    "coverage": "mkdir -p coverage && node --import tsx --enable-source-maps --test --test-isolation=none --experimental-test-coverage --test-coverage-exclude=\"test/**\" --test-coverage-lines=100 --test-coverage-functions=100 --test-coverage-branches=100 --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage/lcov.info \"test/**/*.test.ts\"",
     "docs:build": "typedoc",
     "eslint": "eslint .",
     "eslint:fix": "npm run eslint -- --fix",

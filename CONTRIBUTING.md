@@ -20,7 +20,8 @@ npm run typecheck
 npm run prettier
 ```
 
-`npm run coverage` runs the tests with coverage thresholds, and
+`npm run coverage` runs the tests with coverage thresholds (use Node.js 26: the
+line coverage reported by Node.js 24 is imprecise), and
 `npm run test:package` packs the library and checks that the tarball installs
 and imports correctly. Use `npm run docs:build` when a public API changes and
 `npm run bench` for changes that may affect performance.
