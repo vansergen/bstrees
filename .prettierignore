@@ -1,0 +1,6 @@
+# Generated files
+CHANGELOG.md
+coverage/
+dist/
+docs/
+package-lock.json
