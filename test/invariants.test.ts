@@ -73,6 +73,22 @@ describe("assertInvariants", () => {
       "wrong height",
     ],
     [
+      "a cycle through a left link",
+      ({ root }): void => {
+        root.left = root;
+      },
+      "the tree has a cycle",
+    ],
+    [
+      // Children are checked before the traversal goes right, so the broken
+      // parent link stops it before it could loop
+      "a cycle through a right link",
+      ({ root, right }): void => {
+        right.right = root;
+      },
+      "broken parent link",
+    ],
+    [
       "values out of order",
       ({ left, right }): void => {
         [left.value, right.value] = [right.value, left.value];
