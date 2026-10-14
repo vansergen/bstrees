@@ -35,6 +35,14 @@ export class AVLTree<T> extends SortedTree<T> {
     values: Iterable<T>,
     compare: Comparator<T>,
   ): AVLTree<T>;
+  /**
+   * Creates a tree from numbers, strings or bigints of an explicit type, such
+   * as `AVLTree.from<1 | 2>([1, 2])`.
+   */
+  public static from<T extends bigint | number | string>(
+    values: Iterable<T>,
+    ...args: ComparatorArgs<T>
+  ): AVLTree<T>;
   public static from<T>(
     values: Iterable<T>,
     compare?: Comparator<T>,

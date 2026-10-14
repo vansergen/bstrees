@@ -34,6 +34,14 @@ export class BSTree<T> extends SortedTree<T> {
   public static from(values: Iterable<bigint>): BSTree<bigint>;
   /** Creates a tree from any values sorted by `compare`. */
   public static from<T>(values: Iterable<T>, compare: Comparator<T>): BSTree<T>;
+  /**
+   * Creates a tree from numbers, strings or bigints of an explicit type, such
+   * as `BSTree.from<1 | 2>([1, 2])`.
+   */
+  public static from<T extends bigint | number | string>(
+    values: Iterable<T>,
+    ...args: ComparatorArgs<T>
+  ): BSTree<T>;
   public static from<T>(
     values: Iterable<T>,
     compare?: Comparator<T>,
