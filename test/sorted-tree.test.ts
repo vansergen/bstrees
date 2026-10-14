@@ -178,6 +178,20 @@ for (const { name, numbers, create } of kinds) {
       });
     });
 
+    it("checks range bounds when `range` is called", () => {
+      const error = { name: "TypeError" };
+      const tree = numbers([1, 2, 3]);
+      const text = "x" as unknown as number;
+
+      throws(() => tree.range({ lt: text }), error);
+      throws(() => tree.range({ gte: 100, lt: text }), error);
+      throws(() => tree.range({ gt: Number.NaN }), error);
+      throws(() => numbers().range({ lte: Number.NaN }), error);
+
+      // An empty tree holds no value to compare a bound of another type with
+      deepEqual([...numbers().range({ lt: text })], []);
+    });
+
     it("returns iterable iterators with helpers", () => {
       const tree = numbers([1, 2, 3, 4, 5]);
       const iterator = tree.values();

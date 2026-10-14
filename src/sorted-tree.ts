@@ -244,15 +244,16 @@ export abstract class SortedTree<T> implements Iterable<T> {
    * [...tree.range({ gt: 3, reverse: true })]; // [5, 4]
    * ```
    * @throws {TypeError} If both `gt` and `gte` (or `lt` and `lte`) are set,
-   * or if the comparator rejects a bound. Bounds are checked when `range` is
-   * called, not when the iteration starts.
+   * or if the comparator rejects a bound. When `range` is called, each bound
+   * is compared with itself and, if the tree is not empty, with a stored value,
+   * so an invalid bound throws before the iteration starts.
    */
   public range(options?: RangeOptions<T>): TreeIterator<T> {
     const range = toRange(options);
 
     for (const bound of [range.lower, range.upper]) {
       if (bound) {
-        this.#core.check(bound.value);
+        this.#core.checkBound(bound.value);
       }
     }
 
