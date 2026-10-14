@@ -1,4 +1,4 @@
-import { defaultCompare } from "./compare.js";
+import { toComparator } from "./compare.js";
 import { TreeCore } from "./internal/core.js";
 import { iterate, toRange } from "./iterator.js";
 import type { Comparator, RangeOptions, TreeIterator } from "./types.js";
@@ -29,7 +29,7 @@ export abstract class SortedTree<T> implements Iterable<T> {
 
   /** @internal */
   protected constructor(compare: Comparator<T> | undefined, balanced: boolean) {
-    this.#core = new TreeCore(compare ?? defaultCompare, balanced);
+    this.#core = new TreeCore(toComparator<T>(compare), balanced);
   }
 
   /** The number of values in the tree. O(1). */

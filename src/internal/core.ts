@@ -1,3 +1,4 @@
+import { typeName } from "../compare.js";
 import type { Comparator } from "../types.js";
 import { type IRoot, retrace } from "./balance.js";
 import { TreeNode, maxNode, minNode } from "./node.js";
@@ -28,14 +29,14 @@ export class TreeCore<T> implements IRoot<T> {
   public compare(a: T, b: T): number {
     // Called without a receiver, so the comparator cannot reach the tree.
     const compare = this.#compare;
-    const result = compare(a, b);
+    const result: unknown = compare(a, b);
 
-    if (result < 0 || result > 0 || result === 0) {
+    if (typeof result === "number" && !Number.isNaN(result)) {
       return result;
     }
 
     throw new TypeError(
-      `The comparator must return a number other than NaN, got ${String(result)}`,
+      `The comparator must return a number other than NaN, got ${typeName(result)}`,
     );
   }
 
