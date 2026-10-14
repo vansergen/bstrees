@@ -1,1 +1,9 @@
-{ "extends": "@binden/tsconfig", "compilerOptions": { "outDir": "dist" } }
+{
+  "extends": "@binden/tsconfig",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": ["bench", "scripts", "src", "test"]
+}
