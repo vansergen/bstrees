@@ -58,3 +58,12 @@ export const range = numbers.range({ gt: "1" });
 
 // @ts-expect-error -- `Node` is not exported anymore
 export type RemovedNode = import("../src/index.js").Node;
+
+// A bound may be `undefined` explicitly, even with `exactOptionalPropertyTypes`
+export function between(
+  from: number | undefined,
+  to: number | undefined,
+  reverse: boolean | undefined,
+): TreeIterator<number> {
+  return numbers.range({ gte: from, lt: to, reverse });
+}

@@ -159,6 +159,10 @@ for (const { name, numbers, create } of kinds) {
       deepEqual([...tree.range({ gte: 2, lte: 4, reverse: true })], [4, 3, 2]);
       deepEqual([...tree.range({ gte: 4, lte: 2 })], []);
       deepEqual([...tree.range({ gt: 5 })], []);
+      deepEqual(
+        [...tree.range({ gt: undefined, lte: 2, reverse: undefined })],
+        [1, 2],
+      );
     });
 
     it("rejects conflicting range bounds", () => {
