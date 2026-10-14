@@ -204,14 +204,28 @@ const implementations: IImplementation[] = [
   { name: "Set", ordered: false, create: (): IStructure => new SetStructure() },
 ];
 
-/** Returns `0..size-1` in a deterministic random order. */
+/**
+ * Returns a deterministic pseudo-random generator of numbers in `[0, 1)`
+ * (mulberry32). `Math.imul` keeps every step in exact 32-bit arithmetic.
+ */
+function random(seed: number): () => number {
+  let state = seed >>> 0;
+
+  return (): number => {
+    state = (state + 0x6d_2b_79_f5) >>> 0;
+    let mixed = Math.imul(state ^ (state >>> 15), state | 1);
+    mixed ^= mixed + Math.imul(mixed ^ (mixed >>> 7), mixed | 61);
+    return ((mixed ^ (mixed >>> 14)) >>> 0) / 4_294_967_296;
+  };
+}
+
+/** Returns `0..size-1` in a deterministic random order (Fisher–Yates). */
 function shuffled(size: number): number[] {
   const values = Array.from({ length: size }, (_, index) => index);
-  let seed = 42;
+  const next = random(42);
 
   for (let index = size - 1; index > 0; index -= 1) {
-    seed = (seed * 1_103_515_245 + 12_345) % 2_147_483_648;
-    const other = seed % (index + 1);
+    const other = Math.floor(next() * (index + 1));
     const value = values[index] ?? 0;
     values[index] = values[other] ?? 0;
     values[other] = value;
