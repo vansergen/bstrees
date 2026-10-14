@@ -247,22 +247,52 @@ for (const { name, numbers, create } of kinds) {
     });
 
     it("validates the comparator result", () => {
-      const tree = create<number>(() => Number.NaN);
+      for (const [result, type] of [
+        [Number.NaN, "NaN"],
+        [null, "null"],
+        [undefined, "undefined"],
+        ["0", "string"],
+        [0n, "bigint"],
+        [1n, "bigint"],
+        [false, "boolean"],
+        [{}, "object"],
+      ] as const) {
+        const tree = create<number>(() => result as unknown as number);
 
-      throws(() => tree.insert(1), {
-        name: "TypeError",
-        message: "The comparator must return a number other than NaN, got NaN",
-      });
+        throws(() => tree.insert(1), {
+          name: "TypeError",
+          message: `The comparator must return a number other than NaN, got ${type}`,
+        });
+        equal(tree.size, 0);
+      }
+    });
 
-      const undefinedResult = create<number>(
-        (() => null) as unknown as Comparator<number>,
+    it("rejects results that are only numeric after a conversion", () => {
+      const tree = create<number>(
+        (a, b) => (a === b ? 0 : String(a - b)) as unknown as number,
       );
 
-      throws(() => undefinedResult.insert(1), {
+      equal(tree.insert(1), true);
+      throws(() => tree.insert(2), {
         name: "TypeError",
-        message: "The comparator must return a number other than NaN, got null",
+        message:
+          "The comparator must return a number other than NaN, got string",
       });
-      equal(tree.size, 0);
+      deepEqual(tree.toArray(), [1]);
+    });
+
+    it("rejects comparators that are not functions", () => {
+      for (const [compare, type] of [
+        ["desc", "string"],
+        [null, "null"],
+        [1, "number"],
+        [{}, "object"],
+      ] as const) {
+        throws(() => create(compare as unknown as Comparator<number>), {
+          name: "TypeError",
+          message: `The comparator must be a function, got ${type}`,
+        });
+      }
     });
 
     it("calls the comparator without a receiver", () => {

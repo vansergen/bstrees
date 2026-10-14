@@ -1,3 +1,5 @@
+import type { Comparator } from "./types.js";
+
 function isComparable(value: unknown): value is bigint | number | string {
   return (
     typeof value === "bigint" ||
@@ -27,4 +29,33 @@ export function defaultCompare(a: unknown, b: unknown): number {
   }
 
   return order(a, b);
+}
+
+/** Names the type of an invalid value in an error message. */
+export function typeName(value: unknown): string {
+  if (value === null) {
+    return "null";
+  }
+
+  return Number.isNaN(value) ? "NaN" : typeof value;
+}
+
+/**
+ * Returns the comparator a tree uses: `compare`, or the default comparator
+ * when it is `undefined`.
+ *
+ * @throws {TypeError} If `compare` is not a function.
+ */
+export function toComparator<T>(compare: unknown): Comparator<T> {
+  if (typeof compare === "undefined") {
+    return defaultCompare;
+  }
+
+  if (typeof compare !== "function") {
+    throw new TypeError(
+      `The comparator must be a function, got ${typeName(compare)}`,
+    );
+  }
+
+  return compare as Comparator<T>;
 }

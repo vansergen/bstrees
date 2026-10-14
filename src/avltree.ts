@@ -18,6 +18,7 @@ export class AVLTree<T> extends SortedTree<T> {
   /**
    * @param compare - The sort order. Optional only for numbers, strings and
    * bigints.
+   * @throws {TypeError} If `compare` is neither a function nor `undefined`.
    */
   public constructor(compare: Comparator<T>);
   public constructor(...args: ComparatorArgs<T>);
