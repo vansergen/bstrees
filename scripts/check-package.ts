@@ -22,6 +22,7 @@ const required = [
   "README.md",
   "LICENSE",
   "CHANGELOG.md",
+  "MIGRATION.md",
   "dist/index.js",
   "dist/index.d.ts",
 ];
