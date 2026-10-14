@@ -163,7 +163,7 @@ jobs:
       - name: Add the custom gpg executable
         run: |
           rm -rf /tmp/gpg.sh
-          echo 'gpg --batch --pinentry-mode=loopback --passphrase $GPG_KEY_PASSPHRASE $@' >> /tmp/gpg.sh
+          echo 'gpg --batch --pinentry-mode=loopback --passphrase "$GPG_KEY_PASSPHRASE" "$@"' >> /tmp/gpg.sh
           chmod +x /tmp/gpg.sh
 
       - name: Setup git
