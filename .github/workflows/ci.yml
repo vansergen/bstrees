@@ -95,6 +95,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           file: coverage/lcov.info
+          # A pinned reporter downloads with the checksums of the same release
+          coverage-reporter-version: v0.6.22
+          # The thresholds are enforced above; an upload problem must not fail CI
+          fail-on-error: false
 
   package:
     runs-on: ubuntu-latest
