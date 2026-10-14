@@ -14,6 +14,9 @@ updates:
       # Tracks the lowest supported Node.js major
       - dependency-name: "@types/node"
         update-types: ["version-update:semver-major"]
+      # Pinned on purpose: the oldest TypeScript versions consumers may use
+      - dependency-name: "typescript-5.6"
+      - dependency-name: "typescript-5.8"
     groups:
       dev-dependencies:
         dependency-type: development

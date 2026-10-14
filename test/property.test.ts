@@ -7,8 +7,10 @@ import fc from "fast-check";
 import {
   AVLTree,
   BSTree,
+  type Comparator,
   type RangeOptions,
   type SortedTree,
+  type TreeIterator,
 } from "../src/index.js";
 import { assertInvariants } from "./helpers/invariants.js";
 
@@ -17,11 +19,37 @@ type Operation =
   | { type: "delete" | "getOrInsert" | "insert" | "query"; value: number }
   | { type: "range"; options: RangeOptions<number> };
 
-type Step = { type: "delete" | "insert"; value: number } | { type: "next" };
+type Step =
+  | { type: "clear" }
+  | { type: "delete" | "insert"; value: number }
+  | { type: "next"; iterator: number };
 
-const kinds: [string, (values?: Iterable<number>) => SortedTree<number>][] = [
-  ["BSTree", (values = []): SortedTree<number> => BSTree.from(values)],
-  ["AVLTree", (values = []): SortedTree<number> => AVLTree.from(values)],
+interface ICursor {
+  readonly options: RangeOptions<number>;
+  readonly iterator: TreeIterator<number>;
+  last: number | null;
+  done: boolean;
+}
+
+type Create = (
+  compare: Comparator<number>,
+  values?: Iterable<number>,
+) => SortedTree<number>;
+
+const kinds: [string, Create][] = [
+  [
+    "BSTree",
+    (compare, values = []): SortedTree<number> => BSTree.from(values, compare),
+  ],
+  [
+    "AVLTree",
+    (compare, values = []): SortedTree<number> => AVLTree.from(values, compare),
+  ],
+];
+
+const orders: [string, Comparator<number>][] = [
+  ["ascending", (a, b): number => a - b],
+  ["descending", (a, b): number => b - a],
 ];
 
 // Small values make collisions (and therefore no-op inserts/deletes) likely.
@@ -61,9 +89,17 @@ const operation: fc.Arbitrary<Operation> = fc.oneof(
 );
 
 const step: fc.Arbitrary<Step> = fc.oneof(
-  { arbitrary: fc.record({ type: fc.constant("next") }), weight: 3 },
-  { arbitrary: fc.record({ type: fc.constant("insert"), value }), weight: 1 },
-  { arbitrary: fc.record({ type: fc.constant("delete"), value }), weight: 1 },
+  {
+    arbitrary: fc.record({
+      iterator: fc.nat({ max: 2 }),
+      type: fc.constant("next"),
+    }),
+    weight: 6,
+  },
+  { arbitrary: fc.record({ type: fc.constant("insert"), value }), weight: 2 },
+  { arbitrary: fc.record({ type: fc.constant("delete"), value }), weight: 2 },
+  // Rare, so that a refilled tree is iterated again before the next clear
+  { arbitrary: fc.record({ type: fc.constant("clear") }), weight: 1 },
 );
 
 // By default fast-check caps arrays at about 10 items whatever `maxLength` is,
@@ -74,26 +110,24 @@ const operations = fc.array(operation, {
   size: "max",
 });
 const initialValues = fc.array(value, { maxLength: 40, size: "max" });
-const steps = fc.array(step, { maxLength: 80, minLength: 20, size: "max" });
+const steps = fc.array(step, { maxLength: 120, minLength: 30, size: "max" });
+const iteratorOptions = fc.array(rangeOptions, { maxLength: 3, minLength: 1 });
 
 /** The longest sequences the tests must reach to exercise deep trees. */
-const longEnough = { initial: 30, operations: 150, steps: 60 };
+const longEnough = { initial: 30, operations: 150, steps: 90 };
 
-function inRange(
-  item: number,
-  { gt, gte, lt, lte }: RangeOptions<number>,
-): boolean {
-  return (
-    (typeof gt === "undefined" || item > gt) &&
-    (typeof gte === "undefined" || item >= gte) &&
-    (typeof lt === "undefined" || item < lt) &&
-    (typeof lte === "undefined" || item <= lte)
-  );
-}
-
-/** A sorted array of unique numbers that mirrors a tree. */
+/** An array of unique numbers sorted by a comparator, mirroring a tree. */
 class Model {
   public values: number[] = [];
+  readonly #compare: Comparator<number>;
+
+  public constructor(compare: Comparator<number>, values: number[] = []) {
+    this.#compare = compare;
+
+    for (const item of values) {
+      this.insert(item);
+    }
+  }
 
   public has(item: number): boolean {
     return this.values.includes(item);
@@ -104,7 +138,7 @@ class Model {
       return false;
     }
 
-    this.values = [...this.values, item].sort((a, b) => a - b);
+    this.values = [...this.values, item].sort(this.#compare);
     return true;
   }
 
@@ -114,39 +148,49 @@ class Model {
     return this.values.length !== length;
   }
 
-  public range(options: RangeOptions<number>): number[] {
-    const values = this.values.filter((item) => inRange(item, options));
-    return options.reverse === true ? values.reverse() : values;
+  /** Whether `item` comes after `other` in the given direction. */
+  public after(item: number, other: number, reverse: boolean): boolean {
+    const order = this.#compare(item, other);
+    return reverse ? order < 0 : order > 0;
   }
-}
 
-function checkQueries(
-  tree: SortedTree<number>,
-  model: Model,
-  item: number,
-): void {
-  const { values } = model;
+  public range({ gt, gte, lt, lte, reverse }: RangeOptions<number>): number[] {
+    const compare = this.#compare;
+    const values = this.values.filter(
+      (item) =>
+        (typeof gt === "undefined" || compare(item, gt) > 0) &&
+        (typeof gte === "undefined" || compare(item, gte) >= 0) &&
+        (typeof lt === "undefined" || compare(item, lt) < 0) &&
+        (typeof lte === "undefined" || compare(item, lte) <= 0),
+    );
+    return reverse === true ? values.reverse() : values;
+  }
 
-  equal(tree.has(item), model.has(item));
-  equal(tree.get(item), model.has(item) ? item : undefined);
-  equal(tree.min(), values.at(0));
-  equal(tree.max(), values.at(-1));
-  equal(
-    tree.floor(item),
-    values.findLast((other) => other <= item),
-  );
-  equal(
-    tree.lower(item),
-    values.findLast((other) => other < item),
-  );
-  equal(
-    tree.ceil(item),
-    values.find((other) => other >= item),
-  );
-  equal(
-    tree.higher(item),
-    values.find((other) => other > item),
-  );
+  public checkQueries(tree: SortedTree<number>, item: number): void {
+    const { values } = this;
+    const compare = this.#compare;
+
+    equal(tree.has(item), this.has(item));
+    equal(tree.get(item), this.has(item) ? item : undefined);
+    equal(tree.min(), values.at(0));
+    equal(tree.max(), values.at(-1));
+    equal(
+      tree.floor(item),
+      values.findLast((other) => compare(other, item) <= 0),
+    );
+    equal(
+      tree.lower(item),
+      values.findLast((other) => compare(other, item) < 0),
+    );
+    equal(
+      tree.ceil(item),
+      values.find((other) => compare(other, item) >= 0),
+    );
+    equal(
+      tree.higher(item),
+      values.find((other) => compare(other, item) > 0),
+    );
+  }
 }
 
 function apply(tree: SortedTree<number>, model: Model, op: Operation): void {
@@ -162,7 +206,7 @@ function apply(tree: SortedTree<number>, model: Model, op: Operation): void {
       equal(tree.delete(op.value), model.delete(op.value));
       break;
     case "query":
-      checkQueries(tree, model, op.value);
+      model.checkQueries(tree, op.value);
       break;
     case "range":
       deepEqual([...tree.range(op.options)], model.range(op.options));
@@ -184,100 +228,123 @@ function apply(tree: SortedTree<number>, model: Model, op: Operation): void {
       tree.clear();
       break;
     default:
-      throw new Error("Unknown op");
+      throw new Error("Unknown operation");
+  }
+}
+
+/** Checks the next value of a cursor against the model. */
+function next(cursor: ICursor, model: Model): void {
+  const { options, iterator, last } = cursor;
+  const reverse = options.reverse === true;
+  const expected = model
+    .range(options)
+    .find((item) => last === null || model.after(item, last, reverse));
+  const result = iterator.next();
+
+  if (cursor.done || typeof expected === "undefined") {
+    deepEqual(result, { done: true, value: undefined });
+    cursor.done = true;
+  } else {
+    deepEqual(result, { done: false, value: expected });
+    cursor.last = expected;
   }
 }
 
 for (const [name, create] of kinds) {
-  describe(`${name} (property-based)`, () => {
-    it("behaves like a sorted set", () => {
-      let longest = 0;
+  for (const [order, compare] of orders) {
+    describe(`${name} (property-based, ${order})`, () => {
+      it("behaves like a sorted set", () => {
+        let longest = 0;
 
-      fc.assert(
-        fc.property(operations, (sequence) => {
-          const tree = create();
-          const model = new Model();
+        fc.assert(
+          fc.property(operations, (sequence) => {
+            const tree = create(compare);
+            const model = new Model(compare);
 
-          longest = Math.max(longest, sequence.length);
+            longest = Math.max(longest, sequence.length);
 
-          for (const item of sequence) {
-            apply(tree, model, item);
-            assertInvariants(tree);
-            equal(tree.size, model.values.length);
-            deepEqual(tree.toArray(), model.values);
-          }
-        }),
-        { numRuns: 300 },
-      );
-
-      ok(
-        longest >= longEnough.operations,
-        `the longest sequence has only ${String(longest)} operations`,
-      );
-    });
-
-    it("iterates like a `Set` while the tree is modified", () => {
-      let longestInitial = 0;
-      let longestSteps = 0;
-
-      fc.assert(
-        fc.property(
-          initialValues,
-          rangeOptions,
-          steps,
-          (initial, options, sequence) => {
-            longestInitial = Math.max(longestInitial, initial.length);
-            longestSteps = Math.max(longestSteps, sequence.length);
-
-            const tree = create(initial);
-            const model = new Model();
-            const iterator = tree.range(options);
-            const direction = options.reverse === true ? -1 : 1;
-            let last: number | null = null;
-            let done = false;
-
-            for (const item of initial) {
-              model.insert(item);
+            for (const item of sequence) {
+              apply(tree, model, item);
+              assertInvariants(tree);
+              equal(tree.size, model.values.length);
+              deepEqual(tree.toArray(), model.values);
             }
+          }),
+          { numRuns: 200 },
+        );
 
-            for (const current of sequence) {
-              if (current.type === "insert") {
-                tree.insert(current.value);
-                model.insert(current.value);
-              } else if (current.type === "delete") {
-                tree.delete(current.value);
-                model.delete(current.value);
-              } else {
-                const from: number | null = last;
-                const expected: number | undefined = model
-                  .range(options)
-                  .find(
-                    (item) => from === null || (item - from) * direction > 0,
-                  );
-                const result = iterator.next();
+        ok(
+          longest >= longEnough.operations,
+          `the longest sequence has only ${String(longest)} operations`,
+        );
+      });
 
-                if (done || typeof expected === "undefined") {
-                  deepEqual(result, { done: true, value: undefined });
-                  done = true;
-                } else {
-                  deepEqual(result, { done: false, value: expected });
-                  last = expected;
+      it("keeps live iterators consistent while the tree is modified", () => {
+        let longestInitial = 0;
+        let longestSteps = 0;
+
+        fc.assert(
+          fc.property(
+            initialValues,
+            iteratorOptions,
+            steps,
+            (initial, optionsList, sequence) => {
+              longestInitial = Math.max(longestInitial, initial.length);
+              longestSteps = Math.max(longestSteps, sequence.length);
+
+              const tree = create(compare, initial);
+              const model = new Model(compare, initial);
+              const cursors: ICursor[] = optionsList.map((options) => ({
+                done: false,
+                iterator: tree.range(options),
+                last: null,
+                options,
+              }));
+
+              for (const current of sequence) {
+                switch (current.type) {
+                  case "insert":
+                    tree.insert(current.value);
+                    model.insert(current.value);
+                    break;
+                  case "delete":
+                    tree.delete(current.value);
+                    model.delete(current.value);
+                    break;
+                  case "clear":
+                    tree.clear();
+                    model.values = [];
+                    break;
+                  case "next": {
+                    const cursor = cursors.at(
+                      current.iterator % cursors.length,
+                    );
+
+                    if (!cursor) {
+                      throw new Error("No cursor");
+                    }
+
+                    next(cursor, model);
+                    break;
+                  }
+                  default:
+                    throw new Error("Unknown step");
                 }
               }
-            }
-          },
-        ),
-        { numRuns: 300 },
-      );
+            },
+          ),
+          { numRuns: 200 },
+        );
 
-      ok(
-        longestInitial >= longEnough.initial,
-        `the longest initial array has only ${String(longestInitial)} values`,
-      );
-      ok(
-        longestSteps >= longEnough.steps,
-        `the longest sequence has only ${String(longestSteps)} steps`,
-      );
+        ok(
+          longestInitial >= longEnough.initial,
+          `the longest initial array has only ${String(longestInitial)} values`,
+        );
+        ok(
+          longestSteps >= longEnough.steps,
+          `the longest sequence has only ${String(longestSteps)} steps`,
+        );
+      });
     });
-  });
+  }
 }
