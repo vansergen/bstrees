@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { deepEqual, equal } from "node:assert/strict";
+import { deepEqual, equal, ok } from "node:assert/strict";
 import { describe, it } from "node:test";
 
 import fc from "fast-check";
@@ -65,6 +65,19 @@ const step: fc.Arbitrary<Step> = fc.oneof(
   { arbitrary: fc.record({ type: fc.constant("insert"), value }), weight: 1 },
   { arbitrary: fc.record({ type: fc.constant("delete"), value }), weight: 1 },
 );
+
+// By default fast-check caps arrays at about 10 items whatever `maxLength` is,
+// so `size: "max"` and `minLength` are needed for long sequences.
+const operations = fc.array(operation, {
+  maxLength: 200,
+  minLength: 50,
+  size: "max",
+});
+const initialValues = fc.array(value, { maxLength: 40, size: "max" });
+const steps = fc.array(step, { maxLength: 80, minLength: 20, size: "max" });
+
+/** The longest sequences the tests must reach to exercise deep trees. */
+const longEnough = { initial: 30, operations: 150, steps: 60 };
 
 function inRange(
   item: number,
@@ -178,12 +191,16 @@ function apply(tree: SortedTree<number>, model: Model, op: Operation): void {
 for (const [name, create] of kinds) {
   describe(`${name} (property-based)`, () => {
     it("behaves like a sorted set", () => {
+      let longest = 0;
+
       fc.assert(
-        fc.property(fc.array(operation, { maxLength: 200 }), (operations) => {
+        fc.property(operations, (sequence) => {
           const tree = create();
           const model = new Model();
 
-          for (const item of operations) {
+          longest = Math.max(longest, sequence.length);
+
+          for (const item of sequence) {
             apply(tree, model, item);
             assertInvariants(tree);
             equal(tree.size, model.values.length);
@@ -192,15 +209,26 @@ for (const [name, create] of kinds) {
         }),
         { numRuns: 300 },
       );
+
+      ok(
+        longest >= longEnough.operations,
+        `the longest sequence has only ${String(longest)} operations`,
+      );
     });
 
     it("iterates like a `Set` while the tree is modified", () => {
+      let longestInitial = 0;
+      let longestSteps = 0;
+
       fc.assert(
         fc.property(
-          fc.array(value, { maxLength: 40 }),
+          initialValues,
           rangeOptions,
-          fc.array(step, { maxLength: 80 }),
-          (initial, options, steps) => {
+          steps,
+          (initial, options, sequence) => {
+            longestInitial = Math.max(longestInitial, initial.length);
+            longestSteps = Math.max(longestSteps, sequence.length);
+
             const tree = create(initial);
             const model = new Model();
             const iterator = tree.range(options);
@@ -212,7 +240,7 @@ for (const [name, create] of kinds) {
               model.insert(item);
             }
 
-            for (const current of steps) {
+            for (const current of sequence) {
               if (current.type === "insert") {
                 tree.insert(current.value);
                 model.insert(current.value);
@@ -240,6 +268,15 @@ for (const [name, create] of kinds) {
           },
         ),
         { numRuns: 300 },
+      );
+
+      ok(
+        longestInitial >= longEnough.initial,
+        `the longest initial array has only ${String(longestInitial)} values`,
+      );
+      ok(
+        longestSteps >= longEnough.steps,
+        `the longest sequence has only ${String(longestSteps)} steps`,
       );
     });
   });
