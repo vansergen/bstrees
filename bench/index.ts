@@ -1,6 +1,11 @@
 /**
  * Benchmarks `AVLTree` and `BSTree` against a sorted array and a `Set`.
  *
+ * Every cell shows the mean time of one task and its relative margin of error.
+ * All the tasks are warmed up before the first measurement and each task again
+ * before its own, and the order of the implementations rotates from one
+ * benchmark to the next, so the JIT warmup does not favor any implementation.
+ *
  * Usage: `npm run bench [-- --markdown] [-- --sizes=1000,10000]`
  */
 import { Bench, type FnOptions } from "tinybench";
@@ -316,7 +321,10 @@ const scenarios: IScenario[] = [
       }
 
       const structure = filled(implementation, shuffled(size));
-      const starts = shuffled(1000).map((value) => value % (size - 100));
+      // Spread the ranges over all the values.
+      const starts = shuffled(1000).map((value) =>
+        Math.floor((value * Math.max(size - 100, 0)) / 1000),
+      );
 
       return [
         (): number =>
@@ -344,21 +352,54 @@ const scenarios: IScenario[] = [
   },
 ];
 
-function format(milliseconds: number): string {
-  return milliseconds >= 100
-    ? `${milliseconds.toFixed(0)} ms`
-    : `${milliseconds.toPrecision(2)} ms`;
+function format(milliseconds: number, rme: number): string {
+  const mean =
+    milliseconds >= 100 ? milliseconds.toFixed(0) : milliseconds.toPrecision(2);
+
+  return `${mean} ms ±${rme.toFixed(0)}%`;
 }
 
-async function measure(scenario: IScenario, size: number): Promise<string[]> {
-  const bench = new Bench({
-    iterations: size >= 100_000 ? 3 : 10,
-    time: 0,
-    warmupIterations: 1,
-    warmupTime: 0,
-  });
+/**
+ * Runs every task for at least 250 ms without measuring it. The first
+ * benchmarks of a process are slower otherwise, while the JIT compiles the
+ * code that all the scenarios share.
+ */
+async function warmUp(size: number): Promise<void> {
+  const bench = new Bench({ iterations: 1, time: 250, warmup: false });
 
-  for (const implementation of implementations) {
+  for (const scenario of scenarios) {
+    for (const implementation of implementations) {
+      const task = scenario.task(implementation, size);
+
+      if (task) {
+        bench.add(`${scenario.name}: ${implementation.name}`, ...task);
+      }
+    }
+  }
+
+  await bench.run();
+  process.stderr.write(`warmup, n = ${String(size)}: done\n`);
+}
+
+/** Measures every implementation, starting with the one at `offset`. */
+async function measure(
+  scenario: IScenario,
+  size: number,
+  offset: number,
+): Promise<string[]> {
+  const bench = new Bench({
+    // At least 10 samples and 500 ms per task, after at least 250 ms of warmup.
+    iterations: 10,
+    time: 500,
+    warmupIterations: 1,
+    warmupTime: 250,
+  });
+  const order = [
+    ...implementations.slice(offset % implementations.length),
+    ...implementations.slice(0, offset % implementations.length),
+  ];
+
+  for (const implementation of order) {
     const task = scenario.task(implementation, size);
 
     if (task) {
@@ -373,8 +414,22 @@ async function measure(scenario: IScenario, size: number): Promise<string[]> {
     scenario.name,
     size.toLocaleString("en-US"),
     ...implementations.map(({ name }) => {
-      const result = bench.tasks.find((task) => task.name === name)?.result;
-      return result?.state === "completed" ? format(result.latency.mean) : "—";
+      const result = bench.getTask(name)?.result;
+
+      if (!result) {
+        // Not applicable to this implementation or size.
+        return "—";
+      }
+
+      if (result.state === "completed") {
+        return format(result.latency.mean, result.latency.rme);
+      }
+
+      const reason =
+        result.state === "errored" ? result.error.message : result.state;
+      process.stderr.write(`  ${name} failed: ${reason}\n`);
+
+      return "error";
     }),
   ];
 }
@@ -387,10 +442,12 @@ const sizes = process.argv
 const header = ["Scenario", "n", ...implementations.map(({ name }) => name)];
 const rows: string[][] = [];
 
+await warmUp(Math.min(...sizes));
+
 for (const scenario of scenarios) {
   for (const size of sizes) {
     // Benchmarks run one after another so they do not disturb each other.
-    rows.push(await measure(scenario, size));
+    rows.push(await measure(scenario, size, rows.length));
   }
 }
 
