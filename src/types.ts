@@ -19,15 +19,15 @@ export type Comparator<T> = (a: T, b: T) => number;
  */
 export interface RangeOptions<T> {
   /** Only values greater than this one. Cannot be combined with `gte`. */
-  readonly gt?: T;
+  readonly gt?: T | undefined;
   /** Only values greater than or equal to this one. Cannot be combined with `gt`. */
-  readonly gte?: T;
+  readonly gte?: T | undefined;
   /** Only values less than this one. Cannot be combined with `lte`. */
-  readonly lt?: T;
+  readonly lt?: T | undefined;
   /** Only values less than or equal to this one. Cannot be combined with `lt`. */
-  readonly lte?: T;
+  readonly lte?: T | undefined;
   /** Iterate from the largest value to the smallest one. Defaults to `false`. */
-  readonly reverse?: boolean;
+  readonly reverse?: boolean | undefined;
 }
 
 /**
