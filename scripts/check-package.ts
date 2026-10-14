@@ -21,6 +21,7 @@ const required = [
   "package.json",
   "README.md",
   "LICENSE",
+  "CHANGELOG.md",
   "dist/index.js",
   "dist/index.d.ts",
 ];
