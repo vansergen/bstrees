@@ -26,7 +26,9 @@ export class TreeCore<T> implements IRoot<T> {
 
   /** Compares two values and validates the result of the comparator. */
   public compare(a: T, b: T): number {
-    const result = this.#compare(a, b);
+    // Called without a receiver, so the comparator cannot reach the tree.
+    const compare = this.#compare;
+    const result = compare(a, b);
 
     if (result < 0 || result > 0 || result === 0) {
       return result;
