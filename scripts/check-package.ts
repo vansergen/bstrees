@@ -14,7 +14,14 @@ interface IPackResult {
 }
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const tsc = join(root, "node_modules", "typescript", "bin", "tsc");
+/** The TypeScript compilers to check consumers with (`npm:` aliases). */
+const compilers = {
+  current: join(root, "node_modules", "typescript", "bin", "tsc"),
+  // The oldest version for ES module consumers (`IteratorObject`)
+  esm: join(root, "node_modules", "typescript-5.6", "bin", "tsc"),
+  // The oldest version for CommonJS consumers (`require(esm)` with nodenext)
+  cjs: join(root, "node_modules", "typescript-5.8", "bin", "tsc"),
+};
 const work = mkdtempSync(join(tmpdir(), "bstrees-package-"));
 
 const required = [
@@ -48,6 +55,12 @@ const { name } = require("bstrees/package.json");
 
 deepEqual(AVLTree.from([2, 1]).toArray(), [1, 2]);
 equal(name, "bstrees");
+`;
+
+const commonjs = `
+import { AVLTree, type SortedTree } from "bstrees";
+
+export const tree: SortedTree<number> = AVLTree.from([2, 1]);
 `;
 
 const consumer = `
@@ -153,7 +166,31 @@ try {
       },
       files: ["consumer.ts"],
     });
-    run(process.execPath, [tsc, "-p", config], project);
+
+    for (const tsc of [compilers.current, compilers.esm]) {
+      run(process.execPath, [tsc, "-p", config], project);
+    }
+  }
+
+  // A CommonJS consumer: its own `package.json`, the same `node_modules`
+  const cjsProject = join(project, "commonjs");
+  mkdirSync(cjsProject);
+  writeJSON(join(cjsProject, "package.json"), { type: "commonjs" });
+  writeFileSync(join(cjsProject, "consumer.ts"), commonjs);
+  writeJSON(join(cjsProject, "tsconfig.json"), {
+    compilerOptions: {
+      module: "nodenext",
+      moduleResolution: "nodenext",
+      noEmit: true,
+      strict: true,
+      target: "esnext",
+      types: [],
+    },
+    files: ["consumer.ts"],
+  });
+
+  for (const tsc of [compilers.current, compilers.cjs]) {
+    run(process.execPath, [tsc, "-p", "tsconfig.json"], cjsProject);
   }
 
   process.stdout.write(

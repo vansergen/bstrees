@@ -178,6 +178,50 @@ for (const { name, numbers, create } of kinds) {
       });
     });
 
+    it("answers ordered queries in a custom (descending) order", () => {
+      const tree = create<number>((a, b) => b - a);
+
+      for (const item of [10, 30, 20]) {
+        tree.insert(item);
+      }
+
+      deepEqual(tree.toArray(), [30, 20, 10]);
+      equal(tree.min(), 30);
+      equal(tree.max(), 10);
+      equal(tree.floor(25), 30);
+      equal(tree.ceil(25), 20);
+      equal(tree.lower(20), 30);
+      equal(tree.higher(20), 10);
+      deepEqual([...tree.range({ gte: 30, lt: 10 })], [30, 20]);
+      deepEqual([...tree.range({ gt: 30, reverse: true })], [10, 20]);
+      deepEqual([...tree.valuesReversed()], [10, 20, 30]);
+    });
+
+    it("keeps the stored instances when a node with two children is removed", () => {
+      const records = [4, 2, 6, 1, 3, 5, 7].map((id) => ({
+        id,
+        name: String(id),
+      }));
+      const tree = create(byId);
+
+      for (const record of records) {
+        tree.insert(record);
+      }
+
+      equal(tree.delete({ id: 4, name: "" }), true);
+      equal(tree.delete({ id: 2, name: "" }), true);
+
+      for (const record of records) {
+        if (record.id === 4 || record.id === 2) {
+          equal(tree.get(record), undefined);
+        } else {
+          strictEqual(tree.get({ id: record.id, name: "" }), record);
+        }
+      }
+
+      assertInvariants(tree);
+    });
+
     it("checks range bounds when `range` is called", () => {
       const error = { name: "TypeError" };
       const tree = numbers([1, 2, 3]);
