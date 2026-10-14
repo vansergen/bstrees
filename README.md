@@ -77,6 +77,11 @@ numbers, strings and bigints:
 - `NaN`, values of different types and anything else (objects, dates,
   `undefined`, ...) throw a `TypeError`.
 
+Every method that takes a value, including the bounds of `range`, passes it to
+the comparator even when the tree is empty, so `has(NaN)` throws whether the
+tree is empty or not. A value of another type, such as `"1"` in a tree of
+numbers, can only be detected once the tree holds a value to compare it with.
+
 TypeScript requires a comparator for any other value type:
 
 ```typescript

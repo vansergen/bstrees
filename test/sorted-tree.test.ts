@@ -312,12 +312,16 @@ for (const { name, numbers, create } of kinds) {
 
     it("rejects comparators that are not reflexive", () => {
       const tree = create<number>(() => 1);
-
-      throws(() => tree.insert(1), {
+      const error = {
         name: "TypeError",
         message:
           "The comparator must return 0 when a value is compared with itself",
-      });
+      };
+
+      throws(() => tree.insert(1), error);
+      throws(() => tree.has(1), error);
+      throws(() => tree.floor(1), error);
+      throws(() => tree.range({ lt: 1 }), error);
       equal(tree.size, 0);
     });
 
@@ -370,6 +374,35 @@ describe("default comparator", () => {
     deepEqual(BSTree.from([3, -0, 0, -1, 2.5]).toArray(), [-1, -0, 2.5, 3]);
     deepEqual(AVLTree.from(["b", "a", "B"]).toArray(), ["B", "a", "b"]);
     deepEqual(BSTree.from([2n, 1n, 3n]).toArray(), [1n, 2n, 3n]);
+  });
+
+  it("rejects NaN and other values whether the tree is empty or not", () => {
+    const error = {
+      name: "TypeError",
+      message: /^The default comparator supports only numbers/u,
+    };
+
+    for (const tree of [new BSTree<number>(), AVLTree.from([1, 2, 3])]) {
+      const values = tree.toArray();
+
+      for (const value of [Number.NaN, {} as unknown as number]) {
+        throws(() => tree.has(value), error);
+        throws(() => tree.get(value), error);
+        throws(() => tree.insert(value), error);
+        throws(() => tree.getOrInsert(value), error);
+        throws(() => tree.delete(value), error);
+        throws(() => tree.floor(value), error);
+        throws(() => tree.ceil(value), error);
+        throws(() => tree.lower(value), error);
+        throws(() => tree.higher(value), error);
+
+        for (const key of ["gt", "gte", "lt", "lte"]) {
+          throws(() => tree.range({ [key]: value }), error);
+        }
+      }
+
+      deepEqual(tree.toArray(), values);
+    }
   });
 
   it("rejects NaN, mixed types and other values", () => {
