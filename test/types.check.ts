@@ -37,6 +37,13 @@ export const mixed = new AVLTree<number | string>();
 // @ts-expect-error -- mixed values require a comparator
 export const mixedFrom = BSTree.from([1, "a"]);
 
+// An explicit type argument keeps literal types
+export const explicit: AVLTree<1 | 2> = AVLTree.from<1 | 2>([1, 2]);
+export const explicitBigints: BSTree<bigint> = BSTree.from<bigint>([1n]);
+
+// @ts-expect-error -- unions of primitives require a comparator
+export const explicitMixed = BSTree.from<number | string>([1, "a"]);
+
 export const inserted: boolean = numbers.insert(1);
 export const deleted: boolean = numbers.delete(1);
 export const stored: IOrder = orders.getOrInsert({ price: 1 });
