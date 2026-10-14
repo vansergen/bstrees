@@ -1,4 +1,4 @@
-# bstrees [![CI Status](https://github.com/vansergen/bstrees/actions/workflows/ci.yml/badge.svg)](https://github.com/vansergen/bstrees/actions/workflows/ci.yml) [![npm version](https://img.shields.io/npm/v/bstrees)](https://www.npmjs.com/package/bstrees) [![Coverage Status](https://coveralls.io/repos/github/vansergen/bstrees/badge.svg?branch=main)](https://coveralls.io/github/vansergen/bstrees?branch=main) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) ![node version](https://img.shields.io/node/v/bstrees) ![npm downloads](https://img.shields.io/npm/dt/bstrees) ![License](https://img.shields.io/github/license/vansergen/bstrees)
+# bstrees [![CI Status](https://github.com/vansergen/bstrees/actions/workflows/ci.yml/badge.svg)](https://github.com/vansergen/bstrees/actions/workflows/ci.yml) [![npm version](https://img.shields.io/npm/v/bstrees)](https://www.npmjs.com/package/bstrees) [![Coverage Status](https://coveralls.io/repos/github/vansergen/bstrees/badge.svg?branch=main)](https://coveralls.io/github/vansergen/bstrees?branch=main) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://github.com/vansergen/bstrees/blob/main/CODE_OF_CONDUCT.md) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) ![node version](https://img.shields.io/node/v/bstrees) ![npm downloads](https://img.shields.io/npm/dt/bstrees) ![License](https://img.shields.io/github/license/vansergen/bstrees)
 
 Sorted sets backed by binary search trees: a self-balancing `AVLTree` and a
 plain `BSTree`. Values are kept in order by a comparator, so besides lookups
@@ -282,8 +282,8 @@ receives 100 000 sorted values degrades into a list and takes over a minute.
 ## Upgrading from 2.x
 
 Version 3 replaces the node-based API with the value-based API above. See
-[MIGRATION.md](MIGRATION.md).
+[MIGRATION.md](https://github.com/vansergen/bstrees/blob/main/MIGRATION.md).
 
 ## License
 
-[AGPL-3.0-only](LICENSE)
+[AGPL-3.0-only](https://github.com/vansergen/bstrees/blob/main/LICENSE)
