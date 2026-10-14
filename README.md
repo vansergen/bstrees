@@ -27,6 +27,10 @@ TypeScript users need TypeScript 5.6 or newer. Two compiler options matter:
 - a CommonJS project that `require`s the package needs
   `"module": "nodenext"` and TypeScript 5.8 or newer.
 
+In generic code over primitive types (`T extends number`), TypeScript cannot
+tell that the default comparator applies, so `new AVLTree<T>()` needs a
+comparator. Use `AVLTree.from<T>(values)` or `AVLTree.from<T>([])` instead.
+
 ## Quick start
 
 ```typescript

@@ -17,7 +17,9 @@ import type { Comparator, ComparatorArgs } from "./types.js";
 export class AVLTree<T> extends SortedTree<T> {
   /**
    * @param compare - The sort order. Optional only for numbers, strings and
-   * bigints.
+   * bigints. In generic code where TypeScript cannot tell that `T` is one of
+   * them (`T extends number`), pass a comparator or create the tree with
+   * `AVLTree.from<T>([])`.
    * @throws {TypeError} If `compare` is neither a function nor `undefined`.
    */
   public constructor(compare: Comparator<T>);
@@ -36,12 +38,29 @@ export class AVLTree<T> extends SortedTree<T> {
     compare: Comparator<T>,
   ): AVLTree<T>;
   /**
-   * Creates a tree from numbers, strings or bigints of an explicit type, such
-   * as `AVLTree.from<1 | 2>([1, 2])`.
+   * Creates a tree from bigints of an explicit type, also in generic code
+   * (`AVLTree.from<T>(values)` with `T extends bigint`).
    */
-  public static from<T extends bigint | number | string>(
+  public static from<T extends bigint>(
     values: Iterable<T>,
-    ...args: ComparatorArgs<T>
+    compare?: Comparator<T>,
+  ): AVLTree<T>;
+  /**
+   * Creates a tree from numbers of an explicit type, such as
+   * `AVLTree.from<1 | 2>([1, 2])`, also in generic code
+   * (`AVLTree.from<T>(values)` with `T extends number`).
+   */
+  public static from<T extends number>(
+    values: Iterable<T>,
+    compare?: Comparator<T>,
+  ): AVLTree<T>;
+  /**
+   * Creates a tree from strings of an explicit type, also in generic code
+   * (`AVLTree.from<T>(values)` with `T extends string`).
+   */
+  public static from<T extends string>(
+    values: Iterable<T>,
+    compare?: Comparator<T>,
   ): AVLTree<T>;
   public static from<T>(
     values: Iterable<T>,

@@ -44,6 +44,21 @@ export const explicitBigints: BSTree<bigint> = BSTree.from<bigint>([1n]);
 // @ts-expect-error -- unions of primitives require a comparator
 export const explicitMixed = BSTree.from<number | string>([1, "a"]);
 
+// Generic code over primitive types uses `from<T>()`
+export function numbersOf<T extends number>(values: T[]): AVLTree<T>[] {
+  return [AVLTree.from<T>(values), AVLTree.from<T>([])];
+}
+export function stringsOf<T extends string>(values: T[]): BSTree<T> {
+  return BSTree.from<T>(values);
+}
+export function bigintsOf<T extends bigint>(values: T[]): BSTree<T> {
+  return BSTree.from<T>(values, (a, b) => (a < b ? -1 : a > b ? 1 : 0));
+}
+export function emptyOf<T extends number>(): AVLTree<T> {
+  // @ts-expect-error -- in generic code the constructor needs a comparator
+  return new AVLTree<T>();
+}
+
 export const inserted: boolean = numbers.insert(1);
 export const deleted: boolean = numbers.delete(1);
 export const stored: IOrder = orders.getOrInsert({ price: 1 });
