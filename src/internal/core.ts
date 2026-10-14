@@ -7,7 +7,8 @@ import { TreeNode, maxNode, minNode } from "./node.js";
  * The state and the algorithms shared by all trees. Every loop is iterative,
  * so even a degenerate (list-shaped) tree cannot overflow the stack. The
  * comparator is only called before a mutation starts, so a throwing
- * comparator leaves the tree unchanged.
+ * comparator leaves the tree unchanged, and it cannot start a mutation of the
+ * tree it orders (see {@link TreeCore.assertMutable}).
  */
 export class TreeCore<T> implements IRoot<T> {
   public root: TreeNode<T> | null;
@@ -16,6 +17,8 @@ export class TreeCore<T> implements IRoot<T> {
   public version: number;
   public readonly balanced: boolean;
   readonly #compare: Comparator<T>;
+  /** The number of comparator calls in progress. */
+  #comparing: number;
 
   public constructor(compare: Comparator<T>, balanced: boolean) {
     this.root = null;
@@ -23,13 +26,12 @@ export class TreeCore<T> implements IRoot<T> {
     this.version = 0;
     this.balanced = balanced;
     this.#compare = compare;
+    this.#comparing = 0;
   }
 
   /** Compares two values and validates the result of the comparator. */
   public compare(a: T, b: T): number {
-    // Called without a receiver, so the comparator cannot reach the tree.
-    const compare = this.#compare;
-    const result: unknown = compare(a, b);
+    const result = this.#call(a, b);
 
     if (typeof result === "number" && !Number.isNaN(result)) {
       return result;
@@ -49,6 +51,22 @@ export class TreeCore<T> implements IRoot<T> {
     if (this.compare(value, value) !== 0) {
       throw new TypeError(
         "The comparator must return 0 when a value is compared with itself",
+      );
+    }
+  }
+
+  /**
+   * Rejects a mutation started by the comparator. A search keeps a path of
+   * nodes while it calls the comparator, so changing the tree in the middle of
+   * it would corrupt the tree. Every mutating method calls this first, before
+   * it changes or even searches the tree.
+   *
+   * @throws {TypeError} If the comparator of this tree is running.
+   */
+  public assertMutable(): void {
+    if (this.#comparing > 0) {
+      throw new TypeError(
+        "A tree cannot be modified while its comparator is running",
       );
     }
   }
@@ -190,6 +208,20 @@ export class TreeCore<T> implements IRoot<T> {
     this.root = null;
     this.size = 0;
     this.version += 1;
+  }
+
+  /** Calls the comparator and tracks that it is running. */
+  #call(a: T, b: T): unknown {
+    // Called without a receiver, so the comparator cannot reach the tree.
+    const compare = this.#compare;
+
+    this.#comparing += 1;
+
+    try {
+      return compare(a, b);
+    } finally {
+      this.#comparing -= 1;
+    }
   }
 
   /**
