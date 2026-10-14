@@ -6,6 +6,10 @@
  * total order (reflexive, antisymmetric and transitive) and must never return
  * `NaN`. The tree may call it with its arguments in either order.
  *
+ * It must not modify the tree it orders: a mutating method of that tree called
+ * from the comparator throws a `TypeError` and leaves the tree unchanged.
+ * Reading the tree or modifying other trees is allowed.
+ *
  * @example
  * ```ts
  * const byPrice: Comparator<{ price: number }> = (a, b) => a.price - b.price;

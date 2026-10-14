@@ -352,6 +352,94 @@ for (const { name, numbers, create } of kinds) {
       assertInvariants(tree);
     });
 
+    it("rejects modifications of the tree from its comparator", () => {
+      const mutations: [string, (tree: SortedTree<number>) => unknown][] = [
+        ["insert", (tree): unknown => tree.insert(10)],
+        ["getOrInsert", (tree): unknown => tree.getOrInsert(10)],
+        ["delete", (tree): unknown => tree.delete(1)],
+        [
+          "clear",
+          (tree): void => {
+            tree.clear();
+          },
+        ],
+        ["popMin", (tree): unknown => tree.popMin()],
+        ["popMax", (tree): unknown => tree.popMax()],
+      ];
+      const triggers: [string, (tree: SortedTree<number>) => unknown][] = [
+        ["insert", (tree): unknown => tree.insert(4)],
+        ["delete", (tree): unknown => tree.delete(2)],
+        ["has", (tree): unknown => tree.has(2)],
+        ["iteration", (tree): unknown => [...tree.range({ lt: 3 })]],
+      ];
+
+      for (const [mutation, mutate] of mutations) {
+        for (const [trigger, run] of triggers) {
+          const state: { armed: boolean; tree: SortedTree<number> | null } = {
+            armed: false,
+            tree: null,
+          };
+          const tree = create<number>((a, b) => {
+            if (state.armed && state.tree) {
+              state.armed = false;
+              mutate(state.tree);
+            }
+            return a - b;
+          });
+
+          state.tree = tree;
+
+          for (const value of [1, 2, 3]) {
+            tree.insert(value);
+          }
+
+          state.armed = true;
+          throws(
+            () => run(tree),
+            {
+              name: "TypeError",
+              message:
+                "A tree cannot be modified while its comparator is running",
+            },
+            `${mutation} during ${trigger}`,
+          );
+          deepEqual(tree.toArray(), [1, 2, 3]);
+          equal(tree.size, 3);
+          assertInvariants(tree);
+        }
+      }
+    });
+
+    it("lets the comparator read the tree and modify other trees", () => {
+      const other = numbers();
+      const state: { reading: boolean; tree: SortedTree<number> | null } = {
+        reading: false,
+        tree: null,
+      };
+      const tree = create<number>((a, b) => {
+        other.insert(a);
+
+        if (!state.reading && state.tree) {
+          state.reading = true;
+          state.tree.has(b);
+          state.tree.toArray();
+          state.reading = false;
+        }
+
+        return a - b;
+      });
+
+      state.tree = tree;
+
+      for (const value of [3, 1, 2]) {
+        tree.insert(value);
+      }
+
+      deepEqual(tree.toArray(), [1, 2, 3]);
+      deepEqual(other.toArray(), [1, 2, 3]);
+      assertInvariants(tree);
+    });
+
     it("handles 10 000 sequential insertions and removals", () => {
       const tree = numbers();
       const count = 10_000;

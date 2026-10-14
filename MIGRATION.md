@@ -83,7 +83,11 @@ Custom comparators are called differently:
   antisymmetric, for example one that matches a probe by a prefix of the stored
   value, has to handle both orders.
 - **`this`**: 2.x called the comparator with the tree as `this`, 3.0 calls it
-  without a receiver, so `this` is `undefined`.
+  without a receiver: a strict-mode function gets `this === undefined`, a
+  bound function keeps its bound `this`.
+- **Reentrancy**: the comparator must not modify the tree it orders. Calling
+  `insert`, `getOrInsert`, `delete`, `clear`, `popMin` or `popMax` of that
+  tree from the comparator throws a `TypeError` and leaves the tree unchanged.
 - **Results**: a result that is not a number (such as a string or a bigint) or
   is `NaN` throws a `TypeError` instead of corrupting the tree.
 - **Validation**: a comparator that is not a function throws a `TypeError` in

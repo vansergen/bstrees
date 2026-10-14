@@ -23,6 +23,11 @@ export let getCore: <T>(tree: SortedTree<T>) => TreeCore<T>;
  * Every method that takes a value passes it to the comparator, even when the
  * tree is empty, so a value the comparator rejects (such as `NaN` with the
  * default comparator) throws whether the tree is empty or not.
+ *
+ * The comparator must not modify the tree it orders: the mutating methods
+ * (`insert`, `getOrInsert`, `delete`, `clear`, `popMin` and `popMax`)
+ * throw a `TypeError` when the comparator calls them, and leave the tree
+ * unchanged.
  */
 export abstract class SortedTree<T> implements Iterable<T> {
   readonly #core: TreeCore<T>;
@@ -82,6 +87,7 @@ export abstract class SortedTree<T> implements Iterable<T> {
    * @throws {TypeError} If the comparator rejects the value.
    */
   public insert(value: T): boolean {
+    this.#core.assertMutable();
     const { size } = this.#core;
     this.#core.insert(value);
     return this.#core.size !== size;
@@ -103,6 +109,7 @@ export abstract class SortedTree<T> implements Iterable<T> {
    * @throws {TypeError} If the comparator rejects the value.
    */
   public getOrInsert(value: T): T {
+    this.#core.assertMutable();
     return this.#core.insert(value).value;
   }
 
@@ -113,6 +120,7 @@ export abstract class SortedTree<T> implements Iterable<T> {
    * @throws {TypeError} If the comparator rejects the value.
    */
   public delete(value: T): boolean {
+    this.#core.assertMutable();
     const node = this.#core.find(value);
 
     if (!node) {
@@ -125,6 +133,7 @@ export abstract class SortedTree<T> implements Iterable<T> {
 
   /** Removes all values. */
   public clear(): void {
+    this.#core.assertMutable();
     this.#core.clear();
   }
 
@@ -140,6 +149,7 @@ export abstract class SortedTree<T> implements Iterable<T> {
 
   /** Removes and returns the smallest value. */
   public popMin(): T | undefined {
+    this.#core.assertMutable();
     const node = this.#core.first();
 
     if (node) {
@@ -151,6 +161,7 @@ export abstract class SortedTree<T> implements Iterable<T> {
 
   /** Removes and returns the largest value. */
   public popMax(): T | undefined {
+    this.#core.assertMutable();
     const node = this.#core.last();
 
     if (node) {

@@ -80,9 +80,15 @@ The comparator must define a consistent total order:
   in the tree. Do not mutate the fields it reads.
 
 The tree may call it with its arguments in either order, and calls it without
-a receiver (`this` is `undefined`). If the comparator throws, the error
-propagates and the tree is left unchanged. A result that is not a number, or is
-`NaN`, throws a `TypeError`.
+a receiver: a strict-mode function gets `this === undefined`, a bound function
+keeps its bound `this`. If the comparator throws, the error propagates and the
+tree is left unchanged. A result that is not a number, or is `NaN`, throws a
+`TypeError`.
+
+The comparator must not modify the tree it orders. The mutating methods
+(`insert`, `getOrInsert`, `delete`, `clear`, `popMin`, `popMax`) throw a
+`TypeError` when called from the comparator, before they change anything.
+Reading the tree or modifying other trees from the comparator is allowed.
 
 **Default comparator.** It is used when no comparator is passed and handles
 numbers, strings and bigints:
