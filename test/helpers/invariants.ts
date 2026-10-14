@@ -32,9 +32,17 @@ export function assertInvariants<T>(tree: SortedTree<T>): void {
     const leftHeight = left?.height ?? 0;
     const rightHeight = right?.height ?? 0;
 
-    strictEqual(left?.parent ?? current, current, "broken parent link");
-    strictEqual(right?.parent ?? current, current, "broken parent link");
-    strictEqual(current.height, 1 + Math.max(leftHeight, rightHeight));
+    for (const child of [left, right]) {
+      if (child) {
+        strictEqual(child.parent, current, "broken parent link");
+      }
+    }
+
+    strictEqual(
+      current.height,
+      1 + Math.max(leftHeight, rightHeight),
+      "wrong height",
+    );
 
     if (core.balanced) {
       ok(Math.abs(leftHeight - rightHeight) <= 1, "the tree is not balanced");
