@@ -100,7 +100,9 @@ Custom comparators are called differently:
   `find(value, { upsert: true })` skipped rebalancing.
 - `AVLTree` deletions take O(log n) instead of O(n).
 - Removing or inserting values while iterating no longer ends the iteration
-  early.
+  early. An iterator finds its place again by comparing with the last value it
+  returned, so do not change the fields the comparator reads of that value
+  while you use the iterator, even after removing it from the tree.
 
 ## Example
 

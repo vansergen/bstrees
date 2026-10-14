@@ -203,8 +203,9 @@ A range bound that is missing or `undefined` leaves that side open. Passing
 both `gt` and `gte`, or both `lt` and `lte`, throws a `TypeError`.
 
 **Modifying the tree while iterating** is allowed and does not invalidate
-iterators. An iterator remembers the last value it returned. After the tree changes, it continues with
-the first value past that one that is currently stored:
+iterators. An iterator remembers the last value it returned. After the tree
+changes, it continues with the first value past that one that is currently
+stored:
 
 - removed values are skipped;
 - values inserted ahead of the iterator are visited;
@@ -214,6 +215,12 @@ the first value past that one that is currently stored:
 This differs from a `Set`, whose iterators follow the insertion order: a value
 that is deleted and added again, or added after `clear()`, is visited by a
 `Set` iterator again, but not by a tree iterator that has already passed it.
+
+Because an iterator finds its place again by comparing with the last value it
+returned, do not change the fields the comparator reads of that value while you
+still use the iterator, even after removing the value from the tree. For
+example, after `tree.delete(value)` keep `value.id` as it is until the
+iterator has moved past it or you stop using it.
 
 ```typescript
 import { AVLTree } from "bstrees";
