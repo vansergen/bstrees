@@ -17,7 +17,15 @@ npm install bstrees
 ```
 
 Requires Node.js 24 or newer. The package is an ES module; `require("bstrees")`
-works too. TypeScript users need TypeScript 5.6 or newer.
+works too through Node.js `require(esm)`.
+
+TypeScript users need TypeScript 5.6 or newer. Two compiler options matter:
+
+- the iterator helpers (`tree.values().filter(...)`) are typed only with the
+  `esnext` library (or `es2025` on TypeScript 6), for example
+  `"lib": ["esnext"]`;
+- a CommonJS project that `require`s the package needs
+  `"module": "nodenext"` and TypeScript 5.8 or newer.
 
 ## Quick start
 
@@ -44,6 +52,11 @@ tree.popMax(); // 6
 | `AVLTree` | O(log n)                     | Self-balancing. **Use it by default.**                                    |
 | `BSTree`  | O(log n) average, O(n) worst | No rebalancing. Inserting values in sorted order degrades it into a list. |
 
+`BSTree` is only O(log n) on average for values inserted in random order.
+Removing a node with two children always moves its successor up, so a
+long-lived tree with many random removals and insertions gets deeper over time
+(towards √n). Use `AVLTree` for such workloads.
+
 Both trees implement the same `SortedTree<T>` interface. Use that type to accept
 either of them.
 
@@ -66,8 +79,10 @@ The comparator must define a consistent total order:
 - it gives the same result for the same stored values for as long as they are
   in the tree. Do not mutate the fields it reads.
 
-The tree may call it with its arguments in either order. If the comparator
-throws, the error propagates and the tree is left unchanged.
+The tree may call it with its arguments in either order, and calls it without
+a receiver (`this` is `undefined`). If the comparator throws, the error
+propagates and the tree is left unchanged. A result that is not a number, or is
+`NaN`, throws a `TypeError`.
 
 **Default comparator.** It is used when no comparator is passed and handles
 numbers, strings and bigints:
@@ -152,8 +167,9 @@ book.min()?.price; // 10 (the lowest price)
 | `forEach(callback, thisArg?)`          | Calls `callback(value, index, tree)` in ascending order                          | O(n)         | O(n)     |
 | `toArray()`                            | The values in ascending order                                                    | O(n)         | O(n)     |
 
-`h` is the height of a `BSTree`: about log n for random insertion orders and up
-to n for sorted ones. `k` is the number of values in a range.
+`h` is the height of a `BSTree`: about log n for random insertion orders, up to
+n for sorted ones, and growing towards √n under many random removals and
+insertions. `k` is the number of values in a range.
 
 ## Iteration
 
@@ -180,14 +196,18 @@ tree
 A range bound that is missing or `undefined` leaves that side open. Passing
 both `gt` and `gte`, or both `lt` and `lte`, throws a `TypeError`.
 
-**Modifying the tree while iterating** is allowed and works like with a `Set`.
-An iterator remembers the last value it returned. After the tree changes, it
-continues with the first value past that one that is currently stored:
+**Modifying the tree while iterating** is allowed and does not invalidate
+iterators. An iterator remembers the last value it returned. After the tree changes, it continues with
+the first value past that one that is currently stored:
 
 - removed values are skipped;
 - values inserted ahead of the iterator are visited;
 - values inserted behind it are not;
 - no value is visited twice.
+
+This differs from a `Set`, whose iterators follow the insertion order: a value
+that is deleted and added again, or added after `clear()`, is visited by a
+`Set` iterator again, but not by a tree iterator that has already passed it.
 
 ```typescript
 import { AVLTree } from "bstrees";

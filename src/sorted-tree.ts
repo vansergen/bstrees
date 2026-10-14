@@ -199,8 +199,10 @@ export abstract class SortedTree<T> implements Iterable<T> {
   /**
    * Iterates over the values in ascending order.
    *
-   * The tree may be modified during the iteration, like a `Set`: removed
-   * values are skipped and values inserted ahead of the iterator are visited.
+   * The tree may be modified during the iteration: removed values are
+   * skipped, values inserted ahead of the iterator are visited and values
+   * inserted behind it are not. Unlike with a `Set`, a value is never visited
+   * twice, even if it is deleted and inserted again.
    */
   public values(): TreeIterator<T> {
     return iterate(this.#core, toRange());

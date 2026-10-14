@@ -5,7 +5,8 @@ import type { Comparator, ComparatorArgs } from "./types.js";
  * An unbalanced binary search tree.
  *
  * Operations take O(h) time, where `h` is the height of the tree: O(log n) on
- * random input, but O(n) when values are inserted in sorted order. Prefer
+ * random input, but O(n) when values are inserted in sorted order. Many random
+ * removals mixed with insertions also make it deeper over time. Prefer
  * {@link AVLTree} unless the input order is known to be random.
  *
  * @example

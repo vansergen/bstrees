@@ -13,9 +13,13 @@ compiled sources. If you used 1.x, the changes below apply as well.
 - Node.js 24 or newer.
 - The package is ES-module only. `require("bstrees")` keeps working through
   Node.js `require(esm)`.
-- Only the package root (`"bstrees"`) can be imported. Deep imports such as
-  `bstrees/dist/src/node.js` are blocked by the `exports` map.
-- TypeScript 5.6 or newer for the type definitions.
+- Only the package root (`"bstrees"`) and `bstrees/package.json` can be
+  imported. Deep imports such as `bstrees/dist/src/node.js` are blocked by the
+  `exports` map.
+- TypeScript 5.6 or newer for the type definitions. The iterator helpers are
+  typed only with the `esnext` library (or `es2025` on TypeScript 6). A
+  CommonJS TypeScript project needs `"module": "nodenext"` and TypeScript 5.8
+  or newer to `require` the package.
 
 ## API changes
 
@@ -32,8 +36,11 @@ compiled sources. If you used 1.x, the changes below apply as well.
 | `tree.size`, `tree.height`                                      | unchanged, but now O(1)                                                                      |
 | `tree.width`                                                    | removed                                                                                      |
 | `IComparator<T>`                                                | `Comparator<T>`                                                                              |
+| `BSTree`, `AVLTree`, `IComparator` (`T` defaulted to `unknown`) | `BSTree<T>`, `AVLTree<T>`, `Comparator<T>`: the type argument is required                    |
 | `AVLTree extends BSTree`                                        | both extend `SortedTree<T>`; `avl instanceof BSTree` is `false`                              |
-| `Node`, `TreeIterator`, `INodeDeleteResult`, `INodeFindOptions` | removed                                                                                      |
+| the `TreeIterator` class (iterated over nodes)                  | the `TreeIterator<T>` type of the iterators over values                                      |
+| `Node`, `INodeDeleteResult`, `INodeFindOptions`                 | removed                                                                                      |
+| `protected set root` (for subclasses)                           | removed: subclasses cannot reach the nodes                                                   |
 | `BSTree.getDir`, `AVLTree.heightBalance`, `AVLTree.isAVL`       | removed                                                                                      |
 
 New in 3.0:
@@ -66,8 +73,22 @@ const tree = new BSTree<{ id: number }>();
 const tree = new BSTree<{ id: number }>((a, b) => a.id - b.id);
 ```
 
-A custom comparator that returns `NaN` (or anything that is not a number) now
-throws a `TypeError` instead of corrupting the tree.
+Without the generic defaults, `new BSTree()` infers `T` as `unknown`, which
+requires a comparator: write `new BSTree<number>()` instead.
+
+Custom comparators are called differently:
+
+- **Argument order**: 2.x called `comparator(stored, probe)`, 3.0 calls
+  `compare(probe, stored)` and may use either order. A comparator that is not
+  antisymmetric, for example one that matches a probe by a prefix of the stored
+  value, has to handle both orders.
+- **`this`**: 2.x called the comparator with the tree as `this`, 3.0 calls it
+  without a receiver, so `this` is `undefined`.
+- **Results**: a result that is not a number (such as a string or a bigint) or
+  is `NaN` throws a `TypeError` instead of corrupting the tree.
+- **Validation**: a comparator that is not a function throws a `TypeError` in
+  the constructor. Every method that takes a value passes it to the comparator,
+  even on an empty tree, so `has(NaN)` throws whether the tree is empty or not.
 
 ## Behavior fixes
 
