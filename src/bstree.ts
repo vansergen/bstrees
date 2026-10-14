@@ -20,7 +20,9 @@ import type { Comparator, ComparatorArgs } from "./types.js";
 export class BSTree<T> extends SortedTree<T> {
   /**
    * @param compare - The sort order. Optional only for numbers, strings and
-   * bigints.
+   * bigints. In generic code where TypeScript cannot tell that `T` is one of
+   * them (`T extends number`), pass a comparator or create the tree with
+   * `BSTree.from<T>([])`.
    * @throws {TypeError} If `compare` is neither a function nor `undefined`.
    */
   public constructor(compare: Comparator<T>);
@@ -36,12 +38,29 @@ export class BSTree<T> extends SortedTree<T> {
   /** Creates a tree from any values sorted by `compare`. */
   public static from<T>(values: Iterable<T>, compare: Comparator<T>): BSTree<T>;
   /**
-   * Creates a tree from numbers, strings or bigints of an explicit type, such
-   * as `BSTree.from<1 | 2>([1, 2])`.
+   * Creates a tree from bigints of an explicit type, also in generic code
+   * (`BSTree.from<T>(values)` with `T extends bigint`).
    */
-  public static from<T extends bigint | number | string>(
+  public static from<T extends bigint>(
     values: Iterable<T>,
-    ...args: ComparatorArgs<T>
+    compare?: Comparator<T>,
+  ): BSTree<T>;
+  /**
+   * Creates a tree from numbers of an explicit type, such as
+   * `BSTree.from<1 | 2>([1, 2])`, also in generic code
+   * (`BSTree.from<T>(values)` with `T extends number`).
+   */
+  public static from<T extends number>(
+    values: Iterable<T>,
+    compare?: Comparator<T>,
+  ): BSTree<T>;
+  /**
+   * Creates a tree from strings of an explicit type, also in generic code
+   * (`BSTree.from<T>(values)` with `T extends string`).
+   */
+  public static from<T extends string>(
+    values: Iterable<T>,
+    compare?: Comparator<T>,
   ): BSTree<T>;
   public static from<T>(
     values: Iterable<T>,
