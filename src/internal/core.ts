@@ -56,6 +56,22 @@ export class TreeCore<T> implements IRoot<T> {
   }
 
   /**
+   * Validates a range bound: compares it with itself and, when the tree is not
+   * empty, with a stored value, so a bound of another type throws at once.
+   *
+   * @throws {TypeError} If the comparator rejects `value`.
+   */
+  public checkBound(value: T): void {
+    this.check(value);
+
+    const { root } = this;
+
+    if (root) {
+      this.compare(value, root.value);
+    }
+  }
+
+  /**
    * Rejects a mutation started by the comparator. A search keeps a path of
    * nodes while it calls the comparator, so changing the tree in the middle of
    * it would corrupt the tree. Every mutating method calls this first, before
