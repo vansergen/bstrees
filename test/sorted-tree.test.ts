@@ -265,6 +265,21 @@ for (const { name, numbers, create } of kinds) {
       equal(tree.size, 0);
     });
 
+    it("calls the comparator without a receiver", () => {
+      const receivers = new Set<unknown>();
+      const tree = create<number>(function compare(this: unknown, a, b) {
+        receivers.add(this);
+        return a - b;
+      });
+
+      tree.insert(2);
+      tree.insert(1);
+      tree.has(3);
+      deepEqual([...tree.range({ gte: 1, lt: 3 })], [1, 2]);
+      tree.delete(2);
+      deepEqual([...receivers], [undefined]);
+    });
+
     it("rejects comparators that are not reflexive", () => {
       const tree = create<number>(() => 1);
 
