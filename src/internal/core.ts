@@ -40,6 +40,19 @@ export class TreeCore<T> implements IRoot<T> {
     );
   }
 
+  /**
+   * Validates `value` by comparing it with itself.
+   *
+   * @throws {TypeError} If the comparator rejects `value` or does not return 0.
+   */
+  public check(value: T): void {
+    if (this.compare(value, value) !== 0) {
+      throw new TypeError(
+        "The comparator must return 0 when a value is compared with itself",
+      );
+    }
+  }
+
   public first(): TreeNode<T> | null {
     const { root } = this;
     return root && minNode(root);
@@ -52,7 +65,7 @@ export class TreeCore<T> implements IRoot<T> {
 
   /** Returns the node that holds a value equal to `value`. */
   public find(value: T): TreeNode<T> | null {
-    let node = this.root;
+    let node = this.#rootFor(value);
 
     while (node) {
       const order = this.compare(value, node.value);
@@ -77,7 +90,7 @@ export class TreeCore<T> implements IRoot<T> {
     below: boolean,
     inclusive: boolean,
   ): TreeNode<T> | null {
-    let node = this.root;
+    let node = this.#rootFor(value);
     let best: TreeNode<T> | null = null;
 
     while (node) {
@@ -108,14 +121,8 @@ export class TreeCore<T> implements IRoot<T> {
   /** Returns the node holding an equal value, inserting `value` if needed. */
   public insert(value: T): TreeNode<T> {
     let parent: TreeNode<T> | null = null;
-    let node = this.root;
+    let node = this.#rootFor(value);
     let order = 0;
-
-    if (!node && this.compare(value, value) !== 0) {
-      throw new TypeError(
-        "The comparator must return 0 when a value is compared with itself",
-      );
-    }
 
     while (node) {
       order = this.compare(value, node.value);
@@ -183,5 +190,20 @@ export class TreeCore<T> implements IRoot<T> {
     this.root = null;
     this.size = 0;
     this.version += 1;
+  }
+
+  /**
+   * Returns the root to search for `value` from. An empty tree has nothing to
+   * compare `value` with, so it is checked against itself instead: invalid
+   * values throw whether the tree is empty or not.
+   */
+  #rootFor(value: T): TreeNode<T> | null {
+    const { root } = this;
+
+    if (!root) {
+      this.check(value);
+    }
+
+    return root;
   }
 }

@@ -19,6 +19,10 @@ export let getCore: <T>(tree: SortedTree<T>) => TreeCore<T>;
  * Values are unique with respect to the comparator: inserting a value equal to
  * a stored one keeps the stored one. Iteration yields values in ascending
  * order.
+ *
+ * Every method that takes a value passes it to the comparator, even when the
+ * tree is empty, so a value the comparator rejects (such as `NaN` with the
+ * default comparator) throws whether the tree is empty or not.
  */
 export abstract class SortedTree<T> implements Iterable<T> {
   readonly #core: TreeCore<T>;
@@ -64,6 +68,7 @@ export abstract class SortedTree<T> implements Iterable<T> {
    * users.insert({ id: 1, name: "Alice" });
    * users.get({ id: 1, name: "" })?.name; // "Alice"
    * ```
+   * @throws {TypeError} If the comparator rejects the value.
    */
   public get(value: T): T | undefined {
     return this.#core.find(value)?.value;
@@ -95,6 +100,7 @@ export abstract class SortedTree<T> implements Iterable<T> {
    * book.getOrInsert({ price: 10, orders: [] }).orders.push(2);
    * book.get({ price: 10, orders: [] })?.orders; // [1, 2]
    * ```
+   * @throws {TypeError} If the comparator rejects the value.
    */
   public getOrInsert(value: T): T {
     return this.#core.insert(value).value;
@@ -104,6 +110,7 @@ export abstract class SortedTree<T> implements Iterable<T> {
    * Removes the value equal to `value`.
    *
    * @returns `true` if a value was removed.
+   * @throws {TypeError} If the comparator rejects the value.
    */
   public delete(value: T): boolean {
     const node = this.#core.find(value);
@@ -153,22 +160,38 @@ export abstract class SortedTree<T> implements Iterable<T> {
     return node?.value;
   }
 
-  /** Returns the greatest value less than or equal to `value`. */
+  /**
+   * Returns the greatest value less than or equal to `value`.
+   *
+   * @throws {TypeError} If the comparator rejects the value.
+   */
   public floor(value: T): T | undefined {
     return this.#core.bound(value, true, true)?.value;
   }
 
-  /** Returns the least value greater than or equal to `value`. */
+  /**
+   * Returns the least value greater than or equal to `value`.
+   *
+   * @throws {TypeError} If the comparator rejects the value.
+   */
   public ceil(value: T): T | undefined {
     return this.#core.bound(value, false, true)?.value;
   }
 
-  /** Returns the greatest value strictly less than `value`. */
+  /**
+   * Returns the greatest value strictly less than `value`.
+   *
+   * @throws {TypeError} If the comparator rejects the value.
+   */
   public lower(value: T): T | undefined {
     return this.#core.bound(value, true, false)?.value;
   }
 
-  /** Returns the least value strictly greater than `value`. */
+  /**
+   * Returns the least value strictly greater than `value`.
+   *
+   * @throws {TypeError} If the comparator rejects the value.
+   */
   public higher(value: T): T | undefined {
     return this.#core.bound(value, false, false)?.value;
   }
@@ -198,10 +221,20 @@ export abstract class SortedTree<T> implements Iterable<T> {
    * [...tree.range({ gte: 2, lt: 4 })]; // [2, 3]
    * [...tree.range({ gt: 3, reverse: true })]; // [5, 4]
    * ```
-   * @throws {TypeError} If both `gt` and `gte` (or `lt` and `lte`) are set.
+   * @throws {TypeError} If both `gt` and `gte` (or `lt` and `lte`) are set,
+   * or if the comparator rejects a bound. Bounds are checked when `range` is
+   * called, not when the iteration starts.
    */
   public range(options?: RangeOptions<T>): TreeIterator<T> {
-    return iterate(this.#core, toRange(options));
+    const range = toRange(options);
+
+    for (const bound of [range.lower, range.upper]) {
+      if (bound) {
+        this.#core.check(bound.value);
+      }
+    }
+
+    return iterate(this.#core, range);
   }
 
   /** Same as {@link SortedTree.values}. */
