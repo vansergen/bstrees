@@ -49,8 +49,8 @@ export function toRange<T>({
 /**
  * Iterates over the values of a tree within a range.
  *
- * Like `Set` iterators, it tolerates mutations: after the tree changes, the
- * next value is looked up again as the first one past the last yielded value.
+ * It tolerates mutations: after the tree changes, the next value is looked up
+ * again as the first one past the last yielded value.
  * Removed values are skipped and values inserted ahead of the iterator are
  * visited. Nothing is yielded twice.
  */
