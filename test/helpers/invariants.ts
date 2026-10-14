@@ -4,12 +4,13 @@ import type { TreeNode } from "../../src/internal/node.js";
 import { type SortedTree, getCore } from "../../src/sorted-tree.js";
 
 /**
- * Checks the structure of a tree: parent links, strict ordering, size,
- * stored heights and, for balanced trees, the AVL property.
+ * Checks the structure of a tree: no cycles, parent links, strict ordering,
+ * size, stored heights and, for balanced trees, the AVL property.
  */
 export function assertInvariants<T>(tree: SortedTree<T>): void {
   const core = getCore(tree);
   const stack: TreeNode<T>[] = [];
+  const visited = new Set<TreeNode<T>>();
   let node = core.root;
   let previous: TreeNode<T> | null = null;
   let count = 0;
@@ -18,6 +19,9 @@ export function assertInvariants<T>(tree: SortedTree<T>): void {
 
   while (node || stack.length > 0) {
     while (node) {
+      // A cycle would make the traversal loop forever
+      ok(!visited.has(node), "the tree has a cycle");
+      visited.add(node);
       stack.push(node);
       node = node.left;
     }
