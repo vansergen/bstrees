@@ -214,19 +214,28 @@ export abstract class SortedTree<T> implements Iterable<T> {
    * skipped, values inserted ahead of the iterator are visited and values
    * inserted behind it are not. Unlike with a `Set`, a value is never visited
    * twice, even if it is deleted and inserted again.
+   *
+   * After the tree changes, the iterator finds its place again by comparing
+   * with the last value it returned. While you use the iterator, do not change
+   * the fields the comparator reads of that value, even after removing it from
+   * the tree.
    */
   public values(): TreeIterator<T> {
     return iterate(this.#core, toRange());
   }
 
-  /** Iterates over the values in descending order. */
+  /**
+   * Iterates over the values in descending order. Modifications during the
+   * iteration follow the same rules as for {@link SortedTree.values}.
+   */
   public valuesReversed(): TreeIterator<T> {
     return iterate(this.#core, toRange({ reverse: true }));
   }
 
   /**
    * Iterates over the values within the bounds, in ascending order unless
-   * `reverse` is set.
+   * `reverse` is set. Modifications during the iteration follow the same rules
+   * as for {@link SortedTree.values}.
    *
    * @example
    * ```ts

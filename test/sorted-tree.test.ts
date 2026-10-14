@@ -196,7 +196,7 @@ for (const { name, numbers, create } of kinds) {
       deepEqual(iterator.next(), { done: true, value: undefined });
     });
 
-    it("tolerates modifications during iteration like a `Set`", () => {
+    it("tolerates modifications during iteration", () => {
       const tree = numbers([1, 2, 3, 4, 5]);
       const seen: number[] = [];
 
@@ -224,6 +224,39 @@ for (const { name, numbers, create } of kinds) {
       }
 
       deepEqual(reversed, [6, 5, 1, 0]);
+    });
+
+    it("continues after the last returned value is removed", () => {
+      const records = [1, 2, 3].map((id) => ({ id, name: String(id) }));
+      const tree = create(byId);
+
+      for (const record of records) {
+        tree.insert(record);
+      }
+
+      const forward = tree.values();
+      const first = forward.next().value;
+
+      if (first) {
+        tree.delete(first);
+      }
+
+      deepEqual(
+        [...forward].map(({ id }) => id),
+        [2, 3],
+      );
+
+      const backward = tree.valuesReversed();
+      const last = backward.next().value;
+
+      if (last) {
+        tree.delete(last);
+      }
+
+      deepEqual(
+        [...backward].map(({ id }) => id),
+        [2],
+      );
     });
 
     it("positions iterators lazily", () => {

@@ -53,6 +53,10 @@ export function toRange<T>({
  * again as the first one past the last yielded value.
  * Removed values are skipped and values inserted ahead of the iterator are
  * visited. Nothing is yielded twice.
+ *
+ * The position is the last yielded value itself, so the caller must not
+ * change the fields the comparator reads of that value while the iterator is
+ * in use, even after removing it from the tree.
  */
 export function* iterate<T>(
   core: TreeCore<T>,
