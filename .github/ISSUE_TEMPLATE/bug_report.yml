@@ -1,0 +1,38 @@
+name: Bug report
+description: Report incorrect behavior of a tree
+title: "[BUG] "
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened, and what did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: A minimal code sample that reproduces the problem.
+      render: typescript
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: bstrees version
+      placeholder: 3.0.0
+    validations:
+      required: true
+  - type: input
+    id: runtime
+    attributes:
+      label: Runtime and version
+      placeholder: Node.js 24.10.0
+    validations:
+      required: true
+  - type: input
+    id: typescript
+    attributes:
+      label: TypeScript version (if relevant)

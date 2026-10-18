@@ -1,212 +1,92 @@
-/* eslint-disable init-declarations */
-import { Node } from "./node.js";
-import { TreeIterator } from "./iterator.js";
+import { SortedTree } from "./sorted-tree.js";
+import type { Comparator, ComparatorArgs } from "./types.js";
 
-export type IComparator<T = unknown> = (a: T, b: T) => number;
-
-export interface INodeDeleteResult<T = unknown> {
-  node: Node<T> | null;
-  success?: true;
-}
-
-export interface INodeFindOptions {
-  upsert?: boolean;
-}
-
-type IDir = "left" | "right";
-
-export class BSTree<T = unknown> implements Iterable<Node<T>> {
-  #root: Node<T> | null;
-  readonly #comparator: IComparator<T>;
-
-  public constructor(
-    comparator = (a: T, b: T): number => (a < b ? -1 : a > b ? 1 : 0),
-  ) {
-    this.#root = null;
-    this.#comparator = comparator;
+/**
+ * An unbalanced binary search tree.
+ *
+ * Operations take O(h) time, where `h` is the height of the tree: O(log n) on
+ * random input, but O(n) when values are inserted in sorted order. Many random
+ * removals mixed with insertions also make it deeper over time. Prefer
+ * {@link AVLTree} unless the input order is known to be random.
+ *
+ * Like `Array.from`, `from()` called on a subclass creates an instance of
+ * that subclass. TypeScript requires the subclass constructor to accept the
+ * comparator as its only argument and the values to match the subclass type.
+ *
+ * @example
+ * ```ts
+ * const tree = new BSTree<number>();
+ * tree.insert(3);
+ * tree.insert(1);
+ * tree.toArray(); // [1, 3]
+ * ```
+ */
+export class BSTree<T> extends SortedTree<T> {
+  /**
+   * @param compare - The sort order. Optional only for numbers, strings and
+   * bigints. In generic code where TypeScript cannot tell that `T` is one of
+   * them (`T extends number`), pass a comparator or create the tree with
+   * `BSTree.from<T>([])`.
+   * @throws {TypeError} If `compare` is neither a function nor `undefined`.
+   */
+  public constructor(compare: Comparator<T>);
+  public constructor(...args: ComparatorArgs<T>);
+  public constructor(compare?: Comparator<T>) {
+    super(compare, false);
   }
 
-  public [Symbol.iterator](): TreeIterator<T> {
-    return new TreeIterator<T>(this.#root);
-  }
-
-  public get size(): number {
-    return this.#root?.size ?? 0;
-  }
-
-  protected set root(node: Node<T> | null) {
-    this.#root = node;
-  }
-
-  public get min(): Node<T> | null {
-    return this.#root?.min ?? null;
-  }
-
-  public get max(): Node<T> | null {
-    return this.#root?.max ?? null;
-  }
-
-  public get height(): number {
-    return this.#root?.height ?? -1;
-  }
-
-  public get width(): number {
-    return this.#root?.width ?? 0;
-  }
-
-  public insert(data: T): Node<T> {
-    return this.find(data, { upsert: true });
-  }
-
-  public find(data: T): Node<T> | null;
-  public find(data: T, options: { upsert: true }): Node<T>;
-  public find(
-    data: T,
-    { upsert = false }: INodeFindOptions = {},
-  ): Node<T> | null {
-    if (!this.#root) {
-      return upsert ? (this.#root = new Node<T>(data)) : null;
-    }
-
-    let next: Node<T> | null = this.#root;
-    let current: Node<T>;
-    let cmp: number;
-    let dir: IDir;
-
-    do {
-      current = next;
-      cmp = this.#comparator(current.data, data);
-
-      if (cmp === 0) {
-        return current;
-      }
-
-      dir = BSTree.getDir(cmp);
-      next = current[dir];
-    } while (next);
-
-    return upsert ? (current[dir] = new Node<T>(data)) : null;
-  }
-
-  public delete(data: T): INodeDeleteResult<T> {
-    const node = this.find(data);
-
-    if (!node) {
-      return { node: null };
-    }
-
-    const { left, right, parent } = node;
-
-    if (!left) {
-      if (!right) {
-        if (parent) {
-          parent[BSTree.getDir(parent, node)] = null;
-        } else {
-          this.#root = null;
-        }
-
-        return { node: parent, success: true };
-      }
-
-      node.right = null;
-
-      if (parent) {
-        parent[BSTree.getDir(parent, node)] = right;
-      } else {
-        this.#root = right;
-      }
-
-      return { node: right, success: true };
-    } else if (!right) {
-      node.left = null;
-
-      if (parent) {
-        parent[BSTree.getDir(parent, node)] = left;
-      } else {
-        this.#root = left;
-      }
-
-      return { node: left, success: true };
-    }
-
-    const { min } = right;
-
-    const { parent: min_parent } = min;
-
-    if (min_parent?.left === min) {
-      min_parent.left = min.right;
-    }
-
-    node.left = null;
-    node.right = null;
-
-    if (parent) {
-      parent[BSTree.getDir(parent, node)] = min;
-    } else {
-      this.#root = min;
-    }
-
-    min.left = left;
-
-    if (right !== min) {
-      const { right: min_right } = min;
-      const min_right_parent = min_right?.parent;
-
-      min.right = right;
-
-      if (min_right_parent) {
-        min_right_parent.left = min_right;
-      }
-
-      return { node: min_parent, success: true };
-    }
-
-    return { node: min, success: true };
-  }
-
-  public get array(): T[] {
-    const array: T[] = [];
-
-    for (const { data } of this) {
-      array.push(data);
-    }
-
-    return array;
-  }
-
-  public static getDir(compare_result: number): IDir;
-  public static getDir<T = unknown>(parent: Node<T>, child: Node<T>): IDir;
-  public static getDir<T = unknown>(
-    parent: Node<T> | number,
-    child?: Node<T>,
-  ): IDir {
-    if (!child) {
-      if (typeof parent !== "number") {
-        throw new TypeError("Compare result is not a number");
-      } else if (parent < 0) {
-        return "right";
-      } else if (parent > 0) {
-        return "left";
-      }
-      throw new TypeError("Compare result must be a nonzero number");
-    } else if (!(parent instanceof Node)) {
-      throw new TypeError("Parent must be a valid Node");
-    } else if (parent.left === child) {
-      return "left";
-    } else if (parent.right === child) {
-      return "right";
-    }
-    throw new TypeError("Invalid `parent-child` pair");
-  }
-
-  public static from<T = unknown>(
-    iterable: Iterable<T>,
-    comparator?: IComparator<T>,
+  /** Creates a tree from numbers, strings or bigints. */
+  public static from(
+    this: new (compare?: Comparator<number>) => BSTree<number>,
+    values: Iterable<number>,
+  ): BSTree<number>;
+  public static from(
+    this: new (compare?: Comparator<string>) => BSTree<string>,
+    values: Iterable<string>,
+  ): BSTree<string>;
+  public static from(
+    this: new (compare?: Comparator<bigint>) => BSTree<bigint>,
+    values: Iterable<bigint>,
+  ): BSTree<bigint>;
+  /** Creates a tree from any values sorted by `compare`. */
+  public static from<T>(
+    this: NoInfer<new (compare: Comparator<T>) => BSTree<T>>,
+    values: Iterable<T>,
+    compare: Comparator<T>,
+  ): BSTree<T>;
+  /**
+   * Creates a tree from bigints of an explicit type, also in generic code
+   * (`BSTree.from<T>(values)` with `T extends bigint`).
+   */
+  public static from<T extends bigint>(
+    this: NoInfer<new (compare?: Comparator<T>) => BSTree<T>>,
+    values: Iterable<T>,
+    compare?: Comparator<T>,
+  ): BSTree<T>;
+  /**
+   * Creates a tree from numbers of an explicit type, such as
+   * `BSTree.from<1 | 2>([1, 2])`, also in generic code
+   * (`BSTree.from<T>(values)` with `T extends number`).
+   */
+  public static from<T extends number>(
+    this: NoInfer<new (compare?: Comparator<T>) => BSTree<T>>,
+    values: Iterable<T>,
+    compare?: Comparator<T>,
+  ): BSTree<T>;
+  /**
+   * Creates a tree from strings of an explicit type, also in generic code
+   * (`BSTree.from<T>(values)` with `T extends string`).
+   */
+  public static from<T extends string>(
+    this: NoInfer<new (compare?: Comparator<T>) => BSTree<T>>,
+    values: Iterable<T>,
+    compare?: Comparator<T>,
+  ): BSTree<T>;
+  public static from<T>(
+    this: new (compare?: Comparator<T>) => BSTree<T>,
+    values: Iterable<T>,
+    compare?: Comparator<T>,
   ): BSTree<T> {
-    const tree = new BSTree<T>(comparator);
-    for (const a of iterable) {
-      tree.insert(a);
-    }
-    return tree;
+    return SortedTree.fill(new this(compare), values);
   }
 }

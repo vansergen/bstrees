@@ -1,68 +1,87 @@
 {
   "name": "bstrees",
   "version": "2.0.0",
-  "description": "Binary search trees",
-  "main": "dist/index.js",
+  "description": "Sorted sets backed by binary search trees (AVL and unbalanced)",
+  "main": "./dist/index.js",
   "type": "module",
-  "types": "dist/index.d.ts",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "MIGRATION.md",
+    "dist",
+    "src"
+  ],
+  "sideEffects": false,
   "engines": {
-    "node": ">=18.20.1",
-    "npm": ">=10.5.0"
+    "node": ">=24"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vansergen/bstrees.git"
   },
   "keywords": [
-    "binary tree",
-    "bintree",
+    "avl tree",
     "binary search tree",
     "bstree",
-    "avl tree"
+    "ordered set",
+    "sorted set",
+    "tree"
   ],
   "author": "Sergey Bakulin <sergey.bakulin.github@gmail.com>",
   "license": "AGPL-3.0-only",
-  "directories": {
-    "doc": "docs",
-    "test": "test"
-  },
   "bugs": {
     "url": "https://github.com/vansergen/bstrees/issues"
   },
   "homepage": "https://github.com/vansergen/bstrees#readme",
   "scripts": {
-    "build": "tsc",
+    "bench": "node --import tsx bench/index.ts",
+    "build": "tsc -p tsconfig.build.json",
     "build:remove": "rm -rf dist",
-    "ci:all": "npm ci && npm run prettier && npm run eslint && npm run commitlint && npm test && npm publish --dry-run && npm run docs:build && npm run coverage",
+    "ci:all": "npm ci && npm run prettier && npm run eslint && npm run typecheck && npm run commitlint && npm run coverage && npm run test:package && npm run lint:package && npm run docs:build",
     "commitlint": "commitlint --verbose --from=$( git rev-list --max-parents=0 $( git rev-parse --abbrev-ref HEAD ) )",
-    "coverage": "c8 npm test",
+    "coverage": "mkdir -p coverage && node --import tsx --enable-source-maps --test --test-isolation=none --experimental-test-coverage --test-coverage-exclude=\"test/**\" --test-coverage-lines=100 --test-coverage-functions=100 --test-coverage-branches=100 --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage/lcov.info \"test/**/*.test.ts\"",
     "docs:build": "typedoc",
-    "eslint": "eslint **/*.ts",
+    "eslint": "eslint .",
     "eslint:fix": "npm run eslint -- --fix",
     "install:clean": "npm install",
-    "postbuild": "prettier -c -w dist",
-    "postcoverage": "c8 report",
-    "postdocs:build": "prettier -c -w docs",
-    "postpublish": "npm run build:remove",
+    "lint:package": "publint --strict && attw --pack . --profile esm-only",
     "prebuild": "npm run build:remove",
     "preinstall:clean": "rm -rf node_modules package-lock.json",
+    "prepack": "npm run build",
     "prepare": "husky",
-    "prepublishOnly": "npm run build",
     "prettier": "prettier -c .",
     "prettier:write": "prettier -c -w .",
     "preversion": "npm run docs:build",
-    "test": "node --experimental-loader=ts-node/esm --test **/*.test.ts"
+    "test": "node --import tsx --test \"test/**/*.test.ts\"",
+    "test:package": "node --import tsx scripts/check-package.ts",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
     "@binden/commitlint-config": "^3.0.0",
+    "@binden/eslint-config-ts": "^6.0.2",
     "@binden/semantic-release-config": "^3.0.4",
-    "@binden/tsconfig": "^2.0.0",
-    "c8": "^11.0.0",
-    "eslint-config-binden-ts": "^4.0.3",
+    "@binden/tsconfig": "^4.0.1",
+    "@types/node": "^24.19.2",
+    "eslint": "^10.13.0",
+    "fast-check": "^4.10.2",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.7",
-    "prettier": "^3.4.2",
-    "ts-node": "^10.9.2",
-    "typedoc": "^0.28.19"
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.10",
+    "publint": "^0.3.25",
+    "tinybench": "^6.2.2",
+    "tsx": "^4.23.15",
+    "typedoc": "^0.28.20",
+    "typescript": "~6.0.3",
+    "typescript-5.6": "npm:typescript@5.6.3",
+    "typescript-5.8": "npm:typescript@5.8.3",
+    "typescript-7": "npm:typescript@7.0.2"
   }
 }
