@@ -21,6 +21,8 @@ const compilers = {
   esm: join(root, "node_modules", "typescript-5.6", "bin", "tsc"),
   // The oldest version for CommonJS consumers (`require(esm)` with nodenext)
   cjs: join(root, "node_modules", "typescript-5.8", "bin", "tsc"),
+  // The newest major version (the native compiler)
+  latest: join(root, "node_modules", "typescript-7", "bin", "tsc"),
 };
 const work = mkdtempSync(join(tmpdir(), "bstrees-package-"));
 
@@ -189,7 +191,7 @@ try {
       files: ["consumer.ts"],
     });
 
-    for (const tsc of [compilers.current, compilers.esm]) {
+    for (const tsc of [compilers.current, compilers.esm, compilers.latest]) {
       run(process.execPath, [tsc, "-p", config], project);
     }
   }
@@ -211,7 +213,7 @@ try {
     files: ["consumer.ts"],
   });
 
-  for (const tsc of [compilers.current, compilers.cjs]) {
+  for (const tsc of [compilers.current, compilers.cjs, compilers.latest]) {
     run(process.execPath, [tsc, "-p", "tsconfig.json"], cjsProject);
   }
 
