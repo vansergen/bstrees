@@ -61,8 +61,7 @@ Removing a node with two children always moves its successor up, so a
 long-lived tree with many random removals and insertions gets deeper over time
 (towards √n). Use `AVLTree` for such workloads.
 
-Both trees implement the same `SortedTree<T>` interface. Use that type to accept
-either of them.
+Both trees share the `SortedTree<T>` type. Use it to accept either of them.
 
 ## Comparators
 
@@ -92,7 +91,15 @@ tree is left unchanged. A result that is not a number, or is `NaN`, throws a
 The comparator must not modify the tree it orders. The mutating methods
 (`insert`, `getOrInsert`, `delete`, `clear`, `popMin`, `popMax`) throw a
 `TypeError` when called from the comparator, before they change anything.
-Reading the tree or modifying other trees from the comparator is allowed.
+Reading the tree or modifying other trees from the comparator is allowed, but
+some reads call the comparator again:
+
+- `size`, `height`, `min()`, `max()` and a new iteration over all values
+  (`values()`, `valuesReversed()`, `forEach()`, `toArray()`) of a tree that
+  does not change meanwhile never call it;
+- searches (`has`, `get`, `floor`, `ceil`, `lower`, `higher`), `range` and an
+  iterator that resumes after the tree changed call it, so a comparator that
+  uses them on its own tree must guard against infinite recursion.
 
 **Default comparator.** It is used when no comparator is passed and handles
 numbers, strings and bigints:

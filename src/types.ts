@@ -8,7 +8,10 @@
  *
  * It must not modify the tree it orders: a mutating method of that tree called
  * from the comparator throws a `TypeError` and leaves the tree unchanged.
- * Reading the tree or modifying other trees is allowed.
+ * Reading the tree or modifying other trees is allowed, but searches of that
+ * tree (`has`, `get`, `floor`, `range`, ...) and its iterators resuming after a
+ * change call the comparator again, so they need a guard against infinite
+ * recursion.
  *
  * @example
  * ```ts
