@@ -61,6 +61,7 @@ const commonjs = `
 import { AVLTree, type SortedTree } from "bstrees";
 
 export const tree: SortedTree<number> = AVLTree.from([2, 1]);
+export const descending = AVLTree.from([1, 2], (a, b) => b - a);
 `;
 
 const consumer = `
@@ -82,6 +83,27 @@ export const invalid = new AVLTree<IOrder>();
 
 // @ts-expect-error -- \`Node\` is not exported anymore
 export type RemovedNode = import("bstrees").Node;
+
+// The values give the comparator parameters their types
+export const descending = AVLTree.from([1, 2], (a, b) => b - a);
+export const words = BSTree.from(["b", "a"], (a, b) => a.localeCompare(b));
+export const prices = AVLTree.from([{ price: 2 }], (a, b) => a.price - b.price);
+
+// The declarations keep the value type of a subclass
+class Numbers extends AVLTree<number> {}
+const byString = (a: number | string, b: number | string): number =>
+  String(a).localeCompare(String(b));
+
+export const numbers: AVLTree<number> = Numbers.from([2, 1]);
+
+// @ts-expect-error -- a subclass of number trees cannot hold strings
+export const wrongValues = Numbers.from(["a"]);
+
+// @ts-expect-error -- not even with an explicit type argument
+export const wrongUnion = Numbers.from<number | string>(["a"], byString);
+
+// @ts-expect-error -- a tree of literals is not a tree of numbers
+export const literals: SortedTree<number> = AVLTree.from<1 | 2>([1, 2]);
 `;
 
 function run(command: string, args: string[], cwd: string): string {

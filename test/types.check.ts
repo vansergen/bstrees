@@ -89,3 +89,56 @@ export function between(
 ): TreeIterator<number> {
   return numbers.range({ gte: from, lt: to, reverse });
 }
+
+// `from()` called on a subclass passes the comparator to its constructor
+class NumberTree extends AVLTree<number> {}
+class NamedTree extends BSTree<number> {
+  public readonly label: string;
+
+  public constructor(label: string) {
+    super();
+    this.label = label;
+  }
+}
+class OrderTree extends BSTree<IOrder> {}
+
+export const fromSubclass: AVLTree<number> = NumberTree.from([2, 1]);
+export const fromSubclassWithCompare: AVLTree<number> = NumberTree.from(
+  [2, 1],
+  (a, b) => b - a,
+);
+export const ordersSubclass: BSTree<IOrder> = OrderTree.from(
+  [{ price: 1 }],
+  byPrice,
+);
+
+// @ts-expect-error -- a subclass of number trees cannot hold strings
+export const wrongValues = NumberTree.from(["a"]);
+
+const byText: Comparator<string> = (a, b) => a.localeCompare(b);
+
+// @ts-expect-error -- not even with a comparator
+export const wrongValuesWithCompare = NumberTree.from(["a"], byText);
+
+// @ts-expect-error -- the constructor does not accept a comparator
+export const wrongConstructor = NamedTree.from([1]);
+
+// @ts-expect-error -- a tree of objects still needs a comparator
+export const ordersNoCompare = OrderTree.from([{ price: 1 }]);
+
+const byString: Comparator<number | string> = (a, b) =>
+  String(a).localeCompare(String(b));
+
+// @ts-expect-error -- not even with an explicit type argument
+export const wrongUnion = NumberTree.from<number | string>(["a"], byString);
+
+// @ts-expect-error -- a tree of literals is not a tree of numbers
+export const literalsAsNumbers: SortedTree<number> = explicit;
+
+// The values give the comparator parameters their types
+export const descending = AVLTree.from([1, 2], (a, b) => b - a);
+export const words = BSTree.from(["b", "a"], (a, b) => a.localeCompare(b));
+export const prices = AVLTree.from([{ price: 2 }], (a, b) => a.price - b.price);
+export function descendingOf<T extends number>(items: T[]): AVLTree<T> {
+  return AVLTree.from<T>(items, (a, b) => b - a);
+}

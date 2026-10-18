@@ -6,6 +6,10 @@ import type { Comparator, ComparatorArgs } from "./types.js";
  *
  * Lookups, insertions and removals take O(log n) time in the worst case.
  *
+ * Like `Array.from`, `from()` called on a subclass creates an instance of
+ * that subclass. TypeScript requires the subclass constructor to accept the
+ * comparator as its only argument and the values to match the subclass type.
+ *
  * @example
  * ```ts
  * const tree = new AVLTree<number>();
@@ -29,11 +33,21 @@ export class AVLTree<T> extends SortedTree<T> {
   }
 
   /** Creates a tree from numbers, strings or bigints. */
-  public static from(values: Iterable<number>): AVLTree<number>;
-  public static from(values: Iterable<string>): AVLTree<string>;
-  public static from(values: Iterable<bigint>): AVLTree<bigint>;
+  public static from(
+    this: new (compare?: Comparator<number>) => AVLTree<number>,
+    values: Iterable<number>,
+  ): AVLTree<number>;
+  public static from(
+    this: new (compare?: Comparator<string>) => AVLTree<string>,
+    values: Iterable<string>,
+  ): AVLTree<string>;
+  public static from(
+    this: new (compare?: Comparator<bigint>) => AVLTree<bigint>,
+    values: Iterable<bigint>,
+  ): AVLTree<bigint>;
   /** Creates a tree from any values sorted by `compare`. */
   public static from<T>(
+    this: NoInfer<new (compare: Comparator<T>) => AVLTree<T>>,
     values: Iterable<T>,
     compare: Comparator<T>,
   ): AVLTree<T>;
@@ -42,6 +56,7 @@ export class AVLTree<T> extends SortedTree<T> {
    * (`AVLTree.from<T>(values)` with `T extends bigint`).
    */
   public static from<T extends bigint>(
+    this: NoInfer<new (compare?: Comparator<T>) => AVLTree<T>>,
     values: Iterable<T>,
     compare?: Comparator<T>,
   ): AVLTree<T>;
@@ -51,6 +66,7 @@ export class AVLTree<T> extends SortedTree<T> {
    * (`AVLTree.from<T>(values)` with `T extends number`).
    */
   public static from<T extends number>(
+    this: NoInfer<new (compare?: Comparator<T>) => AVLTree<T>>,
     values: Iterable<T>,
     compare?: Comparator<T>,
   ): AVLTree<T>;
@@ -59,16 +75,15 @@ export class AVLTree<T> extends SortedTree<T> {
    * (`AVLTree.from<T>(values)` with `T extends string`).
    */
   public static from<T extends string>(
+    this: NoInfer<new (compare?: Comparator<T>) => AVLTree<T>>,
     values: Iterable<T>,
     compare?: Comparator<T>,
   ): AVLTree<T>;
   public static from<T>(
+    this: new (compare?: Comparator<T>) => AVLTree<T>,
     values: Iterable<T>,
     compare?: Comparator<T>,
   ): AVLTree<T> {
-    return SortedTree.fill(
-      new AVLTree<T>(...([compare] as ComparatorArgs<T>)),
-      values,
-    );
+    return SortedTree.fill(new this(compare), values);
   }
 }

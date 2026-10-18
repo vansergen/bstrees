@@ -3,6 +3,9 @@ import { TreeCore } from "./internal/core.js";
 import { iterate, toRange } from "./iterator.js";
 import type { Comparator, RangeOptions, TreeIterator } from "./types.js";
 
+/** Keys the member that keeps `T` invariant in the declarations. */
+const valueType: unique symbol = Symbol("valueType");
+
 /**
  * Test-only access to the internals of a tree.
  *
@@ -30,6 +33,12 @@ export let getCore: <T>(tree: SortedTree<T>) => TreeCore<T>;
  * unchanged.
  */
 export abstract class SortedTree<T> implements Iterable<T> {
+  /**
+   * Keeps `T` invariant in the published declarations, which erase the
+   * private state (`#core`) that makes it invariant in the sources.
+   */
+  declare protected readonly [valueType]: (value: T) => T;
+
   readonly #core: TreeCore<T>;
 
   static {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { deepEqual, equal, strictEqual, throws } from "node:assert/strict";
+import { deepEqual, equal, ok, strictEqual, throws } from "node:assert/strict";
 import { describe, it } from "node:test";
 
 import {
@@ -551,6 +551,32 @@ for (const { name, numbers, create } of kinds) {
     });
   });
 }
+
+describe("subclasses", () => {
+  it("are created by `from()`", () => {
+    class Numbers extends AVLTree<number> {}
+    class Records extends BSTree<IRecord> {}
+
+    const numbers = Numbers.from([2, 1]);
+    const records = Records.from(
+      [
+        { id: 2, name: "b" },
+        { id: 1, name: "a" },
+      ],
+      byId,
+    );
+
+    ok(numbers instanceof Numbers);
+    deepEqual(numbers.toArray(), [1, 2]);
+    ok(records instanceof Records);
+    deepEqual(
+      records.toArray().map(({ id }) => id),
+      [1, 2],
+    );
+    assertInvariants(numbers);
+    assertInvariants(records);
+  });
+});
 
 describe("default comparator", () => {
   it("orders numbers, strings and bigints", () => {
