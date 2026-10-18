@@ -1,3 +1,9 @@
+# Migrating from 3.x to 4.0
+
+Version 4 is released under the MIT License. Versions up to 3.0.0 were
+published under AGPL-3.0-only. The API is unchanged, so no code changes are
+needed.
+
 # Migrating from 2.x to 3.0
 
 Version 3 replaces the node-based API with a value-based, `Set`-like API.
