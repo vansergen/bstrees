@@ -70,7 +70,7 @@
     "@binden/semantic-release-config": "^3.0.4",
     "@binden/tsconfig": "^4.0.1",
     "@types/node": "^24.19.2",
-    "eslint": "^10.12.0",
+    "eslint": "^10.13.0",
     "fast-check": "^4.10.2",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
