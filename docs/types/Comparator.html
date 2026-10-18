@@ -18,7 +18,10 @@ total order (reflexive, antisymmetric and transitive) and must never return
 <code>NaN</code>. The tree may call it with its arguments in either order.</p>
 <p>It must not modify the tree it orders: a mutating method of that tree called
 from the comparator throws a <code>TypeError</code> and leaves the tree unchanged.
-Reading the tree or modifying other trees is allowed.</p>
+Reading the tree or modifying other trees is allowed, but searches of that
+tree (<code>has</code>, <code>get</code>, <code>floor</code>, <code>range</code>, ...) and its iterators resuming after a
+change call the comparator again, so they need a guard against infinite
+recursion.</p>
 </div>
 <section class="tsd-panel">
 <h4>Type Parameters</h4>
@@ -44,7 +47,7 @@ Reading the tree or modifying other trees is allowed.</p>
 
 </div></div><aside class="tsd-sources">
 <ul>
-<li>Defined in types.ts:18</li></ul></aside></div>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/types.ts#L21">types.ts:21</a></li></ul></aside></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

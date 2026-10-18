@@ -16,6 +16,9 @@
 random input, but O(n) when values are inserted in sorted order. Many random
 removals mixed with insertions also make it deeper over time. Prefer
 <a href="AVLTree.html" class="tsd-kind-class">AVLTree</a> unless the input order is known to be random.</p>
+<p>Like <code>Array.from</code>, <code>from()</code> called on a subclass creates an instance of
+that subclass. TypeScript requires the subclass constructor to accept the
+comparator as its only argument and the values to match the subclass type.</p>
 </div>
 <div class="tsd-comment tsd-typography">
 <div class="tsd-tag-example">
@@ -27,14 +30,14 @@ removals mixed with insertions also make it deeper over time. Prefer
 <h4>Type Parameters</h4>
 <ul class="tsd-type-parameter-list">
 <li><span id="t"><span class="tsd-kind-type-parameter">T</span></span></li></ul></section>
-<section class="tsd-panel tsd-hierarchy" data-refl="101">
+<section class="tsd-panel tsd-hierarchy" data-refl="133">
 <h4>Hierarchy (<a href="../hierarchy.html#BSTree">View Summary</a>)</h4>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><a href="../interfaces/SortedTree.html" class="tsd-signature-type tsd-kind-interface">SortedTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a><span class="tsd-signature-symbol">&gt;</span>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">BSTree</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in bstree.ts:20</li></ul></aside>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/bstree.ts#L24">bstree.ts:24</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -102,7 +105,7 @@ them (<code>T extends number</code>), pass a comparator or create the tree with
 </div></div><aside class="tsd-sources">
 <p>Overrides SortedTree&lt;T&gt;.constructor</p>
 <ul>
-<li>Defined in bstree.ts:28</li></ul></aside></div></li>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/bstree.ts#L32">bstree.ts:32</a></li></ul></aside></div></li>
 <li class="">
 <div class="tsd-signature tsd-anchor-link" id="constructorbstree-1"><span class="tsd-signature-keyword">new</span> <span class="tsd-kind-constructor-signature">BSTree</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#constructorbstreet-1">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span><span class="tsd-kind-parameter">args</span><span class="tsd-signature-symbol">:</span> <a href="../types/ComparatorArgs.html" class="tsd-signature-type tsd-kind-type-alias">ComparatorArgs</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a><span class="tsd-signature-symbol">&gt;</span><a href="#constructorbstree-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
@@ -117,7 +120,7 @@ them (<code>T extends number</code>), pass a comparator or create the tree with
 <h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <p>Overrides SortedTree&lt;T&gt;.constructor</p>
 <ul>
-<li>Defined in bstree.ts:29</li></ul></aside></div></li></ul></section></section></details>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/bstree.ts#L33">bstree.ts:33</a></li></ul></aside></div></li></ul></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Accessors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="accessors-1">Accessors<a href="#accessors-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -133,7 +136,7 @@ an empty tree and <code>0</code> for a tree with a single value. O(1).</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><aside class="tsd-sources">
 <p>Inherited from SortedTree.height</p>
 <ul>
-<li>Defined in sorted-tree.ts:53</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L62">sorted-tree.ts:62</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="size"><span>size</span><a href="#size" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -145,7 +148,7 @@ an empty tree and <code>0</code> for a tree with a single value. O(1).</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><aside class="tsd-sources">
 <p>Inherited from SortedTree.size</p>
 <ul>
-<li>Defined in sorted-tree.ts:45</li></ul></aside></div></li></ul></section></section></details>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L54">sorted-tree.ts:54</a></li></ul></aside></div></li></ul></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -160,7 +163,7 @@ an empty tree and <code>0</code> for a tree with a single value. O(1).</p>
 <h4 class="tsd-returns-title">Returns <a href="../types/TreeIterator.html" class="tsd-signature-type tsd-kind-type-alias">TreeIterator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#iterator">[iterator]</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:264</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L273">sorted-tree.ts:273</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="ceil"><span>ceil</span><a href="#ceil" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -180,7 +183,7 @@ an empty tree and <code>0</code> for a tree with a single value. O(1).</p>
 </div></div><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#ceil">ceil</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:188</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L197">sorted-tree.ts:197</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="clear"><span>clear</span><a href="#clear" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -192,7 +195,7 @@ an empty tree and <code>0</code> for a tree with a single value. O(1).</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#clear">clear</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:135</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L144">sorted-tree.ts:144</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="delete"><span>delete</span><a href="#delete" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -213,7 +216,7 @@ an empty tree and <code>0</code> for a tree with a single value. O(1).</p>
 </div></div><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#delete">delete</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:122</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L131">sorted-tree.ts:131</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="floor"><span>floor</span><a href="#floor" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -233,7 +236,7 @@ an empty tree and <code>0</code> for a tree with a single value. O(1).</p>
 </div></div><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#floor">floor</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:179</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L188">sorted-tree.ts:188</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="foreach"><span>for<wbr/>Each</span><a href="#foreach" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -250,7 +253,7 @@ an empty tree and <code>0</code> for a tree with a single value. O(1).</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#foreach">forEach</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:269</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L278">sorted-tree.ts:278</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="get"><span>get</span><a href="#get" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -276,7 +279,7 @@ looks at a key: pass a probe with that key to get the stored record.</p>
 </div></div><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#get">get</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:78</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L87">sorted-tree.ts:87</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="getorinsert"><span>get<wbr/>Or<wbr/>Insert</span><a href="#getorinsert" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -302,7 +305,7 @@ there is none.</p>
 </div></div><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#getorinsert">getOrInsert</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:111</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L120">sorted-tree.ts:120</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="has"><span>has</span><a href="#has" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -322,7 +325,7 @@ there is none.</p>
 </div></div><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#has">has</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:62</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L71">sorted-tree.ts:71</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="higher"><span>higher</span><a href="#higher" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -342,7 +345,7 @@ there is none.</p>
 </div></div><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#higher">higher</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:206</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L215">sorted-tree.ts:215</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="insert"><span>insert</span><a href="#insert" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -364,7 +367,7 @@ kept as is).</p>
 </div></div><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#insert">insert</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:89</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L98">sorted-tree.ts:98</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="lower"><span>lower</span><a href="#lower" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -384,7 +387,7 @@ kept as is).</p>
 </div></div><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#lower">lower</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:197</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L206">sorted-tree.ts:206</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="max"><span>max</span><a href="#max" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -396,7 +399,7 @@ kept as is).</p>
 <h4 class="tsd-returns-title">Returns <a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#max">max</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:146</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L155">sorted-tree.ts:155</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="min"><span>min</span><a href="#min" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -408,7 +411,7 @@ kept as is).</p>
 <h4 class="tsd-returns-title">Returns <a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#min">min</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:141</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L150">sorted-tree.ts:150</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="popmax"><span>pop<wbr/>Max</span><a href="#popmax" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -420,7 +423,7 @@ kept as is).</p>
 <h4 class="tsd-returns-title">Returns <a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#popmax">popMax</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:163</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L172">sorted-tree.ts:172</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="popmin"><span>pop<wbr/>Min</span><a href="#popmin" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -432,7 +435,7 @@ kept as is).</p>
 <h4 class="tsd-returns-title">Returns <a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#popmin">popMin</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:151</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L160">sorted-tree.ts:160</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="range"><span>range</span><a href="#range" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -462,7 +465,7 @@ so an invalid bound throws before the iteration starts.</p>
 </div></div><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#range">range</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:251</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L260">sorted-tree.ts:260</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="toarray"><span>to<wbr/>Array</span><a href="#toarray" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -474,7 +477,7 @@ so an invalid bound throws before the iteration starts.</p>
 <h4 class="tsd-returns-title">Returns <a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#toarray">toArray</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:282</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L291">sorted-tree.ts:291</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="values"><span>values</span><a href="#values" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -494,7 +497,7 @@ the tree.</p>
 <h4 class="tsd-returns-title">Returns <a href="../types/TreeIterator.html" class="tsd-signature-type tsd-kind-type-alias">TreeIterator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#values">values</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:223</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L232">sorted-tree.ts:232</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="valuesreversed"><span>values<wbr/>Reversed</span><a href="#valuesreversed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -507,48 +510,51 @@ iteration follow the same rules as for <a href="../interfaces/SortedTree.html#va
 <h4 class="tsd-returns-title">Returns <a href="../types/TreeIterator.html" class="tsd-signature-type tsd-kind-type-alias">TreeIterator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="../interfaces/SortedTree.html">SortedTree</a>.<a href="../interfaces/SortedTree.html#valuesreversed">valuesReversed</a></p>
 <ul>
-<li>Defined in sorted-tree.ts:231</li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/sorted-tree.ts#L240">sorted-tree.ts:240</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="from"><code class="tsd-tag">Static</code><span>from</span><a href="#from" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="from-1"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><a href="#from-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="from-1"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">this</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><a href="#from-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Creates a tree from numbers, strings or bigints.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">this</span>: <span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></span></li>
 <li><span><span class="tsd-kind-parameter">values</span>: <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in bstree.ts:35</li></ul></aside></div></li>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/bstree.ts#L39">bstree.ts:39</a></li></ul></aside></div></li>
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="from-2"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><a href="#from-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="from-2"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">this</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><a href="#from-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Creates a tree from numbers, strings or bigints.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">this</span>: <span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></span></li>
 <li><span><span class="tsd-kind-parameter">values</span>: <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in bstree.ts:36</li></ul></aside></div></li>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/bstree.ts#L43">bstree.ts:43</a></li></ul></aside></div></li>
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="from-3"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol">&gt;</span><a href="#from-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="from-3"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">this</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol">&gt;</span><a href="#from-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Creates a tree from numbers, strings or bigints.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">this</span>: <span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol">&gt;</span></span></li>
 <li><span><span class="tsd-kind-parameter">values</span>: <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol">&gt;</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in bstree.ts:37</li></ul></aside></div></li>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/bstree.ts#L47">bstree.ts:47</a></li></ul></aside></div></li>
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="from-4"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span><a href="#from-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="from-4"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">this</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NoInfer</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span><a href="#from-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Creates a tree from any values sorted by <code>compare</code>.</p>
 </div>
@@ -559,13 +565,14 @@ iteration follow the same rules as for <a href="../interfaces/SortedTree.html#va
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">this</span>: <span class="tsd-signature-type">NoInfer</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></span></li>
 <li><span><span class="tsd-kind-parameter">values</span>: <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span></span></li>
 <li><span><span class="tsd-kind-parameter">compare</span>: <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt">T</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in bstree.ts:39</li></ul></aside></div></li>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/bstree.ts#L52">bstree.ts:52</a></li></ul></aside></div></li>
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="from-5"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a><span class="tsd-signature-symbol">&gt;</span><a href="#from-5" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="from-5"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">this</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NoInfer</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a><span class="tsd-signature-symbol">&gt;</span><a href="#from-5" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Creates a tree from bigints of an explicit type, also in generic code
 (<code>BSTree.from&lt;T&gt;(values)</code> with <code>T extends bigint</code>).</p>
@@ -577,13 +584,14 @@ iteration follow the same rules as for <a href="../interfaces/SortedTree.html#va
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">this</span>: <span class="tsd-signature-type">NoInfer</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></span></li>
 <li><span><span class="tsd-kind-parameter">values</span>: <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a><span class="tsd-signature-symbol">&gt;</span></span></li>
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">compare</span>: <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a><span class="tsd-signature-symbol">&gt;</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-1">T</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in bstree.ts:44</li></ul></aside></div></li>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/bstree.ts#L61">bstree.ts:61</a></li></ul></aside></div></li>
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="from-6"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a><span class="tsd-signature-symbol">&gt;</span><a href="#from-6" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="from-6"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">this</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NoInfer</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a><span class="tsd-signature-symbol">&gt;</span><a href="#from-6" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Creates a tree from numbers of an explicit type, such as
 <code>BSTree.from&lt;1 | 2&gt;([1, 2])</code>, also in generic code
@@ -596,13 +604,14 @@ iteration follow the same rules as for <a href="../interfaces/SortedTree.html#va
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">this</span>: <span class="tsd-signature-type">NoInfer</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></span></li>
 <li><span><span class="tsd-kind-parameter">values</span>: <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a><span class="tsd-signature-symbol">&gt;</span></span></li>
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">compare</span>: <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a><span class="tsd-signature-symbol">&gt;</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-2">T</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in bstree.ts:53</li></ul></aside></div></li>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/bstree.ts#L71">bstree.ts:71</a></li></ul></aside></div></li>
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="from-7"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a><span class="tsd-signature-symbol">&gt;</span><a href="#from-7" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="from-7"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">this</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NoInfer</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a><span class="tsd-signature-symbol">&gt;</span><a href="#from-7" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Creates a tree from strings of an explicit type, also in generic code
 (<code>BSTree.from&lt;T&gt;(values)</code> with <code>T extends string</code>).</p>
@@ -614,11 +623,12 @@ iteration follow the same rules as for <a href="../interfaces/SortedTree.html#va
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">this</span>: <span class="tsd-signature-type">NoInfer</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-keyword">new</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">compare</span><span class="tsd-signature-symbol">?:</span> <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></span></li>
 <li><span><span class="tsd-kind-parameter">values</span>: <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a><span class="tsd-signature-symbol">&gt;</span></span></li>
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">compare</span>: <a href="../types/Comparator.html" class="tsd-signature-type tsd-kind-type-alias">Comparator</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a><span class="tsd-signature-symbol">&gt;</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">BSTree</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#fromt-3">T</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in bstree.ts:61</li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in <a href="https://github.com/vansergen/bstrees/blob/main/src/bstree.ts#L80">bstree.ts:80</a></li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

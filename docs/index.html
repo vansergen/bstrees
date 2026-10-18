@@ -66,8 +66,7 @@ comparator. Use <code>AVLTree.from&lt;T&gt;(values)</code> or <code>AVLTree.from
 Removing a node with two children always moves its successor up, so a
 long-lived tree with many random removals and insertions gets deeper over time
 (towards √n). Use <code>AVLTree</code> for such workloads.</p>
-<p>Both trees implement the same <code>SortedTree&lt;T&gt;</code> interface. Use that type to accept
-either of them.</p>
+<p>Both trees share the <code>SortedTree&lt;T&gt;</code> type. Use it to accept either of them.</p>
 <h2 id="comparators" class="tsd-anchor-link">Comparators<a href="#comparators" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p>A tree orders its values with a comparator <code>(a, b) =&gt; number</code>. It returns:</p>
 <ul>
@@ -93,7 +92,16 @@ tree is left unchanged. A result that is not a number, or is <code>NaN</code>, t
 <p>The comparator must not modify the tree it orders. The mutating methods
 (<code>insert</code>, <code>getOrInsert</code>, <code>delete</code>, <code>clear</code>, <code>popMin</code>, <code>popMax</code>) throw a
 <code>TypeError</code> when called from the comparator, before they change anything.
-Reading the tree or modifying other trees from the comparator is allowed.</p>
+Reading the tree or modifying other trees from the comparator is allowed, but
+some reads call the comparator again:</p>
+<ul>
+<li><code>size</code>, <code>height</code>, <code>min()</code>, <code>max()</code> and a new iteration over all values
+(<code>values()</code>, <code>valuesReversed()</code>, <code>forEach()</code>, <code>toArray()</code>) of a tree that
+does not change meanwhile never call it;</li>
+<li>searches (<code>has</code>, <code>get</code>, <code>floor</code>, <code>ceil</code>, <code>lower</code>, <code>higher</code>), <code>range</code> and an
+iterator that resumes after the tree changed call it, so a comparator that
+uses them on its own tree must guard against infinite recursion.</li>
+</ul>
 <p><strong>Default comparator.</strong> It is used when no comparator is passed and handles
 numbers, strings and bigints:</p>
 <ul>
