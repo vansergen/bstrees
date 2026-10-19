@@ -1,5 +1,15 @@
 # Changelog
 
+## [4.0.0](https://github.com/vansergen/bstrees/compare/v3.0.0...v4.0.0) (2026-10-19)
+
+### ⚠ BREAKING CHANGES
+
+* relicense under the MIT License
+
+### Metadata
+
+* relicense under the MIT License ([13507b6](https://github.com/vansergen/bstrees/commit/13507b6b7e24e14c7ac3d1a2e5bf8386a1b93591))
+
 ## [3.0.0](https://github.com/vansergen/bstrees/compare/v2.0.0...v3.0.0) (2026-10-18)
 
 ### ⚠ BREAKING CHANGES

@@ -1,6 +1,6 @@
 {
   "name": "bstrees",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Sorted sets backed by binary search trees (AVL and unbalanced)",
   "main": "./dist/index.js",
   "type": "module",
