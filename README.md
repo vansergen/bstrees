@@ -286,11 +286,12 @@ The sorted array uses binary search and `splice`, and its `popMin` uses
 benchmarks: `Set` does not support the ordered scenarios, and a `BSTree` that
 receives 100 000 sorted values degrades into a list and takes over a minute.
 
-## Upgrading from 2.x
+## Upgrading
 
-Version 3 replaces the node-based API with the value-based API above. See
-[MIGRATION.md](https://github.com/vansergen/bstrees/blob/main/MIGRATION.md).
+Version 4 changes only the license, to MIT; the API is the same as in 3.x.
+Version 3 replaced the node-based API of 2.x with the value-based API above.
+See [MIGRATION.md](https://github.com/vansergen/bstrees/blob/main/MIGRATION.md).
 
 ## License
 
-[AGPL-3.0-only](https://github.com/vansergen/bstrees/blob/main/LICENSE)
+[MIT](https://github.com/vansergen/bstrees/blob/main/LICENSE)
